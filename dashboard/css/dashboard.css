@@ -51,7 +51,7 @@ button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- header ---------- */
-.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .top-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 16px; padding-bottom: 10px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 14px; }
 .mark { width: 34px; height: 34px; border-radius: 9px; background:
@@ -252,6 +252,12 @@ tr.hl td { background: var(--bad-soft); }
 .fatal { border-color: var(--bad); }
 .fatal code { font-family: var(--mono); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
 .foot { color: var(--ink-3); font-size: 11.5px; text-align: center; margin-top: 28px; }
+
+/* Digits line up in columns everywhere numbers are compared. */
+.mono, .kpi-value, .kpi-delta, .trend-value, .cell, .big, .conf, table.mini td, .vals span, .imp-val, .ev { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {

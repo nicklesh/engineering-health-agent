@@ -269,6 +269,6 @@ The dashboard is plain HTML/CSS/JS with no build step.
 - [x] Phase 3: orchestration (DAG, parallel layer, gate, crash handling, evidence feedback loop) + Claude Code reasoning layer (brief → subagents → validated narratives)
 - [x] Phase 4: full-run validation (49 tests, including all failure paths)
 - [x] Phase 5: dashboard (Agent 09 + static page; consistency checks; Node model tests; checked in a browser at desktop and 272px width)
-- [ ] Phase 6: executive report and PowerPoint
+- [x] Phase 6: executive report and PowerPoint (Agent 10: fact sheet, 14 slides, native charts, 8 consistency checks; rendered and inspected through PowerPoint). Dashboard published as a private hosted page.
 - [ ] Phase 7: architecture and sequence diagrams
 - [ ] Phase 8: final QA and self-critique loop

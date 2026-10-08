@@ -44,7 +44,7 @@ KEEP = ["id", "type", "classification", "pattern", "impact", "signal", "claim", 
         "severity_points", "severity_breakdown",
         "entity", "metrics", "dimension", "weeks", "evidence", "evidence_refs", "primary_refs", "possible_explanations",
         "explanation_verdicts", "potential_impact", "recommended_follow_up", "priority", "problem", "recommended_action",
-        "expected_outcome", "owner_type", "measurement_of_success", "related_findings", "also_visible_in",
+        "expected_outcome", "owner_type", "headline", "measurement_of_success", "related_findings", "also_visible_in",
         "expected_baseline", "magnitude", "basis", "causal_claim"]
 
 

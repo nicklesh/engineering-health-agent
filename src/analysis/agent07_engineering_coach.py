@@ -68,6 +68,19 @@ def playbook(lead, ctx):
     return plays[lead]
 
 
+# Short imperative headline per playbook entry, for slides and summaries (no numbers, so it
+# can never disagree with the evidence).
+HEADLINES = {
+    "test_coverage_pct": "Find where coverage fell and gate coverage on changed code",
+    "change_failure_rate_pct": "Run a joint failed-deployment review and tighten release gating",
+    "on_call_pages": "Audit on-call pages: actionable versus noise",
+    "pr_review_time_hours": "Unblock code review: reviewer load, turnaround target, rotation",
+    "avg_pr_size_loc": "Ship smaller, independently reviewable PRs",
+    "build_time_min": "Profile the CI pipeline before it slows the team further",
+    "anomaly": "Confirm the post-incident review; act only if it recurs",
+}
+
+
 def priority(risk):
     if risk["severity"] == "CRITICAL" or (risk["severity"] == "HIGH" and risk["confidence"]["score"] >= 0.85):
         return "P1"
@@ -133,6 +146,7 @@ def run(exclude=None):
             "evidence": risk["evidence"],
             "evidence_refs": [risk["id"]] + risk["primary_refs"],
             "recommended_action": action,
+            "headline": HEADLINES[lead],
             "expected_outcome": outcome,
             "owner_type": owner,
             "priority": priority(risk),
@@ -160,6 +174,7 @@ def run(exclude=None):
             "claim": f"Document the practices behind {s['label']}'s quality improvement ({'; '.join(lines)}){peer_txt}.",
             "problem": f"{s['label']} improved quality while other teams declined; the practices are not yet shared.",
             "evidence": lines, "evidence_refs": [q["id"]] + q["evidence"]["finding_refs"],
+            "headline": f"Spread {s['label']}'s practices to teams where quality is falling",
             "recommended_action": (f"Run a short practice review with {s['label']} covering what changed in testing, review and release "
                                    f"habits since week {q['weeks'][0]} ({'; '.join(lines)}), and publish the findings{peer_txt}."),
             "expected_outcome": "Proven practices spread to teams with deteriorating quality.",

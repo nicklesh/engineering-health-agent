@@ -1,7 +1,7 @@
 {
   "agent": "09_dashboard_generation",
   "schema_version": "1.0",
-  "input_fingerprint": "fe86c58c5d4a3dc0a5d3a0ccb6218cac3f7c07903e06eca55e996a9be59de935",
+  "input_fingerprint": "c78cf329bc86ad4efbd1b849bb51a5a70ee127acc1c63c7bcb0579bde773bd06",
   "status": "PASS",
   "depends_on": [
     "01_data_validation",
@@ -18,7 +18,7 @@
     "reasoning": "PASS",
     "records": 2360,
     "data_file": "dashboard/data/dashboard_data.js",
-    "bytes": 1250492
+    "bytes": 1251695
   },
   "findings": [],
   "errors": [],
@@ -56,7 +56,7 @@
     {
       "check": "cache_busting",
       "result": "PASS",
-      "detail": "index.html loads data version 49b174f03d53"
+      "detail": "index.html loads data version 588d24bbe469"
     }
   ]
 }

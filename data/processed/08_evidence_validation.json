@@ -1,7 +1,7 @@
 {
   "agent": "08_evidence_validation",
   "schema_version": "1.0",
-  "input_fingerprint": "d1b3e2827c7f85740a86ac55b0b1f16430cbe3014a08aadcce16399e77056b02",
+  "input_fingerprint": "708cf7ee3b680df0fe9cef03652faf67447f9245e1a01ea4184f9e95851ea96b",
   "status": "WARN",
   "depends_on": [
     "01_data_validation",
@@ -40719,6 +40719,7 @@
         "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS"
       ],
       "recommended_action": "Find where Atlas's extra cycle time (3.2 days -> 4.5 days) accumulates. PR review time rose 10 hours -> 16.5 hours: check reviewer load and availability, and agree a review turnaround target and rotation for order-api, storefront-ui.",
+      "headline": "Unblock code review: reviewer load, turnaround target, rotation",
       "expected_outcome": "Review time and cycle time return toward their baselines.",
       "owner_type": "Engineering manager",
       "priority": "P1",
@@ -40828,6 +40829,7 @@
         "TRD-ATLAS-ALL-TEST_COVERAGE_PCT"
       ],
       "recommended_action": "Investigate the sustained rise in defects for Atlas since week 6 (6 -> 12) and review whether the decline in test coverage (72% -> 63.2%) is concentrated in specific modules of order-api, storefront-ui. Add a coverage gate on changed code for these services until coverage is back at baseline.",
+      "headline": "Find where coverage fell and gate coverage on changed code",
       "expected_outcome": "Defect volume returns toward its baseline and the coverage decline stops.",
       "owner_type": "Engineering manager + tech lead",
       "priority": "P1",
@@ -40938,6 +40940,7 @@
         "TRD-ALL-DATA-ROLLBACK_RATE_PCT"
       ],
       "recommended_action": "Run one joint failed-deployment review across the Data platform services (analytics-warehouse, event-pipeline): change failure rate 5.4% -> 27.1%, rollback rate 1.1% -> 25.9%, incidents 1 -> 5.5. Check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed.",
+      "headline": "Run a joint failed-deployment review and tighten release gating",
       "expected_outcome": "Fewer failed releases and change-related incidents on the platform.",
       "owner_type": "Platform / SRE lead",
       "priority": "P1",
@@ -41044,6 +41047,7 @@
         "TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS"
       ],
       "recommended_action": "Reduce change size on Atlas (average PR size 193 LOC -> 245 LOC, first-review latency 3.4 hours -> 4.7 hours): split work into smaller, independently reviewable PRs and track PR size in team retros.",
+      "headline": "Ship smaller, independently reviewable PRs",
       "expected_outcome": "Smaller PRs that get a first review sooner.",
       "owner_type": "Tech lead",
       "priority": "P1",
@@ -41149,6 +41153,7 @@
         "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT",
         "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT"
       ],
+      "headline": "Spread Phoenix's practices to teams where quality is falling",
       "recommended_action": "Run a short practice review with Phoenix covering what changed in testing, review and release habits since week 5 (Rework rate: 10.8% -> 9.7%; Test coverage: 64.7% -> 76.6%; Automated tests: 82.8% -> 91.9%), and publish the findings and share them with Atlas, where quality is deteriorating.",
       "expected_outcome": "Proven practices spread to teams with deteriorating quality.",
       "owner_type": "Engineering director",
@@ -41249,6 +41254,7 @@
         "TRD-ALL-DATA-ON_CALL_PAGES"
       ],
       "recommended_action": "Audit on-call pages for Data (7.5 -> 14.5 per week): classify them as actionable or noise, and link actionable pages to the reliability review for the same platform.",
+      "headline": "Audit on-call pages: actionable versus noise",
       "expected_outcome": "On-call load falls back toward baseline; pages that remain are actionable.",
       "owner_type": "SRE lead + engineering manager",
       "priority": "P2",
@@ -41358,6 +41364,7 @@
         "ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11"
       ],
       "recommended_action": "Confirm that the week-11 spike on Nova / Mobile (build time, ci failure rate, incidents, on-call pages, ci queue time) has a completed post-incident review with an identified one-off cause. Take no structural action unless a similar spike recurs within 8 weeks.",
+      "headline": "Confirm the post-incident review; act only if it recurs",
       "expected_outcome": "The cause is documented; no recurrence.",
       "owner_type": "Team lead",
       "priority": "P3",
@@ -41463,6 +41470,7 @@
         "TRD-TITAN-ALL-BUILD_TIME_MIN"
       ],
       "recommended_action": "Profile the CI pipeline for Titan (build time 12.5 minutes -> 15 minutes). Check whether the growth tracks codebase size and team growth (headcount 7 -> 10.5), and whether caching or parallelising test stages would recover the lost time.",
+      "headline": "Profile the CI pipeline before it slows the team further",
       "expected_outcome": "Build time stabilises or falls, keeping feedback loops short as the team grows.",
       "owner_type": "Tech lead / developer-productivity owner",
       "priority": "P3",

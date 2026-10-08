@@ -4,10 +4,10 @@ A multi-agent pipeline that turns raw (synthetic) engineering metrics into valid
 evidence-backed insights for engineering leadership. It produces an interactive dashboard,
 an executive deck, an executive report and architecture documentation.
 
-> **Status: Phases 1–5 of 8 complete.** Synthetic data, the eight analytical agents, the
-> orchestrator, the Claude Code reasoning layer and the interactive dashboard are built, run
-> and tested (53 Python tests + 11 dashboard tests). The deck and the diagrams are not built
-> yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
+> **Status: Phases 1–6 of 8 complete.** Synthetic data, the eight analytical agents, the
+> orchestrator, the Claude Code reasoning layer, the interactive dashboard, and the executive
+> deck and report are built, run and tested (61 Python tests + 11 dashboard tests). The
+> architecture and sequence diagrams and the final QA pass are next. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
 
 ## Why it exists
 
@@ -157,9 +157,32 @@ Then browse to http://localhost:8765. Things to try:
 
 No build step and no internet connection are needed; fonts fall back to system fonts when offline.
 
-### Generate PowerPoint / diagrams
+### Executive deck and report
 
-Not built yet (Phases 6–7).
+`python run.py` also writes (Agent 10, the final step):
+- `output/presentation/engineering_health_review.pptx`: 14 slides with native, editable charts and speaker notes.
+- `output/reports/executive_report.md`: the same story in prose and tables.
+
+Agent 10 refuses to finish (`ERROR`) unless:
+- every number in the deck and the report is in its fact sheet;
+- every chart series equals its source;
+- headline facts recomputed from the raw CSVs agree;
+- the deck agrees with the dashboard;
+- qualitative titles are true in the data.
+
+The fact sheet, with the source of every number, is in `data/processed/10_executive_report.json`.
+
+### Publish the dashboard
+
+```bash
+python -m src.reporting.publish_dashboard
+```
+
+This writes `dashboard/artifact.html`, a copy of the page without the outer HTML skeleton, for hosting platforms that add their own. Publish it together with the `css/`, `js/` and `data/` files.
+
+### Diagrams
+
+Not built yet (Phase 7).
 
 ## Testing
 
@@ -223,6 +246,11 @@ Meaningful failures and how they were fixed.
 | 20 | 5 | When the local server dropped the data request, the page crashed silently. | No guard for missing data. | The page now shows an explicit "data not loaded, run `python run.py`" error instead of a broken or empty view. |
 | 21 | 5 | Accessibility warning: focus stayed inside the closed drawer. | The drawer was hidden from screen readers while it still held keyboard focus. | Focus returns to whatever opened the drawer, and the closed drawer is `inert`. |
 | 22 | 5 | "What improved" listed Titan's deployments and throughput rising, with no context. | They're volume metrics, and Titan grew from 6 to 11 people. That's the same confounder Agent 08 used to reject the build-time explanation. | Volume improvements carry a headcount note. |
+| 23 | 6 | Slides 5 and 9 showed Atlas cycle time as **4.5 d** and **4.8 d**. | Both were correct, a median of weeks 13–16 (trend test) and a mean (comparison table), but to an executive that is a contradiction. The "every number is sourced" check cannot catch it, because both numbers are sourced. | Every stat slide now states its statistic, and the table says "average". A lesson: consistency means the same *meaning*, not only the same source. |
+| 24 | 6 | Two slide titles made hard-coded claims ("problems began between weeks 6 and 11"). | Small integers are exempt from the number check, so the claims were unverified. With the final trend selection the range was actually weeks 6–11, but only by luck. | Titles are computed from facts, and a `title_claims_hold` check verifies the qualitative ones. |
+| 25 | 6 | Every chart axis started at 0, flattening the trends. | Chart defaults. | Value axes fitted to the data range. |
+| 26 | 6 | A test failed: deck facts were traced to a **rejected** finding. | The evidence slide deliberately shows one rejected claim as an example, which the brief's "rejected findings must not appear" rule seemed to forbid. | Made the policy explicit: rejected content may appear only as a labelled rejection on the evidence slide, under a `rejected_example.` key. Two tests enforce it. |
+| 27 | 6 | 1 of 15 new AI narratives was rejected for a "new number". | A third validator false positive: the narrative said "the **P1** reliability work", and the "1" was read as a quantity. | Priority labels and agent numbers are treated as identifiers. Regression test added; all 15 narratives then passed. |
 
 ## What I Learned
 

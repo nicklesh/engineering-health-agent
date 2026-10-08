@@ -14,7 +14,7 @@ from src.common import envelope
 from src.common.envelope import AGENTS
 from src.config import ROOT, load_json
 from src.orchestration import orchestrator, reasoning
-from src.reporting import agent09_dashboard
+from src.reporting import agent09_dashboard, agent10_executive_report
 from src.validation.agent08_evidence_validation import CAUSAL, Checker, unnegated
 from tests.pipeline_helper import shared_run
 
@@ -31,10 +31,13 @@ class OrchestratorCase(unittest.TestCase):
         shutil.copy(ROOT / "dashboard" / "index.html", self.dash / "index.html")
         self._dash_orig = agent09_dashboard.DASHBOARD_DIR
         agent09_dashboard.DASHBOARD_DIR = self.dash
+        self._out_orig = agent10_executive_report.OUTPUT_DIR
+        agent10_executive_report.OUTPUT_DIR = self.dir / "output"
 
     def tearDown(self):
         envelope.set_processed_dir(None)
         agent09_dashboard.DASHBOARD_DIR = self._dash_orig
+        agent10_executive_report.OUTPUT_DIR = self._out_orig
         shutil.rmtree(self.dir, ignore_errors=True)
 
 
@@ -93,7 +96,7 @@ class TestOrchestratedRun(OrchestratorCase):
 
         with mock.patch.object(Checker, "risk", strict_risk):
             result = orchestrator.run_pipeline(**QUIET)
-        rounds = [s for s in result["steps"] if s["round"] > 1 and s["agent"] != AGENTS["09"]]
+        rounds = [s for s in result["steps"] if s["round"] > 1 and s["agent"] not in (AGENTS["09"], AGENTS["10"])]
         self.assertEqual([s["agent"] for s in rounds], [AGENTS["07"], AGENTS["08"]], "07 re-run, then 08 re-validates")
         env08 = load_json(self.dir / f"{AGENTS['08']}.json")
         self.assertEqual(env08["rerun_requests"], [])
@@ -149,6 +152,9 @@ class TestReasoningGuardRails(OrchestratorCase):
         r = list(res.values())[0]
         self.assertEqual(r["verdict"], "REJECT")
         self.assertTrue(any(x.startswith("stale") for x in r["reasons"]))
+
+    def test_priority_labels_are_not_numbers(self):
+        self.assertEqual(reasoning.numbers_in("Run it alongside the P1 work; Agent 08 checks it. Pages 14.5"), [14.5])
 
     def test_cause_as_noun_is_not_causal(self):
         self.assertEqual(unnegated(CAUSAL, "Confirm the review identified a one-off cause."), [])

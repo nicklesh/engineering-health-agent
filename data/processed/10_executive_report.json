@@ -1,0 +1,1686 @@
+{
+  "agent": "10_executive_report",
+  "schema_version": "1.0",
+  "input_fingerprint": "90cda0d911b37ea1cfaa0cd78cee8c959145aa2f06d833b3a37f2b85e5a0d1e4",
+  "status": "PASS",
+  "depends_on": [
+    "01_data_validation",
+    "02_metrics_analysis",
+    "03_quality_analysis",
+    "04_trend_analysis",
+    "05_anomaly_detection",
+    "06_risk_analysis",
+    "07_engineering_coach",
+    "08_evidence_validation"
+  ],
+  "summary": {
+    "slides": 14,
+    "facts": 221,
+    "chart_series": 12,
+    "deck": "engineering_health_review.pptx",
+    "report": "executive_report.md"
+  },
+  "findings": [],
+  "errors": [],
+  "consistency_checks": [
+    {
+      "check": "deck_opens",
+      "result": "PASS",
+      "detail": "14 slides"
+    },
+    {
+      "check": "deck_numbers_sourced",
+      "result": "PASS",
+      "detail": "every number on slides, tables and notes is in the fact sheet"
+    },
+    {
+      "check": "report_numbers_sourced",
+      "result": "PASS",
+      "detail": "every number in the report is in the fact sheet"
+    },
+    {
+      "check": "charts_match_sources",
+      "result": "PASS",
+      "detail": "12 chart series identical to source"
+    },
+    {
+      "check": "raw_vs_analysis_cfr",
+      "result": "PASS",
+      "detail": "Data platform CFR weeks 13-16 from deployments.csv = 27.059% vs fact 27.059"
+    },
+    {
+      "check": "raw_vs_analysis_defects",
+      "result": "PASS",
+      "detail": "Atlas defects/week weeks 13-16 median from defects.csv = 12.0 vs fact 12.0"
+    },
+    {
+      "check": "title_claims_hold",
+      "result": "PASS",
+      "detail": "4 qualitative claims verified"
+    },
+    {
+      "check": "dashboard_agreement",
+      "result": "PASS",
+      "detail": "dashboard KPI, risk order and confidences identical to the deck"
+    }
+  ],
+  "fact_sheet": [
+    {
+      "key": "period.first",
+      "value": "2026-06-15",
+      "text": "2026-06-15",
+      "source": "metric_series.week_starts[0]"
+    },
+    {
+      "key": "period.last",
+      "value": "2026-09-28",
+      "text": "2026-09-28",
+      "source": "metric_series.week_starts[-1]"
+    },
+    {
+      "key": "dq.score",
+      "value": 93.8,
+      "text": "93.8",
+      "source": "01_data_validation.data_quality_score"
+    },
+    {
+      "key": "dq.records",
+      "value": 2360,
+      "text": "2,360",
+      "source": "01_data_validation.validated_records"
+    },
+    {
+      "key": "dq.total",
+      "value": 2361,
+      "text": "2,361",
+      "source": "01_data_validation.summary.total_records"
+    },
+    {
+      "key": "verdict.PASS",
+      "value": 276,
+      "text": "276",
+      "source": "08_evidence_validation.summary.verdicts.PASS"
+    },
+    {
+      "key": "verdict.WARN",
+      "value": 11,
+      "text": "11",
+      "source": "08_evidence_validation.summary.verdicts.WARN"
+    },
+    {
+      "key": "verdict.REJECT",
+      "value": 4,
+      "text": "4",
+      "source": "08_evidence_validation.summary.verdicts.REJECT"
+    },
+    {
+      "key": "verdict.total",
+      "value": 291,
+      "text": "291",
+      "source": "08_evidence_validation.summary.validated"
+    },
+    {
+      "key": "kpi.overall.now",
+      "value": 63.8,
+      "text": "63.8",
+      "source": "02 health_scores org overall, 4-week rolling, week 16"
+    },
+    {
+      "key": "kpi.overall.delta",
+      "value": -11.9,
+      "text": "-11.9",
+      "source": "02 health_scores org overall, rolling W16 - W1"
+    },
+    {
+      "key": "kpi.delivery.now",
+      "value": 58.6,
+      "text": "58.6",
+      "source": "02 health_scores org delivery, 4-week rolling, week 16"
+    },
+    {
+      "key": "kpi.delivery.delta",
+      "value": -23.2,
+      "text": "-23.2",
+      "source": "02 health_scores org delivery, rolling W16 - W1"
+    },
+    {
+      "key": "kpi.quality.now",
+      "value": 61.3,
+      "text": "61.3",
+      "source": "02 health_scores org quality, 4-week rolling, week 16"
+    },
+    {
+      "key": "kpi.quality.delta",
+      "value": -6.7,
+      "text": "-6.7",
+      "source": "02 health_scores org quality, rolling W16 - W1"
+    },
+    {
+      "key": "kpi.reliability.now",
+      "value": 64.0,
+      "text": "64",
+      "source": "02 health_scores org reliability, 4-week rolling, week 16"
+    },
+    {
+      "key": "kpi.reliability.delta",
+      "value": -13.7,
+      "text": "-13.7",
+      "source": "02 health_scores org reliability, rolling W16 - W1"
+    },
+    {
+      "key": "kpi.efficiency.now",
+      "value": 71.4,
+      "text": "71.4",
+      "source": "02 health_scores org efficiency, 4-week rolling, week 16"
+    },
+    {
+      "key": "kpi.efficiency.delta",
+      "value": -3.8,
+      "text": "-3.8",
+      "source": "02 health_scores org efficiency, rolling W16 - W1"
+    },
+    {
+      "key": "atlas.cycle.base",
+      "value": 3.245,
+      "text": "3.2 d",
+      "source": "TRD-ATLAS-ALL-CYCLE_TIME_DAYS.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.cycle.recent",
+      "value": 4.525,
+      "text": "4.5 d",
+      "source": "TRD-ATLAS-ALL-CYCLE_TIME_DAYS.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.cycle.chg",
+      "value": 39.45,
+      "text": "+39%",
+      "source": "TRD-ATLAS-ALL-CYCLE_TIME_DAYS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.cycle.since",
+      "value": 8,
+      "text": "week 8",
+      "source": "TRD-ATLAS-ALL-CYCLE_TIME_DAYS.weeks[0]"
+    },
+    {
+      "key": "atlas.cycle.conf",
+      "value": 0.96,
+      "text": "96%",
+      "source": "TRD-ATLAS-ALL-CYCLE_TIME_DAYS.confidence.score (validated)"
+    },
+    {
+      "key": "atlas.review.base",
+      "value": 10.0,
+      "text": "10 h",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.review.recent",
+      "value": 16.525,
+      "text": "16.5 h",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.review.chg",
+      "value": 65.25,
+      "text": "+65%",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.review.since",
+      "value": 8,
+      "text": "week 8",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.weeks[0]"
+    },
+    {
+      "key": "atlas.review.conf",
+      "value": 0.97,
+      "text": "97%",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.confidence.score (validated)"
+    },
+    {
+      "key": "atlas.defects.base",
+      "value": 6,
+      "text": "6",
+      "source": "TRD-ATLAS-ALL-DEFECTS.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.defects.recent",
+      "value": 12.0,
+      "text": "12",
+      "source": "TRD-ATLAS-ALL-DEFECTS.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.defects.chg",
+      "value": 100.0,
+      "text": "+100%",
+      "source": "TRD-ATLAS-ALL-DEFECTS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.defects.since",
+      "value": 11,
+      "text": "week 11",
+      "source": "TRD-ATLAS-ALL-DEFECTS.weeks[0]"
+    },
+    {
+      "key": "atlas.defects.conf",
+      "value": 0.8,
+      "text": "80%",
+      "source": "TRD-ATLAS-ALL-DEFECTS.confidence.score (validated)"
+    },
+    {
+      "key": "atlas.coverage.base",
+      "value": 72.05,
+      "text": "72%",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.coverage.recent",
+      "value": 63.2,
+      "text": "63.2%",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.coverage.chg",
+      "value": -12.28,
+      "text": "-8.8 pp",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.coverage.since",
+      "value": 8,
+      "text": "week 8",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.weeks[0]"
+    },
+    {
+      "key": "atlas.coverage.conf",
+      "value": 1.0,
+      "text": "100%",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "atlas.lead.base",
+      "value": 4.86,
+      "text": "4.9 d",
+      "source": "TRD-ATLAS-ALL-LEAD_TIME_DAYS.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.lead.recent",
+      "value": 6.265,
+      "text": "6.3 d",
+      "source": "TRD-ATLAS-ALL-LEAD_TIME_DAYS.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.lead.chg",
+      "value": 28.91,
+      "text": "+29%",
+      "source": "TRD-ATLAS-ALL-LEAD_TIME_DAYS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.lead.since",
+      "value": 5,
+      "text": "week 5",
+      "source": "TRD-ATLAS-ALL-LEAD_TIME_DAYS.weeks[0]"
+    },
+    {
+      "key": "atlas.lead.conf",
+      "value": 0.95,
+      "text": "95%",
+      "source": "TRD-ATLAS-ALL-LEAD_TIME_DAYS.confidence.score (validated)"
+    },
+    {
+      "key": "atlas.auto.base",
+      "value": 80.425,
+      "text": "80.4%",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "atlas.auto.recent",
+      "value": 75.675,
+      "text": "75.7%",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "atlas.auto.chg",
+      "value": -5.91,
+      "text": "-4.8 pp",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "atlas.auto.since",
+      "value": 8,
+      "text": "week 8",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.weeks[0]"
+    },
+    {
+      "key": "atlas.auto.conf",
+      "value": 0.98,
+      "text": "98%",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.coverage.base",
+      "value": 64.675,
+      "text": "64.7%",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "phoenix.coverage.recent",
+      "value": 76.625,
+      "text": "76.6%",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "phoenix.coverage.chg",
+      "value": 18.48,
+      "text": "+12.0 pp",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "phoenix.coverage.since",
+      "value": 5,
+      "text": "week 5",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.weeks[0]"
+    },
+    {
+      "key": "phoenix.coverage.conf",
+      "value": 0.97,
+      "text": "97%",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.cycle.base",
+      "value": 2.61,
+      "text": "2.6 d",
+      "source": "TRD-PHOENIX-ALL-CYCLE_TIME_DAYS.evidence.computed.baseline"
+    },
+    {
+      "key": "phoenix.cycle.recent",
+      "value": 1.83,
+      "text": "1.8 d",
+      "source": "TRD-PHOENIX-ALL-CYCLE_TIME_DAYS.evidence.computed.recent"
+    },
+    {
+      "key": "phoenix.cycle.chg",
+      "value": -29.89,
+      "text": "-30%",
+      "source": "TRD-PHOENIX-ALL-CYCLE_TIME_DAYS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "phoenix.cycle.since",
+      "value": 6,
+      "text": "week 6",
+      "source": "TRD-PHOENIX-ALL-CYCLE_TIME_DAYS.weeks[0]"
+    },
+    {
+      "key": "phoenix.cycle.conf",
+      "value": 0.95,
+      "text": "95%",
+      "source": "TRD-PHOENIX-ALL-CYCLE_TIME_DAYS.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.cfr.base",
+      "value": 5.405,
+      "text": "5.4%",
+      "source": "TRD-PHOENIX-ALL-CHANGE_FAILURE_RATE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "phoenix.cfr.recent",
+      "value": 0.0,
+      "text": "0%",
+      "source": "TRD-PHOENIX-ALL-CHANGE_FAILURE_RATE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "phoenix.cfr.chg",
+      "value": -100.0,
+      "text": "-5.4 pp",
+      "source": "TRD-PHOENIX-ALL-CHANGE_FAILURE_RATE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "phoenix.cfr.since",
+      "value": 9,
+      "text": "week 9",
+      "source": "TRD-PHOENIX-ALL-CHANGE_FAILURE_RATE_PCT.weeks[0]"
+    },
+    {
+      "key": "phoenix.cfr.conf",
+      "value": 0.9,
+      "text": "90%",
+      "source": "TRD-PHOENIX-ALL-CHANGE_FAILURE_RATE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.success.base",
+      "value": 94.595,
+      "text": "94.6%",
+      "source": "TRD-PHOENIX-ALL-DEPLOYMENT_SUCCESS_RATE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "phoenix.success.recent",
+      "value": 100.0,
+      "text": "100%",
+      "source": "TRD-PHOENIX-ALL-DEPLOYMENT_SUCCESS_RATE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "phoenix.success.chg",
+      "value": 5.71,
+      "text": "+5.4 pp",
+      "source": "TRD-PHOENIX-ALL-DEPLOYMENT_SUCCESS_RATE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "phoenix.success.since",
+      "value": 9,
+      "text": "week 9",
+      "source": "TRD-PHOENIX-ALL-DEPLOYMENT_SUCCESS_RATE_PCT.weeks[0]"
+    },
+    {
+      "key": "phoenix.success.conf",
+      "value": 0.9,
+      "text": "90%",
+      "source": "TRD-PHOENIX-ALL-DEPLOYMENT_SUCCESS_RATE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.auto.base",
+      "value": 82.75,
+      "text": "82.8%",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "phoenix.auto.recent",
+      "value": 91.9,
+      "text": "91.9%",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "phoenix.auto.chg",
+      "value": 11.06,
+      "text": "+9.2 pp",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "phoenix.auto.since",
+      "value": 6,
+      "text": "week 6",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.weeks[0]"
+    },
+    {
+      "key": "phoenix.auto.conf",
+      "value": 0.98,
+      "text": "98%",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "data.cfr.base",
+      "value": 5.435,
+      "text": "5.4%",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "data.cfr.recent",
+      "value": 27.059,
+      "text": "27.1%",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "data.cfr.chg",
+      "value": 397.88,
+      "text": "+21.6 pp",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "data.cfr.since",
+      "value": 8,
+      "text": "week 8",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.weeks[0]"
+    },
+    {
+      "key": "data.cfr.conf",
+      "value": 0.97,
+      "text": "97%",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "data.rollback.base",
+      "value": 1.087,
+      "text": "1.1%",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.evidence.computed.baseline"
+    },
+    {
+      "key": "data.rollback.recent",
+      "value": 25.882,
+      "text": "25.9%",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.evidence.computed.recent"
+    },
+    {
+      "key": "data.rollback.chg",
+      "value": 2281.18,
+      "text": "+24.8 pp",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "data.rollback.since",
+      "value": 7,
+      "text": "week 7",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.weeks[0]"
+    },
+    {
+      "key": "data.rollback.conf",
+      "value": 0.97,
+      "text": "97%",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.confidence.score (validated)"
+    },
+    {
+      "key": "data.incidents.base",
+      "value": 1.0,
+      "text": "1",
+      "source": "TRD-ALL-DATA-INCIDENTS.evidence.computed.baseline"
+    },
+    {
+      "key": "data.incidents.recent",
+      "value": 5.5,
+      "text": "5.5",
+      "source": "TRD-ALL-DATA-INCIDENTS.evidence.computed.recent"
+    },
+    {
+      "key": "data.incidents.chg",
+      "value": 450.0,
+      "text": "+450%",
+      "source": "TRD-ALL-DATA-INCIDENTS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "data.incidents.since",
+      "value": 11,
+      "text": "week 11",
+      "source": "TRD-ALL-DATA-INCIDENTS.weeks[0]"
+    },
+    {
+      "key": "data.incidents.conf",
+      "value": 0.8,
+      "text": "80%",
+      "source": "TRD-ALL-DATA-INCIDENTS.confidence.score (validated)"
+    },
+    {
+      "key": "data.failed.base",
+      "value": 0.5,
+      "text": "0.5",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.evidence.computed.baseline"
+    },
+    {
+      "key": "data.failed.recent",
+      "value": 6.0,
+      "text": "6",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.evidence.computed.recent"
+    },
+    {
+      "key": "data.failed.chg",
+      "value": 1100.0,
+      "text": "+1100%",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "data.failed.since",
+      "value": 11,
+      "text": "week 11",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.weeks[0]"
+    },
+    {
+      "key": "data.failed.conf",
+      "value": 0.88,
+      "text": "88%",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.confidence.score (validated)"
+    },
+    {
+      "key": "data.oncall.base",
+      "value": 7.5,
+      "text": "7.5",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.evidence.computed.baseline"
+    },
+    {
+      "key": "data.oncall.recent",
+      "value": 14.5,
+      "text": "14.5",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.evidence.computed.recent"
+    },
+    {
+      "key": "data.oncall.chg",
+      "value": 93.33,
+      "text": "+93%",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "data.oncall.since",
+      "value": 10,
+      "text": "week 10",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.weeks[0]"
+    },
+    {
+      "key": "data.oncall.conf",
+      "value": 0.85,
+      "text": "85%",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.confidence.score (validated)"
+    },
+    {
+      "key": "titan.build.base",
+      "value": 12.5,
+      "text": "12.5 min",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.evidence.computed.baseline"
+    },
+    {
+      "key": "titan.build.recent",
+      "value": 14.975,
+      "text": "15 min",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.evidence.computed.recent"
+    },
+    {
+      "key": "titan.build.chg",
+      "value": 19.8,
+      "text": "+20%",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.evidence.computed.change(_pct)"
+    },
+    {
+      "key": "titan.build.since",
+      "value": 6,
+      "text": "week 6",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.weeks[0]"
+    },
+    {
+      "key": "titan.build.conf",
+      "value": 0.89,
+      "text": "89%",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.confidence.score (validated)"
+    },
+    {
+      "key": "phoenix.esc.base",
+      "value": 16.667,
+      "text": "16.7%",
+      "source": "04 classification team:Phoenix escaped baseline"
+    },
+    {
+      "key": "phoenix.esc.recent",
+      "value": 4.167,
+      "text": "4.2%",
+      "source": "04 classification team:Phoenix escaped recent"
+    },
+    {
+      "key": "phoenix.esc.counts",
+      "value": [
+        6,
+        36,
+        1,
+        24
+      ],
+      "text": "6/36 vs 1/24",
+      "source": "04 classification pooled_counts"
+    },
+    {
+      "key": "phoenix.esc.p",
+      "value": 0.139516,
+      "text": "0.14",
+      "source": "04 classification team:Phoenix escaped p_value"
+    },
+    {
+      "key": "data.chg_rel.base",
+      "value": [
+        4,
+        8
+      ],
+      "text": "50%",
+      "source": "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED.computed.baseline"
+    },
+    {
+      "key": "data.chg_rel.recent",
+      "value": [
+        20,
+        25
+      ],
+      "text": "80%",
+      "source": "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED.computed.recent"
+    },
+    {
+      "key": "data.chg_rel.p",
+      "value": 0.097254,
+      "text": "0.097",
+      "source": "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED.computed.p_value"
+    },
+    {
+      "key": "data.chg_rel.verdict",
+      "value": "WARN",
+      "text": "WARN",
+      "source": "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED.validation.verdict"
+    },
+    {
+      "key": "nova.ci_failure_rate_pct.value",
+      "value": 41.0,
+      "text": "41%",
+      "source": "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11.computed.value"
+    },
+    {
+      "key": "nova.ci_failure_rate_pct.expected",
+      "value": 7.25,
+      "text": "7.2%",
+      "source": "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11.expected_baseline"
+    },
+    {
+      "key": "nova.on_call_pages.value",
+      "value": 25,
+      "text": "25",
+      "source": "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11.computed.value"
+    },
+    {
+      "key": "nova.on_call_pages.expected",
+      "value": 2.0,
+      "text": "2",
+      "source": "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11.expected_baseline"
+    },
+    {
+      "key": "rejected_example.r",
+      "value": 0.9025,
+      "text": "0.9",
+      "source": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS.computed.r"
+    },
+    {
+      "key": "rejected_example.partial",
+      "value": -0.339,
+      "text": "-0.34",
+      "source": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS.computed.common_drivers[0].partial_r"
+    },
+    {
+      "key": "rejected_example.hc_r",
+      "value": 0.9639,
+      "text": "0.96",
+      "source": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS.computed.common_drivers[0].r_with_second"
+    },
+    {
+      "key": "titan.hc.base",
+      "value": 7.0,
+      "text": "7",
+      "source": "04 classification team:Titan team_headcount baseline"
+    },
+    {
+      "key": "titan.hc.recent",
+      "value": 10.5,
+      "text": "10.5",
+      "source": "04 classification team:Titan team_headcount recent"
+    },
+    {
+      "key": "risk.RISK-ATLAS-ALL-QUALITY.conf",
+      "value": 0.93,
+      "text": "93%",
+      "source": "RISK-ATLAS-ALL-QUALITY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-ALL-DATA-RELIABILITY.conf",
+      "value": 0.9,
+      "text": "90%",
+      "source": "RISK-ALL-DATA-RELIABILITY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-ATLAS-ALL-DELIVERY.conf",
+      "value": 0.96,
+      "text": "96%",
+      "source": "RISK-ATLAS-ALL-DELIVERY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY.conf",
+      "value": 0.9,
+      "text": "90%",
+      "source": "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-ALL-DATA-SUSTAINABILITY.conf",
+      "value": 0.85,
+      "text": "85%",
+      "source": "RISK-ALL-DATA-SUSTAINABILITY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-NOVA-MOBILE-DISRUPTION-W11.conf",
+      "value": 0.95,
+      "text": "95%",
+      "source": "RISK-NOVA-MOBILE-DISRUPTION-W11.confidence.score (validated)"
+    },
+    {
+      "key": "risk.RISK-TITAN-ALL-ENGINEERING_EFFICIENCY.conf",
+      "value": 0.89,
+      "text": "89%",
+      "source": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY.confidence.score (validated)"
+    },
+    {
+      "key": "risk.count",
+      "value": 7,
+      "text": "7",
+      "source": "08 risks not rejected"
+    },
+    {
+      "key": "risk.critical",
+      "value": 2,
+      "text": "2",
+      "source": "08 risks CRITICAL"
+    },
+    {
+      "key": "rec.p1",
+      "value": 4,
+      "text": "4",
+      "source": "08 recommendations P1"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-DELIVERY.base",
+      "value": 10.0,
+      "text": "10 h",
+      "source": "REC-ATLAS-ALL-DELIVERY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-DELIVERY.now",
+      "value": 16.525,
+      "text": "16.5 h",
+      "source": "REC-ATLAS-ALL-DELIVERY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-DELIVERY.target",
+      "value": "<= 11 hours (baseline 10 hours plus/minus one trend threshold)",
+      "text": "≤ 11 hours",
+      "source": "REC-ATLAS-ALL-DELIVERY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-DELIVERY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-ATLAS-ALL-DELIVERY.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-QUALITY.base",
+      "value": 72.05,
+      "text": "72%",
+      "source": "REC-ATLAS-ALL-QUALITY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-QUALITY.now",
+      "value": 63.2,
+      "text": "63.2%",
+      "source": "REC-ATLAS-ALL-QUALITY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-QUALITY.target",
+      "value": ">= 69% (baseline 72% plus/minus one trend threshold)",
+      "text": "≥ 69%",
+      "source": "REC-ATLAS-ALL-QUALITY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-QUALITY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-ATLAS-ALL-QUALITY.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-RELIABILITY.base",
+      "value": 5.435,
+      "text": "5.4%",
+      "source": "REC-ALL-DATA-RELIABILITY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-RELIABILITY.now",
+      "value": 27.059,
+      "text": "27.1%",
+      "source": "REC-ALL-DATA-RELIABILITY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-RELIABILITY.target",
+      "value": "<= 8.4% (baseline 5.4% plus/minus one trend threshold)",
+      "text": "≤ 8.4%",
+      "source": "REC-ALL-DATA-RELIABILITY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-RELIABILITY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-ALL-DATA-RELIABILITY.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.base",
+      "value": 193.0,
+      "text": "193 LOC",
+      "source": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.now",
+      "value": 245.0,
+      "text": "245 LOC",
+      "source": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.target",
+      "value": "<= 212.3 LOC (baseline 193 LOC plus/minus one trend threshold)",
+      "text": "≤ 212.3 LOC",
+      "source": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-PHOENIX-ALL-REPLICATE.target",
+      "value": "Phoenix keeps its improvement; adopting teams' quality trend stops deteriorating",
+      "text": "Phoenix keeps its improvement; adopting teams' quality trend stops deteriorating",
+      "source": "REC-PHOENIX-ALL-REPLICATE.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-PHOENIX-ALL-REPLICATE.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-PHOENIX-ALL-REPLICATE.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-SUSTAINABILITY.base",
+      "value": 7.5,
+      "text": "7.5",
+      "source": "REC-ALL-DATA-SUSTAINABILITY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-SUSTAINABILITY.now",
+      "value": 14.5,
+      "text": "14.5",
+      "source": "REC-ALL-DATA-SUSTAINABILITY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-SUSTAINABILITY.target",
+      "value": "<= 8.2 (baseline 7.5 plus/minus one trend threshold)",
+      "text": "≤ 8.2",
+      "source": "REC-ALL-DATA-SUSTAINABILITY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-ALL-DATA-SUSTAINABILITY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-ALL-DATA-SUSTAINABILITY.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-NOVA-MOBILE-DISRUPTION-W11.target",
+      "value": "no week above the anomaly threshold (Agent 05 rule) for 8 weeks",
+      "text": "no week above the anomaly threshold",
+      "source": "REC-NOVA-MOBILE-DISRUPTION-W11.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-NOVA-MOBILE-DISRUPTION-W11.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-NOVA-MOBILE-DISRUPTION-W11.measurement_of_success.by_week"
+    },
+    {
+      "key": "rec.REC-TITAN-ALL-ENGINEERING_EFFICIENCY.base",
+      "value": 12.5,
+      "text": "12.5 min",
+      "source": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.baseline"
+    },
+    {
+      "key": "rec.REC-TITAN-ALL-ENGINEERING_EFFICIENCY.now",
+      "value": 14.975,
+      "text": "15 min",
+      "source": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.current"
+    },
+    {
+      "key": "rec.REC-TITAN-ALL-ENGINEERING_EFFICIENCY.target",
+      "value": "<= 13.8 minutes (baseline 12.5 minutes plus/minus one trend threshold)",
+      "text": "≤ 13.8 minutes",
+      "source": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.target"
+    },
+    {
+      "key": "rec.REC-TITAN-ALL-ENGINEERING_EFFICIENCY.by",
+      "value": 22,
+      "text": "week 22",
+      "source": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY.measurement_of_success.by_week"
+    },
+    {
+      "key": "cmp.Atlas.cycle_time_days",
+      "value": 4.78,
+      "text": "4.8 d",
+      "source": "metric_series team:Atlas cycle_time_days mean W13-16"
+    },
+    {
+      "key": "cmp.Atlas.pr_review_time_hours",
+      "value": 16.62,
+      "text": "16.6 h",
+      "source": "metric_series team:Atlas pr_review_time_hours mean W13-16"
+    },
+    {
+      "key": "cmp.Atlas.test_coverage_pct",
+      "value": 62.75,
+      "text": "62.8%",
+      "source": "metric_series team:Atlas test_coverage_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Atlas.defects",
+      "value": 12.25,
+      "text": "12.2",
+      "source": "metric_series team:Atlas defects mean W13-16"
+    },
+    {
+      "key": "cmp.Atlas.change_failure_rate_pct",
+      "value": 3.77,
+      "text": "3.8%",
+      "source": "metric_series team:Atlas change_failure_rate_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Atlas.incidents",
+      "value": 0.75,
+      "text": "0.8",
+      "source": "metric_series team:Atlas incidents mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.cycle_time_days",
+      "value": 2.75,
+      "text": "2.8 d",
+      "source": "metric_series team:Nova cycle_time_days mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.pr_review_time_hours",
+      "value": 9.09,
+      "text": "9.1 h",
+      "source": "metric_series team:Nova pr_review_time_hours mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.test_coverage_pct",
+      "value": 73.89,
+      "text": "73.9%",
+      "source": "metric_series team:Nova test_coverage_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.defects",
+      "value": 6.25,
+      "text": "6.2",
+      "source": "metric_series team:Nova defects mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.change_failure_rate_pct",
+      "value": 6.28,
+      "text": "6.3%",
+      "source": "metric_series team:Nova change_failure_rate_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Nova.incidents",
+      "value": 1.75,
+      "text": "1.8",
+      "source": "metric_series team:Nova incidents mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.cycle_time_days",
+      "value": 2.91,
+      "text": "2.9 d",
+      "source": "metric_series team:Orion cycle_time_days mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.pr_review_time_hours",
+      "value": 10.6,
+      "text": "10.6 h",
+      "source": "metric_series team:Orion pr_review_time_hours mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.test_coverage_pct",
+      "value": 70.65,
+      "text": "70.7%",
+      "source": "metric_series team:Orion test_coverage_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.defects",
+      "value": 6.25,
+      "text": "6.2",
+      "source": "metric_series team:Orion defects mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.change_failure_rate_pct",
+      "value": 18.39,
+      "text": "18.4%",
+      "source": "metric_series team:Orion change_failure_rate_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Orion.incidents",
+      "value": 3.75,
+      "text": "3.8",
+      "source": "metric_series team:Orion incidents mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.cycle_time_days",
+      "value": 1.8,
+      "text": "1.8 d",
+      "source": "metric_series team:Phoenix cycle_time_days mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.pr_review_time_hours",
+      "value": 6.53,
+      "text": "6.5 h",
+      "source": "metric_series team:Phoenix pr_review_time_hours mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.test_coverage_pct",
+      "value": 76.5,
+      "text": "76.5%",
+      "source": "metric_series team:Phoenix test_coverage_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.defects",
+      "value": 6,
+      "text": "6",
+      "source": "metric_series team:Phoenix defects mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.change_failure_rate_pct",
+      "value": 0.0,
+      "text": "0%",
+      "source": "metric_series team:Phoenix change_failure_rate_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Phoenix.incidents",
+      "value": 0.75,
+      "text": "0.8",
+      "source": "metric_series team:Phoenix incidents mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.cycle_time_days",
+      "value": 2.61,
+      "text": "2.6 d",
+      "source": "metric_series team:Titan cycle_time_days mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.pr_review_time_hours",
+      "value": 7.19,
+      "text": "7.2 h",
+      "source": "metric_series team:Titan pr_review_time_hours mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.test_coverage_pct",
+      "value": 74.59,
+      "text": "74.6%",
+      "source": "metric_series team:Titan test_coverage_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.defects",
+      "value": 8,
+      "text": "8",
+      "source": "metric_series team:Titan defects mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.change_failure_rate_pct",
+      "value": 17.22,
+      "text": "17.2%",
+      "source": "metric_series team:Titan change_failure_rate_pct mean W13-16"
+    },
+    {
+      "key": "cmp.Titan.incidents",
+      "value": 3.25,
+      "text": "3.2",
+      "source": "metric_series team:Titan incidents mean W13-16"
+    },
+    {
+      "key": "th.min_weeks",
+      "value": 5,
+      "text": "5",
+      "source": "thresholds.trend.min_trend_weeks"
+    },
+    {
+      "key": "th.min_pct",
+      "value": 10.0,
+      "text": "10",
+      "source": "thresholds.trend.min_change_pct"
+    },
+    {
+      "key": "th.min_pp",
+      "value": 3.0,
+      "text": "3",
+      "source": "thresholds.trend.min_change_pp"
+    },
+    {
+      "key": "th.effect",
+      "value": 2.0,
+      "text": "2",
+      "source": "thresholds.trend.min_effect_sd"
+    },
+    {
+      "key": "th.p",
+      "value": 0.05,
+      "text": "0.05",
+      "source": "thresholds.trend.max_p_value"
+    },
+    {
+      "key": "th.tau",
+      "value": 0.4,
+      "text": "0.4",
+      "source": "thresholds.trend.min_abs_tau"
+    },
+    {
+      "key": "th.partial",
+      "value": 0.5,
+      "text": "0.5",
+      "source": "thresholds.correlation.partial_r_explained_below"
+    },
+    {
+      "key": "th.anomaly_z",
+      "value": 4.0,
+      "text": "4",
+      "source": "thresholds.anomaly.min_z"
+    },
+    {
+      "key": "conf.w.completeness",
+      "value": 0.2,
+      "text": "20%",
+      "source": "thresholds.confidence.weights.completeness"
+    },
+    {
+      "key": "conf.w.observations",
+      "value": 0.2,
+      "text": "20%",
+      "source": "thresholds.confidence.weights.observations"
+    },
+    {
+      "key": "conf.w.consistency",
+      "value": 0.25,
+      "text": "25%",
+      "source": "thresholds.confidence.weights.consistency"
+    },
+    {
+      "key": "conf.w.magnitude",
+      "value": 0.15,
+      "text": "15%",
+      "source": "thresholds.confidence.weights.magnitude"
+    },
+    {
+      "key": "conf.w.evidence_quality",
+      "value": 0.1,
+      "text": "10%",
+      "source": "thresholds.confidence.weights.evidence_quality"
+    },
+    {
+      "key": "conf.w.validation",
+      "value": 0.1,
+      "text": "10%",
+      "source": "thresholds.confidence.weights.validation"
+    },
+    {
+      "key": "health.base",
+      "value": 75,
+      "text": "75",
+      "source": "thresholds.metrics_analysis.health_score_at_baseline"
+    },
+    {
+      "key": "health.better",
+      "value": 100,
+      "text": "100",
+      "source": "health index: 25%+ better than baseline"
+    },
+    {
+      "key": "health.worse",
+      "value": 50,
+      "text": "50",
+      "source": "health index: 25% worse than baseline"
+    },
+    {
+      "key": "health.band",
+      "value": 25,
+      "text": "25%",
+      "source": "health index scale"
+    },
+    {
+      "key": "tl.first",
+      "value": 6,
+      "text": "week 6",
+      "source": "earliest onset among deteriorating trends shown"
+    },
+    {
+      "key": "tl.last",
+      "value": 11,
+      "text": "week 11",
+      "source": "latest onset among deteriorating trends shown"
+    },
+    {
+      "key": "tl.TRD-ATLAS-ALL-TEST_COVERAGE_PCT.chg",
+      "value": -12.28,
+      "text": "-8.8 pp",
+      "source": "TRD-ATLAS-ALL-TEST_COVERAGE_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.chg",
+      "value": -5.91,
+      "text": "-4.8 pp",
+      "source": "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS.chg",
+      "value": 39.55,
+      "text": "+40%",
+      "source": "TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.chg",
+      "value": 65.25,
+      "text": "+65%",
+      "source": "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.chg",
+      "value": 397.88,
+      "text": "+21.6 pp",
+      "source": "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ALL-DATA-ROLLBACK_RATE_PCT.chg",
+      "value": 2281.18,
+      "text": "+24.8 pp",
+      "source": "TRD-ALL-DATA-ROLLBACK_RATE_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ALL-DATA-FAILED_DEPLOYMENTS.chg",
+      "value": 1100.0,
+      "text": "+1100%",
+      "source": "TRD-ALL-DATA-FAILED_DEPLOYMENTS.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-ALL-DATA-ON_CALL_PAGES.chg",
+      "value": 93.33,
+      "text": "+93%",
+      "source": "TRD-ALL-DATA-ON_CALL_PAGES.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-TITAN-ALL-BUILD_TIME_MIN.chg",
+      "value": 19.8,
+      "text": "+20%",
+      "source": "TRD-TITAN-ALL-BUILD_TIME_MIN.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.chg",
+      "value": 11.06,
+      "text": "+9.2 pp",
+      "source": "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.chg",
+      "value": 18.48,
+      "text": "+12.0 pp",
+      "source": "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT.evidence.computed"
+    },
+    {
+      "key": "tl.TRD-PHOENIX-ALL-REWORK_RATE_PCT.chg",
+      "value": -10.65,
+      "text": "-1.2 pp",
+      "source": "TRD-PHOENIX-ALL-REWORK_RATE_PCT.evidence.computed"
+    }
+  ],
+  "chart_sources": [
+    {
+      "slide": 3,
+      "chart": "Chart 25",
+      "series": "Engineering health",
+      "values": [
+        75.7,
+        78.2,
+        76.9,
+        77.3,
+        77.2,
+        77.0,
+        76.7,
+        75.5,
+        75.4,
+        74.3,
+        70.7,
+        69.8,
+        66.2,
+        64.0,
+        66.2,
+        63.8
+      ],
+      "source": "02 health_scores org, 4-week rolling"
+    },
+    {
+      "slide": 3,
+      "chart": "Chart 25",
+      "series": "Delivery",
+      "values": [
+        81.8,
+        82.5,
+        76.2,
+        77.6,
+        71.2,
+        71.4,
+        70.7,
+        70.2,
+        74.3,
+        74.0,
+        74.8,
+        71.4,
+        68.2,
+        62.3,
+        60.7,
+        58.6
+      ],
+      "source": "02 health_scores org, 4-week rolling"
+    },
+    {
+      "slide": 3,
+      "chart": "Chart 25",
+      "series": "Quality",
+      "values": [
+        68.0,
+        75.1,
+        73.3,
+        75.0,
+        76.3,
+        74.8,
+        74.5,
+        74.7,
+        73.7,
+        74.4,
+        72.5,
+        69.2,
+        65.8,
+        61.6,
+        63.9,
+        61.3
+      ],
+      "source": "02 health_scores org, 4-week rolling"
+    },
+    {
+      "slide": 3,
+      "chart": "Chart 25",
+      "series": "Reliability",
+      "values": [
+        77.7,
+        80.4,
+        83.3,
+        81.4,
+        86.2,
+        86.7,
+        86.4,
+        82.1,
+        79.0,
+        74.5,
+        64.3,
+        67.7,
+        60.1,
+        62.0,
+        67.7,
+        64.0
+      ],
+      "source": "02 health_scores org, 4-week rolling"
+    },
+    {
+      "slide": 3,
+      "chart": "Chart 25",
+      "series": "Efficiency",
+      "values": [
+        75.2,
+        74.7,
+        74.9,
+        75.1,
+        75.2,
+        75.2,
+        75.3,
+        74.9,
+        74.6,
+        74.3,
+        71.0,
+        70.8,
+        70.6,
+        69.9,
+        72.2,
+        71.4
+      ],
+      "source": "02 health_scores org, 4-week rolling"
+    },
+    {
+      "slide": 4,
+      "chart": "Chart 24",
+      "series": "Phoenix",
+      "values": [
+        63.85,
+        64.2,
+        64.3,
+        65.05,
+        66.25,
+        67.85,
+        69.3,
+        69.55,
+        70.6,
+        73.1,
+        73.1,
+        74.75,
+        75.6,
+        76.55,
+        77.15,
+        76.7
+      ],
+      "source": "metric_series team:Phoenix / org test_coverage_pct"
+    },
+    {
+      "slide": 4,
+      "chart": "Chart 24",
+      "series": "Organisation",
+      "values": [
+        70.97,
+        70.91,
+        70.9,
+        71.42,
+        71.56,
+        null,
+        72.27,
+        71.99,
+        71.95,
+        71.95,
+        71.81,
+        72.08,
+        71.82,
+        71.69,
+        71.89,
+        71.3
+      ],
+      "source": "metric_series team:Phoenix / org test_coverage_pct"
+    },
+    {
+      "slide": 5,
+      "chart": "Chart 24",
+      "series": "Atlas",
+      "values": [
+        3.235,
+        3.22,
+        3.26,
+        3.255,
+        3.335,
+        3.205,
+        3.24,
+        3.415,
+        3.53,
+        3.965,
+        4.26,
+        4.195,
+        4.28,
+        4.525,
+        5.2,
+        5.115
+      ],
+      "source": "metric_series team:Atlas / org cycle_time_days"
+    },
+    {
+      "slide": 5,
+      "chart": "Chart 24",
+      "series": "Organisation",
+      "values": [
+        2.835,
+        2.778,
+        2.792,
+        2.776,
+        2.826,
+        2.799,
+        2.791,
+        2.794,
+        2.792,
+        2.89,
+        2.918,
+        2.899,
+        2.918,
+        2.926,
+        3.019,
+        3.021
+      ],
+      "source": "metric_series team:Atlas / org cycle_time_days"
+    },
+    {
+      "slide": 8,
+      "chart": "Chart 6",
+      "series": "Data platform",
+      "values": [
+        0.0,
+        6.25,
+        4.255,
+        4.918,
+        8.475,
+        5.0,
+        7.937,
+        7.143,
+        5.195,
+        6.25,
+        8.537,
+        11.111,
+        15.0,
+        19.048,
+        22.093,
+        27.059
+      ],
+      "source": "metric_series platform:Data / org change_failure_rate_pct, 4-week pooled"
+    },
+    {
+      "slide": 8,
+      "chart": "Chart 6",
+      "series": "Organisation",
+      "values": [
+        3.371,
+        3.261,
+        4.779,
+        3.944,
+        5.915,
+        5.307,
+        5.587,
+        6.504,
+        4.878,
+        5.42,
+        5.305,
+        5.483,
+        6.17,
+        7.692,
+        8.184,
+        9.548
+      ],
+      "source": "metric_series platform:Data / org change_failure_rate_pct, 4-week pooled"
+    },
+    {
+      "slide": 13,
+      "chart": "Chart 22",
+      "series": "value",
+      "values": [
+        0.2,
+        0.2,
+        0.25,
+        0.15,
+        0.1,
+        0.1
+      ],
+      "source": "thresholds.confidence.weights"
+    }
+  ]
+}

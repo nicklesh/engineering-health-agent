@@ -92,8 +92,13 @@ def build_brief():
     return path, brief
 
 
+# Identifiers that contain digits but are not quantities: priority labels (P1-P3) and
+# agent numbers ("Agent 07"). They are removed before numbers are compared.
+IDENTIFIERS = re.compile(r"\bP[1-3]\b|\b[Aa]gent \d{2}\b")
+
+
 def numbers_in(text):
-    return [float(x) for x in NUMBER.findall(text or "")]
+    return [float(x) for x in NUMBER.findall(IDENTIFIERS.sub(" ", text or ""))]
 
 
 def number_supported(n, source_numbers):

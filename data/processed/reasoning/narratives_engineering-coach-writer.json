@@ -1,38 +1,38 @@
 {
-  "brief_fingerprint": "6f25939727da67177b249fb080e77b9587b0a41a1dae378b46ec5ba23017343c",
+  "brief_fingerprint": "b846786ec60dff907a5986ac1be5120066b71e0463ecea95e05545a3f8b9171d",
   "author": "engineering-coach-writer",
   "narratives": [
     {
       "finding_id": "REC-ATLAS-ALL-DELIVERY",
-      "text": "The Atlas engineering manager should first locate where the extra cycle time accumulates, now 4.5 days against 3.2, while PR review time rose from 10 to 16.5 hours. Check reviewer load and availability, then agree a review turnaround target and rotation for order-api and storefront-ui. Success is PR review time at or below 11 hours by week 22. A high-priority response is proportionate, as cycle time, lead time and review time are all slowing together."
+      "text": "The Atlas engineering manager should first find where the extra cycle time (3.2 to 4.5 days) accumulates, starting with PR review, which rose from 10 to 16.5 hours. Check reviewer load and availability, then agree a review turnaround target and rotation for order-api and storefront-ui. Success is PR review time at or below 11 hours by week 22. P1 is proportionate: cycle time, lead time and review time are all trending upward, and planned work may ship later if this continues."
     },
     {
       "finding_id": "REC-ATLAS-ALL-QUALITY",
-      "text": "The Atlas engineering manager and tech lead should first check whether the drop in test coverage, from 72% to 63.2%, is concentrated in specific modules of order-api and storefront-ui, while defects went from 6 to 12. Add a coverage gate on changed code for these services until coverage is back at baseline. Success is test coverage at or above 69% by week 22. A high-priority response fits, since every tracked Atlas quality signal is moving the wrong way at once."
+      "text": "The Atlas engineering manager and tech lead should first check whether the test coverage decline (72% to 63.2%) is concentrated in specific modules of order-api and storefront-ui, alongside the defect rise from 6 to 12. Add a coverage gate on changed code for these services until coverage is back at baseline. Success is test coverage at or above 69% by week 22. P1 fits: four quality signals, including rework rate (8.3% to 12.8%), are deteriorating at the same time."
     },
     {
       "finding_id": "REC-ALL-DATA-RELIABILITY",
-      "text": "The Platform / SRE lead should run one joint failed-deployment review across the Data platform services, analytics-warehouse and event-pipeline, and check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed. Success is a change failure rate at or below 8.4% by week 22, down from 27.1%. A high-priority response is proportionate: rollback rate rose from 1.1% to 25.9% and incidents from 1 to 5.5 per week."
+      "text": "The Platform / SRE lead should run one joint failed-deployment review across the Data platform services, analytics-warehouse and event-pipeline, and check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed. Success is change failure rate back at or below 8.4% by week 22, down from 27.1% now. P1 is warranted: change failure rate rose from 5.4%, rollback rate from 1.1% to 25.9%, and incidents from 1 to 5.5."
     },
     {
       "finding_id": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY",
-      "text": "The Atlas tech lead should start by splitting work into smaller, independently reviewable PRs and tracking PR size in team retros. Average PR size grew from 193 to 245 LOC, and first-review latency from 3.4 to 4.7 hours. Success is average PR size at or below 212.3 LOC by week 22. A high-priority response is proportionate, as both signals show sustained trends rather than a single bad week."
+      "text": "The Atlas tech lead should start by splitting work into smaller, independently reviewable PRs and tracking PR size in team retros. Average PR size has grown from 193 to 245 LOC, while first-review latency rose from 3.4 to 4.7 hours. Success is average PR size at or below 212.3 LOC by week 22. P1 is proportionate: this coincides with the wider Atlas delivery slowdown, and PR size is a lever the team directly controls."
     },
     {
       "finding_id": "REC-PHOENIX-ALL-REPLICATE",
-      "text": "The engineering director should run a short practice review with Phoenix on what changed in testing, review and release habits since week 5. Phoenix raised test coverage from 64.7% to 76.6% and automated tests from 82.8% to 91.9%, while rework rate eased from 10.8% to 9.7%. Publish the findings and share them with Atlas, where quality is deteriorating. Success by week 22 means Phoenix keeps its gains and adopting teams stop deteriorating; a medium priority suits knowledge sharing rather than an urgent fix."
+      "text": "The engineering director should run a short practice review with Phoenix on what changed in testing, review and release habits since week 5, then publish the findings and share them with Atlas. Phoenix raised test coverage from 64.7% to 76.6% and automated tests from 82.8% to 91.9%, while rework rate fell from 10.8% to 9.7%. Success by week 22 means Phoenix keeps its improvement and adopting teams' quality trend stops deteriorating. P2 fits a low-cost knowledge share, not an urgent fix."
     },
     {
       "finding_id": "REC-ALL-DATA-SUSTAINABILITY",
-      "text": "The SRE lead and engineering manager should audit Data platform on-call pages, which rose from 7.5 to 14.5 per week, classifying each as actionable or noise. Link the actionable pages to the reliability review for the Data platform. Success is on-call pages at or below 8.2 per week by week 22. A medium priority is proportionate: the load is rising and worth addressing, but the audit can run alongside the higher-priority Data reliability work."
+      "text": "The SRE lead and engineering manager for the Data platform should audit on-call pages, now 14.5 per week against 7.5, classifying each as actionable or noise and linking actionable pages to the Data reliability review. Success is on-call pages at or below 8.2 by week 22. P2 is proportionate: a 93% rise in pages is a real fatigue risk worth addressing, but the audit can run alongside the P1 reliability work rather than ahead of it."
     },
     {
       "finding_id": "REC-NOVA-MOBILE-DISRUPTION-W11",
-      "text": "The Nova / Mobile team lead should confirm that the week-11 spike has a completed post-incident review with an identified one-off cause. That week, CI failure rate reached 41 against an expected 7.25, and on-call pages 25 against 2. Take no structural action unless a similar spike recurs within 8 weeks; success is no week above the anomaly threshold for 8 weeks, by week 22. Watching is enough, as this was a single isolated week."
+      "text": "The Nova / Mobile team lead should confirm that the week-11 spike (CI failure rate 41 against an expected 7.25, on-call pages 25 against 2) has a completed post-incident review with an identified one-off cause. Take no structural action unless a similar spike recurs within 8 weeks. Success is no week above the anomaly threshold for 8 weeks, through week 22. Watching is enough at P3: the disruption was confined to a single week, and impact stays limited unless it repeats."
     },
     {
       "finding_id": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY",
-      "text": "The Titan tech lead or developer-productivity owner should profile the CI pipeline, where build time grew from 12.5 to 15 minutes. Check whether the growth tracks codebase size and team growth (headcount 7 to 10.5), and whether caching or parallelising test stages would recover the lost time. Success is build time at or below 13.8 minutes by week 22. Watching with a light-touch profile is enough, as the trend is gradual and the impact so far is modest."
+      "text": "Titan's tech lead or developer-productivity owner should profile the CI pipeline, where build time has risen from 12.5 to 15 minutes, and check whether this tracks codebase size and team growth (headcount 7 to 10.5), and whether caching or parallelising test stages would recover the lost time. Success is build time at or below 13.8 minutes by week 22. P3 suits a gradual 20% rise: one profiling pass plus monitoring is enough, with no urgent intervention needed."
     }
   ]
 }

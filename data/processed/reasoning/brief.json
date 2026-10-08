@@ -1,5 +1,5 @@
 {
-  "evidence_validation_fingerprint": "6f25939727da67177b249fb080e77b9587b0a41a1dae378b46ec5ba23017343c",
+  "evidence_validation_fingerprint": "b846786ec60dff907a5986ac1be5120066b71e0463ecea95e05545a3f8b9171d",
   "rules": [
     "Write one narrative per finding listed for you, 2-4 sentences, at most 90 words, plain business English.",
     "Use ONLY numbers that appear in that finding's own entry in this brief (you may round them). Never compute new numbers.",

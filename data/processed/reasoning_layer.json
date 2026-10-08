@@ -3,7 +3,7 @@
   "depends_on": [
     "08_evidence_validation"
   ],
-  "evidence_validation_fingerprint": "6f25939727da67177b249fb080e77b9587b0a41a1dae378b46ec5ba23017343c",
+  "evidence_validation_fingerprint": "b846786ec60dff907a5986ac1be5120066b71e0463ecea95e05545a3f8b9171d",
   "status": "PASS",
   "summary": {
     "narratives": 15,
@@ -15,7 +15,7 @@
     {
       "finding_id": "REC-ATLAS-ALL-DELIVERY",
       "author": "engineering-coach-writer",
-      "text": "The Atlas engineering manager should first locate where the extra cycle time accumulates, now 4.5 days against 3.2, while PR review time rose from 10 to 16.5 hours. Check reviewer load and availability, then agree a review turnaround target and rotation for order-api and storefront-ui. Success is PR review time at or below 11 hours by week 22. A high-priority response is proportionate, as cycle time, lead time and review time are all slowing together.",
+      "text": "The Atlas engineering manager should first find where the extra cycle time (3.2 to 4.5 days) accumulates, starting with PR review, which rose from 10 to 16.5 hours. Check reviewer load and availability, then agree a review turnaround target and rotation for order-api and storefront-ui. Success is PR review time at or below 11 hours by week 22. P1 is proportionate: cycle time, lead time and review time are all trending upward, and planned work may ship later if this continues.",
       "verdict": "PASS",
       "checks": [
         {
@@ -41,7 +41,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "75 words; names the entity"
+          "detail": "81 words; names the entity"
         }
       ],
       "reasons": []
@@ -49,7 +49,7 @@
     {
       "finding_id": "REC-ATLAS-ALL-QUALITY",
       "author": "engineering-coach-writer",
-      "text": "The Atlas engineering manager and tech lead should first check whether the drop in test coverage, from 72% to 63.2%, is concentrated in specific modules of order-api and storefront-ui, while defects went from 6 to 12. Add a coverage gate on changed code for these services until coverage is back at baseline. Success is test coverage at or above 69% by week 22. A high-priority response fits, since every tracked Atlas quality signal is moving the wrong way at once.",
+      "text": "The Atlas engineering manager and tech lead should first check whether the test coverage decline (72% to 63.2%) is concentrated in specific modules of order-api and storefront-ui, alongside the defect rise from 6 to 12. Add a coverage gate on changed code for these services until coverage is back at baseline. Success is test coverage at or above 69% by week 22. P1 fits: four quality signals, including rework rate (8.3% to 12.8%), are deteriorating at the same time.",
       "verdict": "PASS",
       "checks": [
         {
@@ -75,7 +75,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "80 words; names the entity"
+          "detail": "79 words; names the entity"
         }
       ],
       "reasons": []
@@ -83,7 +83,7 @@
     {
       "finding_id": "REC-ALL-DATA-RELIABILITY",
       "author": "engineering-coach-writer",
-      "text": "The Platform / SRE lead should run one joint failed-deployment review across the Data platform services, analytics-warehouse and event-pipeline, and check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed. Success is a change failure rate at or below 8.4% by week 22, down from 27.1%. A high-priority response is proportionate: rollback rate rose from 1.1% to 25.9% and incidents from 1 to 5.5 per week.",
+      "text": "The Platform / SRE lead should run one joint failed-deployment review across the Data platform services, analytics-warehouse and event-pipeline, and check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed. Success is change failure rate back at or below 8.4% by week 22, down from 27.1% now. P1 is warranted: change failure rate rose from 5.4%, rollback rate from 1.1% to 25.9%, and incidents from 1 to 5.5.",
       "verdict": "PASS",
       "checks": [
         {
@@ -109,7 +109,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "69 words; names the entity"
+          "detail": "71 words; names the entity"
         }
       ],
       "reasons": []
@@ -117,75 +117,7 @@
     {
       "finding_id": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY",
       "author": "engineering-coach-writer",
-      "text": "The Atlas tech lead should start by splitting work into smaller, independently reviewable PRs and tracking PR size in team retros. Average PR size grew from 193 to 245 LOC, and first-review latency from 3.4 to 4.7 hours. Success is average PR size at or below 212.3 LOC by week 22. A high-priority response is proportionate, as both signals show sustained trends rather than a single bad week.",
-      "verdict": "PASS",
-      "checks": [
-        {
-          "check": "stale",
-          "result": "PASS",
-          "detail": "written for the current evidence"
-        },
-        {
-          "check": "known_finding",
-          "result": "PASS",
-          "detail": "finding exists and was not rejected"
-        },
-        {
-          "check": "no_new_numbers",
-          "result": "PASS",
-          "detail": "all numbers come from the finding's evidence"
-        },
-        {
-          "check": "no_causal_claim",
-          "result": "PASS",
-          "detail": "no causal language"
-        },
-        {
-          "check": "specific",
-          "result": "PASS",
-          "detail": "68 words; names the entity"
-        }
-      ],
-      "reasons": []
-    },
-    {
-      "finding_id": "REC-PHOENIX-ALL-REPLICATE",
-      "author": "engineering-coach-writer",
-      "text": "The engineering director should run a short practice review with Phoenix on what changed in testing, review and release habits since week 5. Phoenix raised test coverage from 64.7% to 76.6% and automated tests from 82.8% to 91.9%, while rework rate eased from 10.8% to 9.7%. Publish the findings and share them with Atlas, where quality is deteriorating. Success by week 22 means Phoenix keeps its gains and adopting teams stop deteriorating; a medium priority suits knowledge sharing rather than an urgent fix.",
-      "verdict": "PASS",
-      "checks": [
-        {
-          "check": "stale",
-          "result": "PASS",
-          "detail": "written for the current evidence"
-        },
-        {
-          "check": "known_finding",
-          "result": "PASS",
-          "detail": "finding exists and was not rejected"
-        },
-        {
-          "check": "no_new_numbers",
-          "result": "PASS",
-          "detail": "all numbers come from the finding's evidence"
-        },
-        {
-          "check": "no_causal_claim",
-          "result": "PASS",
-          "detail": "no causal language"
-        },
-        {
-          "check": "specific",
-          "result": "PASS",
-          "detail": "83 words; names the entity"
-        }
-      ],
-      "reasons": []
-    },
-    {
-      "finding_id": "REC-ALL-DATA-SUSTAINABILITY",
-      "author": "engineering-coach-writer",
-      "text": "The SRE lead and engineering manager should audit Data platform on-call pages, which rose from 7.5 to 14.5 per week, classifying each as actionable or noise. Link the actionable pages to the reliability review for the Data platform. Success is on-call pages at or below 8.2 per week by week 22. A medium priority is proportionate: the load is rising and worth addressing, but the audit can run alongside the higher-priority Data reliability work.",
+      "text": "The Atlas tech lead should start by splitting work into smaller, independently reviewable PRs and tracking PR size in team retros. Average PR size has grown from 193 to 245 LOC, while first-review latency rose from 3.4 to 4.7 hours. Success is average PR size at or below 212.3 LOC by week 22. P1 is proportionate: this coincides with the wider Atlas delivery slowdown, and PR size is a lever the team directly controls.",
       "verdict": "PASS",
       "checks": [
         {
@@ -217,9 +149,9 @@
       "reasons": []
     },
     {
-      "finding_id": "REC-NOVA-MOBILE-DISRUPTION-W11",
+      "finding_id": "REC-PHOENIX-ALL-REPLICATE",
       "author": "engineering-coach-writer",
-      "text": "The Nova / Mobile team lead should confirm that the week-11 spike has a completed post-incident review with an identified one-off cause. That week, CI failure rate reached 41 against an expected 7.25, and on-call pages 25 against 2. Take no structural action unless a similar spike recurs within 8 weeks; success is no week above the anomaly threshold for 8 weeks, by week 22. Watching is enough, as this was a single isolated week.",
+      "text": "The engineering director should run a short practice review with Phoenix on what changed in testing, review and release habits since week 5, then publish the findings and share them with Atlas. Phoenix raised test coverage from 64.7% to 76.6% and automated tests from 82.8% to 91.9%, while rework rate fell from 10.8% to 9.7%. Success by week 22 means Phoenix keeps its improvement and adopting teams' quality trend stops deteriorating. P2 fits a low-cost knowledge share, not an urgent fix.",
       "verdict": "PASS",
       "checks": [
         {
@@ -245,7 +177,75 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "75 words; names the entity"
+          "detail": "81 words; names the entity"
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "finding_id": "REC-ALL-DATA-SUSTAINABILITY",
+      "author": "engineering-coach-writer",
+      "text": "The SRE lead and engineering manager for the Data platform should audit on-call pages, now 14.5 per week against 7.5, classifying each as actionable or noise and linking actionable pages to the Data reliability review. Success is on-call pages at or below 8.2 by week 22. P2 is proportionate: a 93% rise in pages is a real fatigue risk worth addressing, but the audit can run alongside the P1 reliability work rather than ahead of it.",
+      "verdict": "PASS",
+      "checks": [
+        {
+          "check": "stale",
+          "result": "PASS",
+          "detail": "written for the current evidence"
+        },
+        {
+          "check": "known_finding",
+          "result": "PASS",
+          "detail": "finding exists and was not rejected"
+        },
+        {
+          "check": "no_new_numbers",
+          "result": "PASS",
+          "detail": "all numbers come from the finding's evidence"
+        },
+        {
+          "check": "no_causal_claim",
+          "result": "PASS",
+          "detail": "no causal language"
+        },
+        {
+          "check": "specific",
+          "result": "PASS",
+          "detail": "76 words; names the entity"
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "finding_id": "REC-NOVA-MOBILE-DISRUPTION-W11",
+      "author": "engineering-coach-writer",
+      "text": "The Nova / Mobile team lead should confirm that the week-11 spike (CI failure rate 41 against an expected 7.25, on-call pages 25 against 2) has a completed post-incident review with an identified one-off cause. Take no structural action unless a similar spike recurs within 8 weeks. Success is no week above the anomaly threshold for 8 weeks, through week 22. Watching is enough at P3: the disruption was confined to a single week, and impact stays limited unless it repeats.",
+      "verdict": "PASS",
+      "checks": [
+        {
+          "check": "stale",
+          "result": "PASS",
+          "detail": "written for the current evidence"
+        },
+        {
+          "check": "known_finding",
+          "result": "PASS",
+          "detail": "finding exists and was not rejected"
+        },
+        {
+          "check": "no_new_numbers",
+          "result": "PASS",
+          "detail": "all numbers come from the finding's evidence"
+        },
+        {
+          "check": "no_causal_claim",
+          "result": "PASS",
+          "detail": "no causal language"
+        },
+        {
+          "check": "specific",
+          "result": "PASS",
+          "detail": "81 words; names the entity"
         }
       ],
       "reasons": []
@@ -253,7 +253,7 @@
     {
       "finding_id": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY",
       "author": "engineering-coach-writer",
-      "text": "The Titan tech lead or developer-productivity owner should profile the CI pipeline, where build time grew from 12.5 to 15 minutes. Check whether the growth tracks codebase size and team growth (headcount 7 to 10.5), and whether caching or parallelising test stages would recover the lost time. Success is build time at or below 13.8 minutes by week 22. Watching with a light-touch profile is enough, as the trend is gradual and the impact so far is modest.",
+      "text": "Titan's tech lead or developer-productivity owner should profile the CI pipeline, where build time has risen from 12.5 to 15 minutes, and check whether this tracks codebase size and team growth (headcount 7 to 10.5), and whether caching or parallelising test stages would recover the lost time. Success is build time at or below 13.8 minutes by week 22. P3 suits a gradual 20% rise: one profiling pass plus monitoring is enough, with no urgent intervention needed.",
       "verdict": "PASS",
       "checks": [
         {
@@ -279,7 +279,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "78 words; names the entity"
+          "detail": "77 words; names the entity"
         }
       ],
       "reasons": []
@@ -287,7 +287,7 @@
     {
       "finding_id": "RISK-ATLAS-ALL-QUALITY",
       "author": "risk-narrator",
-      "text": "Atlas quality is deteriorating: test coverage fell from 72% to 63.2% and automated tests from 80.4% to 75.7% since week 8, while defects rose from 6 to 12 and rework rate from 8.3% to 12.8%. More defects may reach users, and more unplanned rework competes with roadmap work. One possibility worth checking is whether falling coverage and automated tests are associated with the defect rise, as coverage changes preceded defect changes by 1 week; this association does not establish causality and is shown only as a possibility.",
+      "text": "Atlas quality is deteriorating: test coverage fell from 72% to 63.2% and automated tests from 80.4% to 75.7% since week 8, while defects rose from 6 to 12 (+100%) and rework rate from 8.3% to 12.8%. This may mean more defects reach users and more unplanned rework competes with roadmap work. One possibility worth checking is that falling coverage and automated testing may be letting more defects through, as coverage changes preceded defect changes by 1 week; this is a lagged association, not proof.",
       "verdict": "PASS",
       "checks": [
         {
@@ -313,7 +313,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "87 words; names the entity"
+          "detail": "84 words; names the entity"
         }
       ],
       "reasons": []
@@ -321,7 +321,7 @@
     {
       "finding_id": "RISK-ALL-DATA-RELIABILITY",
       "author": "risk-narrator",
-      "text": "Reliability on the Data platform is deteriorating: change failure rate rose from 5.4% to 27.1%, rollback rate from 1.1% to 25.9%, failed deployments from 0.5 to 6 and incidents from 1 to 5.5. This may mean more failed releases and customer-facing incidents on the affected services. One possibility is deployment-related changes, as incidents attributed to a change in post-incident reviews went from 50% to 80%; the caveat is that this shift is not statistically significant (p=0.097).",
+      "text": "On the Data platform, change failure rate rose from 5.4% to 27.1% and rollback rate from 1.1% to 25.9%, while failed deployments went from 0.5 to 6 and incidents from 1 to 5.5 since week 11. This means more failed releases and customer-facing incidents on Data services. One possibility worth checking is whether deployment-related changes are associated with the incident rise: change-attributed incidents went from 50% to 80% in post-incident reviews, though this shift is not statistically significant (p=0.097).",
       "verdict": "PASS",
       "checks": [
         {
@@ -347,7 +347,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "76 words; names the entity"
+          "detail": "79 words; names the entity"
         }
       ],
       "reasons": []
@@ -355,7 +355,7 @@
     {
       "finding_id": "RISK-ATLAS-ALL-DELIVERY",
       "author": "risk-narrator",
-      "text": "Atlas delivery is slowing: cycle time rose from 3.2 to 4.5 days, lead time from 4.9 to 6.3 days, and PR review time from 10 to 16.5 hours. Planned work may ship later, and delivery commitments are at risk if the trend continues. Possibilities worth checking are the coinciding fall in test coverage and rise in rework rate, both associated with the slower times; these associations do not establish causality and are shown only as possibilities.",
+      "text": "Atlas delivery is slowing: PR review time rose from 10 to 16.5 hours (+65%) and cycle time from 3.2 to 4.5 days since week 8, and lead time from 4.9 to 6.3 days since week 5. Planned work may ship later, putting delivery commitments at risk if the trend continues. Possibilities worth checking are that falling test coverage coincides with longer reviews and that rising rework rate is associated with longer lead time; these are associations between observational series only and do not establish contribution.",
       "verdict": "PASS",
       "checks": [
         {
@@ -381,7 +381,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "76 words; names the entity"
+          "detail": "85 words; names the entity"
         }
       ],
       "reasons": []
@@ -389,7 +389,7 @@
     {
       "finding_id": "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY",
       "author": "risk-narrator",
-      "text": "Atlas engineering efficiency is declining: average PR size grew from 193 to 245 LOC since week 10, and review latency rose from 3.4 to 4.7 hours since week 9. Slower feedback loops may reduce how much Atlas can ship.",
+      "text": "Atlas engineering efficiency is declining: average PR size grew from 193 to 245 lines of code (+27%) since week 10, and review latency rose from 3.4 to 4.7 hours (+40%) since week 9. Slower feedback loops may reduce how much Atlas can ship. No validated explanation is available yet; the next step is to profile the Atlas CI pipeline and compare it with codebase and team growth.",
       "verdict": "PASS",
       "checks": [
         {
@@ -415,7 +415,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "39 words; names the entity"
+          "detail": "67 words; names the entity"
         }
       ],
       "reasons": []
@@ -423,7 +423,7 @@
     {
       "finding_id": "RISK-ALL-DATA-SUSTAINABILITY",
       "author": "risk-narrator",
-      "text": "On-call load on the Data platform is rising: on-call pages went from 7.5 to 14.5 since week 10, an increase of 93%. A rising on-call burden increases fatigue and attrition risk for the engineers supporting the Data platform.",
+      "text": "On-call pages on the Data platform rose from 7.5 to 14.5 (+93%) since week 10. A rising on-call burden increases fatigue and attrition risk for the engineers supporting Data. No validated explanation is available yet; the next step is to review Data's on-call page volume and how many of those pages are actionable.",
       "verdict": "PASS",
       "checks": [
         {
@@ -449,7 +449,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "38 words; names the entity"
+          "detail": "53 words; names the entity"
         }
       ],
       "reasons": []
@@ -457,7 +457,7 @@
     {
       "finding_id": "RISK-NOVA-MOBILE-DISRUPTION-W11",
       "author": "risk-narrator",
-      "text": "Nova / Mobile had a one-week operational disruption in week 11: CI failure rate reached 41 against an expected 7.25, build time 24.1 against 12.35, CI queue time 15.1 against 4.45, on-call pages 25 against 2, and incidents 5 against 0. The impact is limited if it stays isolated, but it would matter if it recurs.",
+      "text": "Nova's Mobile platform had a one-week disruption in week 11: CI failure rate reached 41 against an expected 7.25, build time 24.1 against 12.35, CI queue time 15.1 against 4.45, on-call pages 25 against 2, and incidents 5 against 0. The impact is limited if it stays isolated, but it would matter if it recurs. Nova / Mobile should confirm a post-incident review captured what happened that week and watch for recurrence.",
       "verdict": "PASS",
       "checks": [
         {
@@ -483,7 +483,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "56 words; names the entity"
+          "detail": "72 words; names the entity"
         }
       ],
       "reasons": []
@@ -491,7 +491,7 @@
     {
       "finding_id": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
       "author": "risk-narrator",
-      "text": "Titan engineering efficiency is declining: build time rose from 12.5 to 15 minutes since week 6, an increase of 20%. Slower feedback loops may reduce how much Titan can ship.",
+      "text": "Titan's build time rose from 12.5 to 15 minutes (+20%) since week 6, a gradual decline in engineering efficiency. Slower feedback loops may reduce how much Titan can ship. No validated explanation is available; the next step is to profile the Titan CI pipeline and compare build time with codebase and team growth.",
       "verdict": "PASS",
       "checks": [
         {
@@ -517,7 +517,7 @@
         {
           "check": "specific",
           "result": "PASS",
-          "detail": "30 words; names the entity"
+          "detail": "53 words; names the entity"
         }
       ],
       "reasons": []

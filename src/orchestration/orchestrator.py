@@ -23,7 +23,7 @@ from src.analysis import (agent02_metrics_analysis, agent03_quality_analysis, ag
 from src.common import envelope
 from src.common.envelope import AGENTS
 from src.config import ROOT, load_json, project_path
-from src.reporting import agent09_dashboard
+from src.reporting import agent09_dashboard, agent10_executive_report
 from src.validation import agent01_data_validation, agent08_evidence_validation
 
 DEPENDENCIES = {
@@ -46,10 +46,11 @@ RUNNERS = {
     "07": agent07_engineering_coach.run,
     "08": agent08_evidence_validation.run,
     "09": agent09_dashboard.run,
+    "10": agent10_executive_report.run,
 }
 # Output agents run after the analysis graph AND its feedback loop, so they only ever see
-# the final validated findings.
-OUTPUT_AGENTS = ["09"]
+# the final validated findings. 10 runs after 09 because it cross-checks the dashboard data.
+OUTPUT_AGENTS = ["09", "10"]
 MAX_FEEDBACK_ROUNDS = 2
 
 
@@ -118,6 +119,7 @@ class Run:
                           + (f", excluded {s['excluded_rejected_findings']}" if s.get("excluded_rejected_findings") else ""),
             "08": lambda: f"verdicts {s['verdicts']}",
             "09": lambda: f"{s['risks']} risks, {s['findings']} findings, narratives: {s['reasoning']} -> {s['data_file']}",
+            "10": lambda: f"{s['slides']} slides, {s['facts']} sourced facts, {s['chart_series']} chart series -> {s['deck']}, {s['report']}",
         }[key]()
 
     def execute(self):
