@@ -29,9 +29,10 @@ synthetic data → 01 validation (gate) → 02 metrics, 03 quality → 04 trends
 → 06 risk → 07 coach → 08 evidence validation → 09 dashboard / 10 report + deck
 ```
 
-Calculations are deterministic Python. LLM reasoning is an optional layer for
-interpretation and narrative. It never affects the numbers, and its output is validated
-like everything else.
+Calculations are deterministic Python. AI reasoning (interpretation and narrative) is
+supplied by Claude Code subagents when you run the pipeline inside Claude Code, using your
+existing Claude login, so no API key is needed. It never affects the numbers, and its
+output is validated like everything else.
 
 ## Agents
 

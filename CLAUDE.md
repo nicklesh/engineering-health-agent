@@ -73,17 +73,21 @@ work around it.
 
 ### Where the "AI" lives (design decision)
 
-Reasoning agents are built as two layers:
+Reasoning agents are built as two layers. **No API key is required.**
 
 1. **Deterministic core (always runs).** Rule-based Python implements every decision rule
-   written in the agent spec. This keeps runs reproducible, idempotent, testable and free
-   to run without an API key.
-2. **Optional LLM layer.** When `ANTHROPIC_API_KEY` is set, an LLM may enrich interpretation
-   and narrative (risk explanations, coaching wording, executive summary). It only ever
-   receives structured, already-computed evidence. It never does arithmetic, and its output
+   written in the agent spec. This keeps runs reproducible, idempotent and testable, and
+   lets the whole pipeline run from a plain terminal.
+2. **Claude Code reasoning layer.** The agent specs are also exposed as Claude Code
+   subagents. When the pipeline runs inside a Claude Code session, Claude adds the
+   interpretation and narrative: risk explanations, coaching wording and the executive
+   summary. It uses the user's existing Claude Code login, so there is no
+   `ANTHROPIC_API_KEY` and no direct API calls from `src/`. Claude only receives structured,
+   already-computed evidence, never does arithmetic, and writes its output to a file that
    goes through the same Evidence Validation agent as everything else.
 
-The final analytical numbers never depend on the LLM layer. Only wording may differ.
+The final analytical numbers never depend on the reasoning layer. Only wording may differ.
+If the reasoning layer has not run, the deterministic wording is used and outputs say so.
 
 ---
 
