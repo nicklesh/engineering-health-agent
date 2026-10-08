@@ -98,6 +98,13 @@ Reasoning agents are built as two layers. **No API key is required.**
 The final analytical numbers never depend on the reasoning layer. Only wording may differ.
 If the reasoning layer has not run, the deterministic wording is used and outputs say so.
 
+Flow: `python run.py brief` writes `data/processed/reasoning/brief.json`, which contains only
+findings that survived validation, with rejected explanations flagged `do_not_use`. The
+subagents write `narratives_<author>.json`, and `python run.py ingest` checks each narrative
+(stale fingerprint, known finding, no new numbers, no causal language, names the entity,
+≤ 90 words). It writes `data/processed/reasoning_layer.json`. Only accepted narratives may
+appear in executive outputs.
+
 ---
 
 ## 3. Operating principles
@@ -223,13 +230,25 @@ Inspect → Design → Implement → Run → Validate → Identify failure → F
 ### Commands
 
 ```bash
-python -m src.data.generate_synthetic_data           # (re)generate raw data — deterministic
-python -m src.data.schema_docs                       # regenerate DATA_DICTIONARY.md
-python -m src.validation.agent01_data_validation     # agents can be run one at a time, in order:
-python -m src.analysis.agent02_metrics_analysis      #   01, 02, 04, 05, 03, 06, 07, 08
-python -m src.validation.agent08_evidence_validation
+python run.py                                        # orchestrated run of agents 01-08
+python run.py --generate                             # regenerate synthetic data first
+python run.py brief                                  # brief for the Claude Code reasoning layer
+python run.py ingest                                 # validate the subagents' narratives
+python -m src.validation.agent01_data_validation     # any agent can also run on its own
 python -m unittest discover -s tests -t . -v         # run all tests
 ```
+
+The full flow including the reasoning layer is the `run-health-pipeline` skill
+(`.claude/skills/run-health-pipeline/SKILL.md`). Its subagents are defined in
+`.claude/agents/` (`risk-narrator`, `engineering-coach-writer`). Subagent output is untrusted
+until `python run.py ingest` accepts it. Never hand-edit a narrative to make it pass.
+
+### Orchestration rules
+- The DAG lives in `src/orchestration/orchestrator.py → DEPENDENCIES`. Layers run in order and agents within a layer run in parallel (04 ∥ 05).
+- Every run starts by deleting previous agent outputs, so stale results can never masquerade as current ones.
+- Agent 01 FAIL → `BLOCKED`, nothing else runs, exit code 1. Agent crash → `ERROR`, dependants skipped, exit code 1.
+- Agent 08 `rerun_requests` → Agent 07 re-runs without the rejected findings, then 08 re-validates (at most 2 rounds).
+- The run log (`output/reports/run_log.json`, git-ignored) is the only place with timestamps.
 
 Every analytical threshold lives in `config/thresholds.json`, and metric semantics (unit,
 polarity, KPI, risk category, definition group) in `config/metrics.json`. Change those, not
@@ -246,9 +265,9 @@ The dashboard is plain HTML/CSS/JS with no build step.
 ## 9. Current status
 
 - [x] Phase 1: foundation (structure, schemas, generator, data dictionary, Phase 1 tests)
-- [x] Phase 2: agents 01–08 (specs + deterministic implementation + tests). The Claude Code reasoning layer is not built yet.
-- [ ] Phase 3: orchestration
-- [ ] Phase 4: full-run validation
+- [x] Phase 2: agents 01–08 (specs + deterministic implementation + tests)
+- [x] Phase 3: orchestration (DAG, parallel layer, gate, crash handling, evidence feedback loop) + Claude Code reasoning layer (brief → subagents → validated narratives)
+- [x] Phase 4: full-run validation (49 tests, including all failure paths)
 - [ ] Phase 5: dashboard
 - [ ] Phase 6: executive report and PowerPoint
 - [ ] Phase 7: architecture and sequence diagrams

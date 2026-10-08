@@ -76,7 +76,10 @@ def priority(risk):
     return "P3"
 
 
-def run():
+def run(exclude=None):
+    """`exclude`: finding ids the Evidence Validation agent rejected. The orchestrator passes
+    them when it re-runs this agent, so no recommendation is built on rejected evidence."""
+    exclude = set(exclude or [])
     risks_env = read_envelope(AGENTS["06"])
     trends = read_envelope(AGENTS["04"])
     quality = read_envelope(AGENTS["03"])
@@ -101,7 +104,7 @@ def run():
         return n
 
     recs = []
-    for risk in [r for r in risks_env["findings"] if r["type"] == "risk"]:
+    for risk in [r for r in risks_env["findings"] if r["type"] == "risk" and r["id"] not in exclude]:
         sid = risk["entity"]
         s = store[sid]
         services = ", ".join(sorted(names[p] for p in s["pairs"]))
@@ -141,9 +144,10 @@ def run():
         })
 
     # Improvements worth copying: teams whose quality is IMPROVING (Agent 03).
-    risk_entities = {r["entity"]: r for r in risks_env["findings"] if r["type"] == "risk" and r["category"] == "Quality"}
+    risk_entities = {r["entity"]: r for r in risks_env["findings"]
+                     if r["type"] == "risk" and r["category"] == "Quality" and r["id"] not in exclude}
     for q in quality["findings"]:
-        if q.get("signal") != "QUALITY_IMPROVING" or not q["dimension"]["scope"].startswith("team:"):
+        if q.get("signal") != "QUALITY_IMPROVING" or not q["dimension"]["scope"].startswith("team:") or q["id"] in exclude:
             continue
         sid = q["dimension"]["scope"]
         s = store[sid]
@@ -171,7 +175,8 @@ def run():
 
     order = {"P1": 0, "P2": 1, "P3": 2}
     recs.sort(key=lambda r: (order[r["priority"]], -r["confidence"]["score"], r["id"]))
-    summary = {"recommendations": len(recs), "by_priority": {p: sum(r["priority"] == p for r in recs) for p in order}}
+    summary = {"recommendations": len(recs), "by_priority": {p: sum(r["priority"] == p for r in recs) for p in order},
+               "excluded_rejected_findings": sorted(exclude)}
     deps = [AGENTS[k] for k in ("01", "03", "04", "06")]
     inputs = [envelope_path(a) for a in deps]
     write_envelope(AGENT, "PASS", deps, inputs, summary, recs)

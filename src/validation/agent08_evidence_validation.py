@@ -39,11 +39,19 @@ HEDGE = re.compile(r"\b(may|might|could|possibl[ey]|associated|potential)\b", re
 TREND_WORDS = re.compile(r"\b(trend|sustained|steadily|consistently|increasingly)\b", re.I)
 
 
+# "cause" after these words is a noun ("identify the root cause"), not a causal claim.
+NOUN_CAUSE = {"a", "an", "the", "root", "one-off", "underlying", "likely", "possible", "probable",
+              "identified", "its", "their", "main", "primary", "any", "no"}
+
+
 def unnegated(pattern, text):
     """Matches of `pattern` that are not preceded (within ~40 chars) by a negation."""
     hits = []
     for m in pattern.finditer(text or ""):
         before = text[max(0, m.start() - 40):m.start()]
+        words = before.lower().split()
+        if m.group(0).lower() == "cause" and words and words[-1] in NOUN_CAUSE:
+            continue
         if not NEGATION.search(before):
             hits.append(m.group(0))
     return hits

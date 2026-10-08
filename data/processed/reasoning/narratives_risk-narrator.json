@@ -1,0 +1,34 @@
+{
+  "brief_fingerprint": "6f25939727da67177b249fb080e77b9587b0a41a1dae378b46ec5ba23017343c",
+  "author": "risk-narrator",
+  "narratives": [
+    {
+      "finding_id": "RISK-ATLAS-ALL-QUALITY",
+      "text": "Atlas quality is deteriorating: test coverage fell from 72% to 63.2% and automated tests from 80.4% to 75.7% since week 8, while defects rose from 6 to 12 and rework rate from 8.3% to 12.8%. More defects may reach users, and more unplanned rework competes with roadmap work. One possibility worth checking is whether falling coverage and automated tests are associated with the defect rise, as coverage changes preceded defect changes by 1 week; this association does not establish causality and is shown only as a possibility."
+    },
+    {
+      "finding_id": "RISK-ALL-DATA-RELIABILITY",
+      "text": "Reliability on the Data platform is deteriorating: change failure rate rose from 5.4% to 27.1%, rollback rate from 1.1% to 25.9%, failed deployments from 0.5 to 6 and incidents from 1 to 5.5. This may mean more failed releases and customer-facing incidents on the affected services. One possibility is deployment-related changes, as incidents attributed to a change in post-incident reviews went from 50% to 80%; the caveat is that this shift is not statistically significant (p=0.097)."
+    },
+    {
+      "finding_id": "RISK-ATLAS-ALL-DELIVERY",
+      "text": "Atlas delivery is slowing: cycle time rose from 3.2 to 4.5 days, lead time from 4.9 to 6.3 days, and PR review time from 10 to 16.5 hours. Planned work may ship later, and delivery commitments are at risk if the trend continues. Possibilities worth checking are the coinciding fall in test coverage and rise in rework rate, both associated with the slower times; these associations do not establish causality and are shown only as possibilities."
+    },
+    {
+      "finding_id": "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY",
+      "text": "Atlas engineering efficiency is declining: average PR size grew from 193 to 245 LOC since week 10, and review latency rose from 3.4 to 4.7 hours since week 9. Slower feedback loops may reduce how much Atlas can ship."
+    },
+    {
+      "finding_id": "RISK-ALL-DATA-SUSTAINABILITY",
+      "text": "On-call load on the Data platform is rising: on-call pages went from 7.5 to 14.5 since week 10, an increase of 93%. A rising on-call burden increases fatigue and attrition risk for the engineers supporting the Data platform."
+    },
+    {
+      "finding_id": "RISK-NOVA-MOBILE-DISRUPTION-W11",
+      "text": "Nova / Mobile had a one-week operational disruption in week 11: CI failure rate reached 41 against an expected 7.25, build time 24.1 against 12.35, CI queue time 15.1 against 4.45, on-call pages 25 against 2, and incidents 5 against 0. The impact is limited if it stays isolated, but it would matter if it recurs."
+    },
+    {
+      "finding_id": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
+      "text": "Titan engineering efficiency is declining: build time rose from 12.5 to 15 minutes since week 6, an increase of 20%. Slower feedback loops may reduce how much Titan can ship."
+    }
+  ]
+}

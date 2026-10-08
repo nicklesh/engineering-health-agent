@@ -15,7 +15,8 @@
       "P1": 4,
       "P2": 2,
       "P3": 2
-    }
+    },
+    "excluded_rejected_findings": []
   },
   "findings": [
     {

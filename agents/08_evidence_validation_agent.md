@@ -49,6 +49,14 @@ Standard findings (CLAUDE.md §4) of types `metric_change`, `trend`, `anomaly`, 
 - **Confidence model** (CLAUDE.md §6): `validated = Σ wᵢ·componentᵢ` with weights completeness 0.20, observations 0.20, consistency 0.25, magnitude 0.15, evidence quality 0.10, validation 0.10 (PASS 1.0, WARN 0.5, REJECT 0).
 - **Re-run requests:** if any recommendation is rejected, `rerun_requests` asks the orchestrator to regenerate Agent 07 without the rejected risks.
 
+## Validating the reasoning layer
+The same principles apply to narratives written by the Claude Code subagents, checked by
+`python run.py ingest` ([src/orchestration/reasoning.py](../src/orchestration/reasoning.py), reusing this agent's causal-language check):
+`stale` (written for a different validation output), `known_finding` (exists and was not rejected),
+`no_new_numbers` (every number appears in that finding's evidence, allowing rounding),
+`no_causal_claim`, and `specific` (names the entity, ≤ 90 words). "Cause" used as a noun
+("identify the root cause") is not a causal claim.
+
 ## Failure conditions
 Any upstream envelope missing or FAILED → the agent refuses to run. This agent never "fixes" a finding: it only labels it and explains why.
 

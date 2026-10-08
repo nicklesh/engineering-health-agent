@@ -4,9 +4,9 @@ A multi-agent pipeline that turns raw (synthetic) engineering metrics into valid
 evidence-backed insights for engineering leadership. It produces an interactive dashboard,
 an executive deck, an executive report and architecture documentation.
 
-> **Status: Phases 1–2 of 8 complete.** Synthetic data and the eight analytical agents
-> (01–08) are built, run and tested. Orchestration, the dashboard, the deck and the diagrams
-> are not built yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
+> **Status: Phases 1–4 of 8 complete.** Synthetic data, the eight analytical agents, the
+> orchestrator and the Claude Code reasoning layer are built, run and tested (49 tests). The
+> dashboard, the deck and the diagrams are not built yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
 
 ## Why it exists
 
@@ -109,21 +109,36 @@ python -m src.data.schema_docs
 
 ### Run the analysis
 
-Until the orchestrator exists (Phase 3), run the agents in dependency order:
-
 ```bash
-python -m src.validation.agent01_data_validation
-python -m src.analysis.agent02_metrics_analysis
-python -m src.analysis.agent04_trend_analysis
-python -m src.analysis.agent05_anomaly_detection
-python -m src.analysis.agent03_quality_analysis
-python -m src.analysis.agent06_risk_analysis
-python -m src.analysis.agent07_engineering_coach
-python -m src.validation.agent08_evidence_validation
+python run.py
 ```
 
+This runs agents 01–08 in dependency order (04 and 05 in parallel) in under a second.
 Outputs land in `data/processed/`, one JSON envelope per agent plus `metric_series.json`.
-To see the validation gate fail, rename `config/known_exceptions.json` and run agent 01.
+A run log goes to `output/reports/run_log.json`. The exit code is 1 if the pipeline is
+blocked or an agent crashes.
+
+**Try the failure paths:**
+- Rename `config/known_exceptions.json` and run again. The data-validation gate FAILs, nothing downstream runs, and the blocking issue is named.
+- Lower `trend.min_effect_sd` in `config/thresholds.json` and watch noise become "trends". Then see which ones Agent 08 still lets through.
+
+### Run the AI reasoning layer (inside Claude Code)
+
+Ask Claude Code to *"run the health pipeline"*, which uses the `run-health-pipeline` skill. Or do it step by step:
+
+```bash
+python run.py brief
+```
+
+Then ask Claude Code to run the `risk-narrator` and `engineering-coach-writer` subagents, and finally validate what they wrote:
+
+```bash
+python run.py ingest
+```
+
+The subagents only write wording. Any narrative that introduces a number not present in the
+evidence, claims a cause, is generic, or was written for older evidence is rejected, and the
+deterministic wording is used instead.
 
 ### Generate dashboard / PowerPoint / diagrams
 
@@ -135,7 +150,14 @@ Not built yet (Phases 5–7).
 python -m unittest discover -s tests -t . -v
 ```
 
-39 tests in two files:
+49 tests in three files:
+- `test_orchestration.py`:
+  - dependency order and parallel layer;
+  - the orchestrated run is byte-identical to a sequential run;
+  - the validation gate blocks and leaves no stale outputs;
+  - an agent crash stops its dependants;
+  - **a forced evidence rejection makes the orchestrator re-run agent 07 and re-validate**;
+  - the reasoning-layer guard rails (new numbers, causal claims, generic text, stale or unknown findings).
 - `test_synthetic_data.py`: generation is deterministic and matches the manifest; rows conform to schemas except the injected issues (and the check provably catches those); aggregates reconcile; each planted signal is visible in the raw data.
 - `test_agents.py`:
   - calculations: percentages, week-over-week, Mann-Kendall, correlation, two-proportion test, and the trend rule on a spike, a ramp and a short shift
@@ -173,6 +195,9 @@ Meaningful failures and how they were fixed.
 | 9 | 2 | Phoenix's escape-rate improvement (17% → 4%) is **still not** called a trend. | It rests on 6 of 36 vs 1 of 24 defects: p = 0.14. | **Not a bug.** Kept the threshold and recorded it in the ground truth as "directional only". A system that reported it as a trend would be overclaiming. |
 | 10 | 2 | A test caught that the "replicate Phoenix's practices" recommendation contained no numbers. | That template was the one place generic advice slipped through. | The action now cites the improvements it is based on. |
 | 11 | 2 | Risk evidence read "5.435 -> 27.059 (+398%)". | Raw floats, and a relative % of a rate exaggerates. | Shared formatter: "5.4% -> 27.1% (+21.6 pp)". Rates use percentage points everywhere, including the severity "large change" rule. |
+| 12 | 3 | The two new subagents could not be called by name. | Claude Code loads `.claude/agents/` when a session starts; they were created mid-session. | In this session they ran as general-purpose agents told to follow their definition files exactly. In a new session they work by name. |
+| 13 | 3 | 1 of 15 subagent narratives was rejected for "causal language". | A **false positive in my validator**: the narrative said "an identified one-off *cause*" (a noun, from my own playbook wording), and the regex could not tell it from the verb. | "cause" after a determiner or adjective ("a / the / root / one-off cause") is treated as a noun. Regression test added. All 15 narratives then passed. |
+| 14 | 3 | A new test failed on a correct narrative. | A bug **in the test**: results were keyed by the first 12 characters, and three narratives began "Data platfor", overwriting each other. | Key by full text. A reminder that test failures need diagnosing, not just fixing. |
 
 ## What I Learned
 
