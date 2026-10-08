@@ -22,6 +22,8 @@ AGENTS = {
     "06": "06_risk_analysis",
     "07": "07_engineering_coach",
     "08": "08_evidence_validation",
+    "09": "09_dashboard_generation",
+    "10": "10_executive_report",
 }
 
 

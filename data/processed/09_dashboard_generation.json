@@ -1,0 +1,62 @@
+{
+  "agent": "09_dashboard_generation",
+  "schema_version": "1.0",
+  "input_fingerprint": "fe86c58c5d4a3dc0a5d3a0ccb6218cac3f7c07903e06eca55e996a9be59de935",
+  "status": "PASS",
+  "depends_on": [
+    "01_data_validation",
+    "02_metrics_analysis",
+    "03_quality_analysis",
+    "04_trend_analysis",
+    "08_evidence_validation"
+  ],
+  "summary": {
+    "risks": 7,
+    "recommendations": 8,
+    "findings": 174,
+    "narratives": 15,
+    "reasoning": "PASS",
+    "records": 2360,
+    "data_file": "dashboard/data/dashboard_data.js",
+    "bytes": 1250492
+  },
+  "findings": [],
+  "errors": [],
+  "consistency_checks": [
+    {
+      "check": "series_match_agent02",
+      "result": "PASS",
+      "detail": "all 560 series identical to metric_series.json"
+    },
+    {
+      "check": "no_rejected_findings",
+      "result": "PASS",
+      "detail": "no rejected finding or reference present"
+    },
+    {
+      "check": "confidence_match_agent08",
+      "result": "PASS",
+      "detail": "all confidences identical to Agent 08"
+    },
+    {
+      "check": "evidence_match_agent08",
+      "result": "PASS",
+      "detail": "all evidence identical to Agent 08"
+    },
+    {
+      "check": "records_resolvable",
+      "result": "PASS",
+      "detail": "every evidence record id resolves to a source record"
+    },
+    {
+      "check": "drilldown_counts_match",
+      "result": "PASS",
+      "detail": "deployment counts equal the records reachable by drill-down"
+    },
+    {
+      "check": "cache_busting",
+      "result": "PASS",
+      "detail": "index.html loads data version 49b174f03d53"
+    }
+  ]
+}

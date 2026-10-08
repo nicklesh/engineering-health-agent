@@ -8,8 +8,10 @@
 import argparse
 import sys
 
+from src.common.envelope import AGENTS
 from src.data import generate_synthetic_data, schema_docs
 from src.orchestration import reasoning
+from src.reporting import agent09_dashboard
 from src.orchestration.orchestrator import run_pipeline
 
 
@@ -41,7 +43,10 @@ def main(argv=None):
     for r in out["narratives"]:
         if r["verdict"] == "REJECT":
             print(f"  REJECT {r['finding_id']} ({r['author']}): {r['reasons'][0]}")
-    return 0
+    # Refresh the outputs so accepted narratives appear (rejected ones never do).
+    s9, _, status = agent09_dashboard.run()
+    print(f"[{AGENTS['09']}] status={status} narratives shown={s9['narratives']}")
+    return 0 if status == "PASS" else 1
 
 
 if __name__ == "__main__":

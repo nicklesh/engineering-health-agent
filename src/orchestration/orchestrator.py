@@ -23,6 +23,7 @@ from src.analysis import (agent02_metrics_analysis, agent03_quality_analysis, ag
 from src.common import envelope
 from src.common.envelope import AGENTS
 from src.config import ROOT, load_json, project_path
+from src.reporting import agent09_dashboard
 from src.validation import agent01_data_validation, agent08_evidence_validation
 
 DEPENDENCIES = {
@@ -44,7 +45,11 @@ RUNNERS = {
     "06": agent06_risk_analysis.run,
     "07": agent07_engineering_coach.run,
     "08": agent08_evidence_validation.run,
+    "09": agent09_dashboard.run,
 }
+# Output agents run after the analysis graph AND its feedback loop, so they only ever see
+# the final validated findings.
+OUTPUT_AGENTS = ["09"]
 MAX_FEEDBACK_ROUNDS = 2
 
 
@@ -112,6 +117,7 @@ class Run:
             "07": lambda: f"{s['recommendations']} recommendations {s['by_priority']}"
                           + (f", excluded {s['excluded_rejected_findings']}" if s.get("excluded_rejected_findings") else ""),
             "08": lambda: f"verdicts {s['verdicts']}",
+            "09": lambda: f"{s['risks']} risks, {s['findings']} findings, narratives: {s['reasoning']} -> {s['data_file']}",
         }[key]()
 
     def execute(self):
@@ -143,6 +149,11 @@ class Run:
                 return self.finish()
 
         self.feedback_loop()
+        for key in OUTPUT_AGENTS:
+            if self.step(key)["status"] in ("FAIL", "ERROR"):
+                self.status = "ERROR"
+                self.echo(f"Pipeline ERROR: {AGENTS[key]} failed its consistency checks - outputs must not be used")
+                return self.finish()
         if self.status == "RUNNING":
             self.status = "PASS"
         return self.finish()

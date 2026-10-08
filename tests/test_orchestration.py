@@ -12,8 +12,9 @@ from unittest import mock
 
 from src.common import envelope
 from src.common.envelope import AGENTS
-from src.config import load_json
+from src.config import ROOT, load_json
 from src.orchestration import orchestrator, reasoning
+from src.reporting import agent09_dashboard
 from src.validation.agent08_evidence_validation import CAUSAL, Checker, unnegated
 from tests.pipeline_helper import shared_run
 
@@ -24,9 +25,16 @@ class OrchestratorCase(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp(prefix="ehis-orch-"))
         envelope.set_processed_dir(self.dir)
+        # Agent 09 writes the dashboard; point it at a temporary copy.
+        self.dash = self.dir / "dashboard"
+        self.dash.mkdir()
+        shutil.copy(ROOT / "dashboard" / "index.html", self.dash / "index.html")
+        self._dash_orig = agent09_dashboard.DASHBOARD_DIR
+        agent09_dashboard.DASHBOARD_DIR = self.dash
 
     def tearDown(self):
         envelope.set_processed_dir(None)
+        agent09_dashboard.DASHBOARD_DIR = self._dash_orig
         shutil.rmtree(self.dir, ignore_errors=True)
 
 
@@ -50,7 +58,10 @@ class TestOrchestratedRun(OrchestratorCase):
         result = orchestrator.run_pipeline(**QUIET)
         self.assertEqual(result["status"], "PASS")
         ref = shared_run()
-        files = sorted(p.name for p in ref.glob("*.json"))
+        # Analytical outputs (agents 01-08 + series) must be byte-identical. Output-agent
+        # envelopes record where they wrote files, which differs between temp directories.
+        files = sorted(p.name for p in ref.glob("*.json") if not p.name.startswith(("09_", "10_")))
+        self.assertTrue((self.dir / f"{AGENTS['09']}.json").exists(), "dashboard generated after validation")
         _, mismatch, errors = filecmp.cmpfiles(ref, self.dir, files, shallow=False)
         self.assertEqual(mismatch + errors, [], "orchestrated and sequential runs must be identical")
 
@@ -82,7 +93,7 @@ class TestOrchestratedRun(OrchestratorCase):
 
         with mock.patch.object(Checker, "risk", strict_risk):
             result = orchestrator.run_pipeline(**QUIET)
-        rounds = [s for s in result["steps"] if s["round"] > 1]
+        rounds = [s for s in result["steps"] if s["round"] > 1 and s["agent"] != AGENTS["09"]]
         self.assertEqual([s["agent"] for s in rounds], [AGENTS["07"], AGENTS["08"]], "07 re-run, then 08 re-validates")
         env08 = load_json(self.dir / f"{AGENTS['08']}.json")
         self.assertEqual(env08["rerun_requests"], [])

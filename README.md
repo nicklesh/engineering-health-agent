@@ -4,9 +4,10 @@ A multi-agent pipeline that turns raw (synthetic) engineering metrics into valid
 evidence-backed insights for engineering leadership. It produces an interactive dashboard,
 an executive deck, an executive report and architecture documentation.
 
-> **Status: Phases 1–4 of 8 complete.** Synthetic data, the eight analytical agents, the
-> orchestrator and the Claude Code reasoning layer are built, run and tested (49 tests). The
-> dashboard, the deck and the diagrams are not built yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
+> **Status: Phases 1–5 of 8 complete.** Synthetic data, the eight analytical agents, the
+> orchestrator, the Claude Code reasoning layer and the interactive dashboard are built, run
+> and tested (53 Python tests + 11 dashboard tests). The deck and the diagrams are not built
+> yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
 
 ## Why it exists
 
@@ -140,9 +141,25 @@ The subagents only write wording. Any narrative that introduces a number not pre
 evidence, claims a cause, is generic, or was written for older evidence is rejected, and the
 deterministic wording is used instead.
 
-### Generate dashboard / PowerPoint / diagrams
+### Open the dashboard
 
-Not built yet (Phases 5–7).
+`python run.py` regenerates it (Agent 09, the last step). Then either open
+`dashboard/index.html` directly in a browser, or serve it:
+
+```bash
+python -m http.server 8765 --directory dashboard
+```
+
+Then browse to http://localhost:8765. Things to try:
+- Click a KPI card, then a metric, a team, a week and a record. That's the full drill-down to the raw CSV row.
+- Use "Why is this flagged?" on a risk to see the evidence, the surviving explanations, the severity arithmetic and the traceability chain.
+- Switch between 4, 8, 12 and 16 weeks, and set the scope to a team or platform.
+
+No build step and no internet connection are needed; fonts fall back to system fonts when offline.
+
+### Generate PowerPoint / diagrams
+
+Not built yet (Phases 6–7).
 
 ## Testing
 
@@ -198,6 +215,14 @@ Meaningful failures and how they were fixed.
 | 12 | 3 | The two new subagents could not be called by name. | Claude Code loads `.claude/agents/` when a session starts; they were created mid-session. | In this session they ran as general-purpose agents told to follow their definition files exactly. In a new session they work by name. |
 | 13 | 3 | 1 of 15 subagent narratives was rejected for "causal language". | A **false positive in my validator**: the narrative said "an identified one-off *cause*" (a noun, from my own playbook wording), and the regex could not tell it from the verb. | "cause" after a determiner or adjective ("a / the / root / one-off cause") is treated as a noun. Regression test added. All 15 narratives then passed. |
 | 14 | 3 | A new test failed on a correct narrative. | A bug **in the test**: results were keyed by the first 12 characters, and three narratives began "Data platfor", overwriting each other. | Key by full text. A reminder that test failures need diagnosing, not just fixing. |
+| 15 | 5 | Trend charts shaded a red "deteriorating window" on organisation cycle time, which is classified STABLE. | Every shifted series gets an onset week, and the chart shaded any series that had one. | Shade only IMPROVING / DETERIORATING series. A chart must never contradict the classification next to it. |
+| 16 | 5 | The y-axis read "3 d, 3 d, 3 d". | Ticks 2.8 / 3.0 / 3.2 were formatted with 0 decimals. | Decimals derived from the tick step. |
+| 17 | 5 | The page scrolled sideways on a phone-width screen. | Grid columns sized to their content (`1fr` without `minmax(0, …)`), and a wide audit table. | `minmax(0, 1fr)` tracks, a one-column layout below 420px, and scroll containers for wide tables. Checked at 272px: no horizontal scroll. |
+| 18 | 5 | The risk severity showed "0 points" in the evidence panel. | Agent 09's field allowlist dropped `severity_points` and `severity_breakdown`. | Added the fields and rendered the arithmetic in words ("4 deteriorating metrics (+4) · … = 7 points → CRITICAL"). |
+| 19 | 5 | After regenerating, the browser kept showing the **old** data. | The browser cached `dashboard_data.js`: the stale-output problem again, this time in the browser. | Agent 09 stamps the script tag with a content hash (`?v=…`), and a consistency check verifies it. |
+| 20 | 5 | When the local server dropped the data request, the page crashed silently. | No guard for missing data. | The page now shows an explicit "data not loaded, run `python run.py`" error instead of a broken or empty view. |
+| 21 | 5 | Accessibility warning: focus stayed inside the closed drawer. | The drawer was hidden from screen readers while it still held keyboard focus. | Focus returns to whatever opened the drawer, and the closed drawer is `inert`. |
+| 22 | 5 | "What improved" listed Titan's deployments and throughput rising, with no context. | They're volume metrics, and Titan grew from 6 to 11 people. That's the same confounder Agent 08 used to reject the build-time explanation. | Volume improvements carry a headcount note. |
 
 ## What I Learned
 
