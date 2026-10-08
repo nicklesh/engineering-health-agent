@@ -1,0 +1,54 @@
+{
+  "_comment": "Documented, human-approved exceptions for data-quality issues. An issue listed here no longer blocks the pipeline, but it is still reported and the stated handling is applied. Source data is never edited. Delete an entry to see the validation gate FAIL.",
+  "exceptions": [
+    {
+      "id": "EXC-001",
+      "rule": "DEP-R01",
+      "dataset": "deployments",
+      "record_id": "DEP-W05-NOVA-SERVICES-002",
+      "handling": "exclude_duplicate",
+      "reason": "Exact duplicate event row. The first occurrence is kept and the copy is excluded from analysis.",
+      "approved_by": "data owner (synthetic exercise)"
+    },
+    {
+      "id": "EXC-002",
+      "rule": "schema",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W06-ORION-SERVICES",
+      "field": "test_coverage_pct",
+      "handling": "treat_as_missing",
+      "reason": "Coverage was not reported this week. The value stays missing; it is not imputed.",
+      "approved_by": "data owner (synthetic exercise)"
+    },
+    {
+      "id": "EXC-003",
+      "rule": "schema",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W04-TITAN-WEB",
+      "field": "ci_failure_rate_pct",
+      "handling": "treat_as_missing",
+      "reason": "112% is impossible for a rate. It is treated as missing, not corrected, because the true value is unknown.",
+      "approved_by": "data owner (synthetic exercise)"
+    },
+    {
+      "id": "EXC-004",
+      "rule": "WM-R02",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W10-PHOENIX-WEB",
+      "field": "deployments",
+      "handling": "use_event_records",
+      "reason": "Weekly total disagrees with successful + failed and with the event log. Deployment metrics are derived from deployments.csv (the event records), so this aggregate column is not used.",
+      "approved_by": "data owner (synthetic exercise)"
+    },
+    {
+      "id": "EXC-005",
+      "rule": "WM-R04",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W10-PHOENIX-WEB",
+      "field": "deployments",
+      "handling": "use_event_records",
+      "reason": "Same root issue as EXC-004, seen by the reconciliation rule.",
+      "approved_by": "data owner (synthetic exercise)"
+    }
+  ]
+}

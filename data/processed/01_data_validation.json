@@ -1,0 +1,238 @@
+{
+  "agent": "01_data_validation",
+  "schema_version": "1.0",
+  "input_fingerprint": "05c6d55ee31273b46745253fd475e63334102a09853c261e77e2755cf94658f0",
+  "status": "WARN",
+  "depends_on": [],
+  "summary": {
+    "data_quality_score": 93.8,
+    "validated_records": 2360,
+    "total_records": 2361,
+    "records_per_dataset": {
+      "services": 10,
+      "weekly_metrics": 160,
+      "deployments": 1506,
+      "incidents": 103,
+      "defects": 582
+    },
+    "counts": {
+      "MAJOR": 4,
+      "CRITICAL": 1
+    },
+    "blocking_issues": [],
+    "issues": 0,
+    "warnings": 5
+  },
+  "findings": [
+    {
+      "id": "DQ|DEP-R01|deployments|DEP-W05-NOVA-SERVICES-002|-|386",
+      "type": "data_quality",
+      "claim": "Duplicate deployment_id (first seen on line 385); rows are exact copies",
+      "severity": "MAJOR",
+      "dimension": {
+        "dataset": "deployments"
+      },
+      "evidence": {
+        "dataset": "deployments",
+        "record_ids": [
+          "DEP-W05-NOVA-SERVICES-002"
+        ],
+        "line": 386,
+        "field": null,
+        "value": null
+      },
+      "rule": "DEP-R01",
+      "exception_id": "EXC-001",
+      "handling": "exclude_duplicate",
+      "produced_by": "01_data_validation"
+    },
+    {
+      "id": "DQ|WM-R02|weekly_metrics|WM-W10-PHOENIX-WEB|deployments|98",
+      "type": "data_quality",
+      "claim": "successful (10) + failed (0) != deployments (12)",
+      "severity": "CRITICAL",
+      "dimension": {
+        "dataset": "weekly_metrics"
+      },
+      "evidence": {
+        "dataset": "weekly_metrics",
+        "record_ids": [
+          "WM-W10-PHOENIX-WEB"
+        ],
+        "line": 98,
+        "field": "deployments",
+        "value": 12
+      },
+      "rule": "WM-R02",
+      "exception_id": "EXC-004",
+      "handling": "use_event_records",
+      "produced_by": "01_data_validation"
+    },
+    {
+      "id": "DQ|WM-R04|weekly_metrics|WM-W10-PHOENIX-WEB|deployments|98",
+      "type": "data_quality",
+      "claim": "Weekly (deployments, failed, rollbacks) = (12, 0, 0) but deployment events give (10, 0, 0)",
+      "severity": "MAJOR",
+      "dimension": {
+        "dataset": "weekly_metrics"
+      },
+      "evidence": {
+        "dataset": "weekly_metrics",
+        "record_ids": [
+          "WM-W10-PHOENIX-WEB"
+        ],
+        "line": 98,
+        "field": "deployments",
+        "value": 12
+      },
+      "rule": "WM-R04",
+      "exception_id": "EXC-005",
+      "handling": "use_event_records",
+      "produced_by": "01_data_validation"
+    },
+    {
+      "id": "DQ|schema|weekly_metrics|WM-W04-TITAN-WEB|ci_failure_rate_pct|41",
+      "type": "data_quality",
+      "claim": "ci_failure_rate_pct: 112.0 is greater than the maximum of 100",
+      "severity": "MAJOR",
+      "dimension": {
+        "dataset": "weekly_metrics"
+      },
+      "evidence": {
+        "dataset": "weekly_metrics",
+        "record_ids": [
+          "WM-W04-TITAN-WEB"
+        ],
+        "line": 41,
+        "field": "ci_failure_rate_pct",
+        "value": 112.0
+      },
+      "rule": "schema",
+      "exception_id": "EXC-003",
+      "handling": "treat_as_missing",
+      "produced_by": "01_data_validation"
+    },
+    {
+      "id": "DQ|schema|weekly_metrics|WM-W06-ORION-SERVICES|test_coverage_pct|57",
+      "type": "data_quality",
+      "claim": "Missing required value 'test_coverage_pct'",
+      "severity": "MAJOR",
+      "dimension": {
+        "dataset": "weekly_metrics"
+      },
+      "evidence": {
+        "dataset": "weekly_metrics",
+        "record_ids": [
+          "WM-W06-ORION-SERVICES"
+        ],
+        "line": 57,
+        "field": "test_coverage_pct",
+        "value": null
+      },
+      "rule": "schema",
+      "exception_id": "EXC-002",
+      "handling": "treat_as_missing",
+      "produced_by": "01_data_validation"
+    }
+  ],
+  "errors": [],
+  "data_quality_score": 93.8,
+  "issues": [],
+  "warnings": [
+    {
+      "id": "DQ|DEP-R01|deployments|DEP-W05-NOVA-SERVICES-002|-|386",
+      "rule": "DEP-R01",
+      "severity": "MAJOR",
+      "dataset": "deployments",
+      "record_id": "DEP-W05-NOVA-SERVICES-002",
+      "field": null,
+      "value": null,
+      "line": 386,
+      "message": "Duplicate deployment_id (first seen on line 385); rows are exact copies",
+      "default_handling": "exclude_duplicate",
+      "exception_id": "EXC-001",
+      "handling": "exclude_duplicate"
+    },
+    {
+      "id": "DQ|WM-R02|weekly_metrics|WM-W10-PHOENIX-WEB|deployments|98",
+      "rule": "WM-R02",
+      "severity": "CRITICAL",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W10-PHOENIX-WEB",
+      "field": "deployments",
+      "value": 12,
+      "line": 98,
+      "message": "successful (10) + failed (0) != deployments (12)",
+      "default_handling": "use_event_records",
+      "exception_id": "EXC-004",
+      "handling": "use_event_records"
+    },
+    {
+      "id": "DQ|WM-R04|weekly_metrics|WM-W10-PHOENIX-WEB|deployments|98",
+      "rule": "WM-R04",
+      "severity": "MAJOR",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W10-PHOENIX-WEB",
+      "field": "deployments",
+      "value": 12,
+      "line": 98,
+      "message": "Weekly (deployments, failed, rollbacks) = (12, 0, 0) but deployment events give (10, 0, 0)",
+      "default_handling": "use_event_records",
+      "exception_id": "EXC-005",
+      "handling": "use_event_records"
+    },
+    {
+      "id": "DQ|schema|weekly_metrics|WM-W04-TITAN-WEB|ci_failure_rate_pct|41",
+      "rule": "schema",
+      "severity": "MAJOR",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W04-TITAN-WEB",
+      "field": "ci_failure_rate_pct",
+      "value": 112.0,
+      "line": 41,
+      "message": "ci_failure_rate_pct: 112.0 is greater than the maximum of 100",
+      "default_handling": "treat_as_missing",
+      "exception_id": "EXC-003",
+      "handling": "treat_as_missing"
+    },
+    {
+      "id": "DQ|schema|weekly_metrics|WM-W06-ORION-SERVICES|test_coverage_pct|57",
+      "rule": "schema",
+      "severity": "MAJOR",
+      "dataset": "weekly_metrics",
+      "record_id": "WM-W06-ORION-SERVICES",
+      "field": "test_coverage_pct",
+      "value": null,
+      "line": 57,
+      "message": "Missing required value 'test_coverage_pct'",
+      "default_handling": "treat_as_missing",
+      "exception_id": "EXC-002",
+      "handling": "treat_as_missing"
+    }
+  ],
+  "validated_records": 2360,
+  "analysis_directives": {
+    "exclude_records": [
+      {
+        "dataset": "deployments",
+        "record_id": "DEP-W05-NOVA-SERVICES-002",
+        "line": 386,
+        "reason": "DQ|DEP-R01|deployments|DEP-W05-NOVA-SERVICES-002|-|386"
+      }
+    ],
+    "null_fields": [
+      {
+        "dataset": "weekly_metrics",
+        "record_id": "WM-W04-TITAN-WEB",
+        "field": "ci_failure_rate_pct",
+        "reason": "DQ|schema|weekly_metrics|WM-W04-TITAN-WEB|ci_failure_rate_pct|41"
+      },
+      {
+        "dataset": "weekly_metrics",
+        "record_id": "WM-W06-ORION-SERVICES",
+        "field": "test_coverage_pct",
+        "reason": "DQ|schema|weekly_metrics|WM-W06-ORION-SERVICES|test_coverage_pct|57"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1229 @@
+{
+  "agent": "03_quality_analysis",
+  "schema_version": "1.0",
+  "input_fingerprint": "802a57eee04bd0a8dea2a93cc7e4d0f0e764a135f82591a438dfdddc983e2e58",
+  "status": "PASS",
+  "depends_on": [
+    "02_metrics_analysis",
+    "04_trend_analysis",
+    "05_anomaly_detection"
+  ],
+  "summary": {
+    "profiles": 9,
+    "status": {
+      "team:Atlas": "DETERIORATING",
+      "team:Nova": "STABLE",
+      "team:Orion": "STABLE",
+      "team:Phoenix": "IMPROVING",
+      "team:Titan": "STABLE",
+      "platform:Data": "STABLE",
+      "platform:Mobile": "IMPROVING",
+      "platform:Services": "STABLE",
+      "platform:Web": "STABLE"
+    },
+    "signals": {
+      "POTENTIAL_LEADING_INDICATOR": 2,
+      "QUALITY_DETERIORATING": 1,
+      "QUALITY_IMPROVING": 2
+    }
+  },
+  "findings": [
+    {
+      "id": "QUA-ATLAS-ALL-STATUS",
+      "type": "quality_signal",
+      "signal": "QUALITY_DETERIORATING",
+      "claim": "Atlas: quality is deteriorating - 4 quality metrics with a qualifying trend (rework rate 8.3% -> 12.8%; defects 6 -> 12; test coverage 72% -> 63.2%; automated tests 80.4% -> 75.7%).",
+      "metrics": [
+        "rework_rate_pct",
+        "defects",
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "TRD-ATLAS-ALL-REWORK_RATE_PCT",
+          "TRD-ATLAS-ALL-DEFECTS",
+          "TRD-ATLAS-ALL-TEST_COVERAGE_PCT",
+          "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT"
+        ],
+        "record_ids": [
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W16-ATLAS-SERVICES",
+          "WM-W16-ATLAS-WEB"
+        ],
+        "values": {
+          "rework_rate_pct": [
+            8.325,
+            12.75
+          ],
+          "defects": [
+            6,
+            12.0
+          ],
+          "test_coverage_pct": [
+            72.05,
+            63.2
+          ],
+          "automated_test_pct": [
+            80.425,
+            75.675
+          ]
+        },
+        "calculation": "count of quality metrics classified DETERIORATING by Agent 04 = 4 (>= 2 and more than the opposite direction)"
+      },
+      "confidence": {
+        "score": 0.92,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.938,
+          "consistency": 0.784,
+          "magnitude": 0.954,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "03_quality_analysis",
+      "related_findings": [
+        "TRD-ATLAS-ALL-REWORK_RATE_PCT",
+        "TRD-ATLAS-ALL-DEFECTS",
+        "TRD-ATLAS-ALL-TEST_COVERAGE_PCT",
+        "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "QUA-ATLAS-ALL-LEAD-TEST_COVERAGE_PCT-DEFECTS",
+      "type": "quality_signal",
+      "signal": "POTENTIAL_LEADING_INDICATOR",
+      "causal_claim": false,
+      "claim": "Atlas: lower test coverage was followed 1 week(s) later by higher defects (r=-0.6492). A potential leading indicator to monitor - an association, not proof that one causes the other.",
+      "metrics": [
+        "test_coverage_pct",
+        "defects"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "team:Atlas",
+          "metric": "test_coverage_pct",
+          "metric_2": "defects",
+          "lag": 1,
+          "weeks": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        },
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES"
+        ],
+        "values": {
+          "1": [
+            71.4,
+            6
+          ],
+          "2": [
+            72.0,
+            7
+          ],
+          "3": [
+            71.9,
+            5
+          ],
+          "4": [
+            72.5,
+            4
+          ],
+          "5": [
+            72.3,
+            14
+          ],
+          "6": [
+            72.1,
+            6
+          ],
+          "7": [
+            72.2,
+            7
+          ],
+          "8": [
+            70.85,
+            6
+          ],
+          "9": [
+            69.4,
+            7
+          ],
+          "10": [
+            68.0,
+            16
+          ],
+          "11": [
+            66.8,
+            11
+          ],
+          "12": [
+            65.65,
+            12
+          ],
+          "13": [
+            64.65,
+            13
+          ],
+          "14": [
+            63.2,
+            12
+          ],
+          "15": [
+            62.6,
+            12
+          ]
+        },
+        "calculation": "Pearson r between test_coverage_pct(t) and defects(t+1) over 15 weeks = -0.6492",
+        "computed": {
+          "r": -0.6492,
+          "lag": 1,
+          "n": 15
+        }
+      },
+      "confidence": {
+        "score": 0.8,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.5,
+          "magnitude": 0.649,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "03_quality_analysis",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "QUA-ATLAS-ALL-LEAD-AUTOMATED_TEST_PCT-DEFECTS",
+      "type": "quality_signal",
+      "signal": "POTENTIAL_LEADING_INDICATOR",
+      "causal_claim": false,
+      "claim": "Atlas: lower automated tests was followed 1 week(s) later by higher defects (r=-0.6317). A potential leading indicator to monitor - an association, not proof that one causes the other.",
+      "metrics": [
+        "automated_test_pct",
+        "defects"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "team:Atlas",
+          "metric": "automated_test_pct",
+          "metric_2": "defects",
+          "lag": 1,
+          "weeks": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        },
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES"
+        ],
+        "values": {
+          "1": [
+            80.9,
+            6
+          ],
+          "2": [
+            80.4,
+            7
+          ],
+          "3": [
+            79.9,
+            5
+          ],
+          "4": [
+            80.95,
+            4
+          ],
+          "5": [
+            80.4,
+            14
+          ],
+          "6": [
+            80.45,
+            6
+          ],
+          "7": [
+            80.6,
+            7
+          ],
+          "8": [
+            79.6,
+            6
+          ],
+          "9": [
+            79.55,
+            7
+          ],
+          "10": [
+            78.9,
+            16
+          ],
+          "11": [
+            77.95,
+            11
+          ],
+          "12": [
+            77.3,
+            12
+          ],
+          "13": [
+            76.05,
+            13
+          ],
+          "14": [
+            76.05,
+            12
+          ],
+          "15": [
+            75.3,
+            12
+          ]
+        },
+        "calculation": "Pearson r between automated_test_pct(t) and defects(t+1) over 15 weeks = -0.6317",
+        "computed": {
+          "r": -0.6317,
+          "lag": 1,
+          "n": 15
+        }
+      },
+      "confidence": {
+        "score": 0.8,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.5,
+          "magnitude": 0.632,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "03_quality_analysis",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "QUA-PHOENIX-ALL-STATUS",
+      "type": "quality_signal",
+      "signal": "QUALITY_IMPROVING",
+      "claim": "Phoenix: quality is improving - 3 quality metrics with a qualifying trend (rework rate 10.8% -> 9.7%; test coverage 64.7% -> 76.6%; automated tests 82.8% -> 91.9%).",
+      "metrics": [
+        "rework_rate_pct",
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "dimension": {
+        "scope": "team:Phoenix",
+        "team": "Phoenix",
+        "platform": null
+      },
+      "weeks": [
+        5,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "TRD-PHOENIX-ALL-REWORK_RATE_PCT",
+          "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT",
+          "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT"
+        ],
+        "record_ids": [
+          "WM-W05-PHOENIX-MOBILE",
+          "WM-W05-PHOENIX-WEB",
+          "WM-W06-PHOENIX-MOBILE",
+          "WM-W06-PHOENIX-WEB",
+          "WM-W07-PHOENIX-MOBILE",
+          "WM-W07-PHOENIX-WEB",
+          "WM-W08-PHOENIX-MOBILE",
+          "WM-W08-PHOENIX-WEB",
+          "WM-W09-PHOENIX-MOBILE",
+          "WM-W09-PHOENIX-WEB",
+          "WM-W10-PHOENIX-MOBILE",
+          "WM-W10-PHOENIX-WEB",
+          "WM-W11-PHOENIX-MOBILE",
+          "WM-W11-PHOENIX-WEB",
+          "WM-W12-PHOENIX-MOBILE",
+          "WM-W12-PHOENIX-WEB",
+          "WM-W13-PHOENIX-MOBILE",
+          "WM-W13-PHOENIX-WEB",
+          "WM-W14-PHOENIX-MOBILE",
+          "WM-W14-PHOENIX-WEB",
+          "WM-W15-PHOENIX-MOBILE",
+          "WM-W15-PHOENIX-WEB",
+          "WM-W16-PHOENIX-MOBILE",
+          "WM-W16-PHOENIX-WEB"
+        ],
+        "values": {
+          "rework_rate_pct": [
+            10.8,
+            9.65
+          ],
+          "test_coverage_pct": [
+            64.675,
+            76.625
+          ],
+          "automated_test_pct": [
+            82.75,
+            91.9
+          ]
+        },
+        "calculation": "count of quality metrics classified IMPROVING by Agent 04 = 3 (>= 2 and more than the opposite direction)"
+      },
+      "confidence": {
+        "score": 0.93,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.958,
+          "consistency": 0.782,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "03_quality_analysis",
+      "related_findings": [
+        "TRD-PHOENIX-ALL-REWORK_RATE_PCT",
+        "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT",
+        "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "QUA-ALL-MOBILE-STATUS",
+      "type": "quality_signal",
+      "signal": "QUALITY_IMPROVING",
+      "claim": "Mobile: quality is improving - 2 quality metrics with a qualifying trend (test coverage 68% -> 73.6%; automated tests 79% -> 83.6%).",
+      "metrics": [
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "dimension": {
+        "scope": "platform:Mobile",
+        "team": null,
+        "platform": "Mobile"
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "TRD-ALL-MOBILE-TEST_COVERAGE_PCT",
+          "TRD-ALL-MOBILE-AUTOMATED_TEST_PCT"
+        ],
+        "record_ids": [
+          "WM-W06-NOVA-MOBILE",
+          "WM-W06-PHOENIX-MOBILE",
+          "WM-W07-NOVA-MOBILE",
+          "WM-W07-PHOENIX-MOBILE",
+          "WM-W08-NOVA-MOBILE",
+          "WM-W08-PHOENIX-MOBILE",
+          "WM-W09-NOVA-MOBILE",
+          "WM-W09-PHOENIX-MOBILE",
+          "WM-W10-NOVA-MOBILE",
+          "WM-W10-PHOENIX-MOBILE",
+          "WM-W11-NOVA-MOBILE",
+          "WM-W11-PHOENIX-MOBILE",
+          "WM-W12-NOVA-MOBILE",
+          "WM-W12-PHOENIX-MOBILE",
+          "WM-W13-NOVA-MOBILE",
+          "WM-W13-PHOENIX-MOBILE",
+          "WM-W14-NOVA-MOBILE",
+          "WM-W14-PHOENIX-MOBILE",
+          "WM-W15-NOVA-MOBILE",
+          "WM-W15-PHOENIX-MOBILE",
+          "WM-W16-NOVA-MOBILE",
+          "WM-W16-PHOENIX-MOBILE"
+        ],
+        "values": {
+          "test_coverage_pct": [
+            68.0,
+            73.575
+          ],
+          "automated_test_pct": [
+            79.025,
+            83.575
+          ]
+        },
+        "calculation": "count of quality metrics classified IMPROVING by Agent 04 = 2 (>= 2 and more than the opposite direction)"
+      },
+      "confidence": {
+        "score": 0.92,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.725,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "03_quality_analysis",
+      "related_findings": [
+        "TRD-ALL-MOBILE-TEST_COVERAGE_PCT",
+        "TRD-ALL-MOBILE-AUTOMATED_TEST_PCT"
+      ],
+      "validation": null
+    }
+  ],
+  "errors": [],
+  "quality_profiles": {
+    "team:Atlas": {
+      "scope": "team:Atlas",
+      "label": "Atlas",
+      "status": "DETERIORATING",
+      "improving": [],
+      "deteriorating": [
+        "rework_rate_pct",
+        "defects",
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 7.0,
+        "high_severity_share_pct": 23.8,
+        "escaped_defect_rate_pct": 23.81,
+        "escaped_defect_rate_pct_counts": [
+          10,
+          42
+        ],
+        "regression_rate_pct": 11.9,
+        "regression_rate_pct_counts": [
+          5,
+          42
+        ],
+        "change_failure_rate_pct": 4.84,
+        "change_failure_rate_pct_counts": [
+          6,
+          124
+        ],
+        "test_coverage_pct": 72.03,
+        "automated_test_pct": 80.5
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 12.25,
+        "high_severity_share_pct": 28.6,
+        "escaped_defect_rate_pct": 18.37,
+        "escaped_defect_rate_pct_counts": [
+          9,
+          49
+        ],
+        "regression_rate_pct": 28.57,
+        "regression_rate_pct_counts": [
+          14,
+          49
+        ],
+        "change_failure_rate_pct": 3.8,
+        "change_failure_rate_pct_counts": [
+          3,
+          79
+        ],
+        "test_coverage_pct": 62.75,
+        "automated_test_pct": 75.42
+      },
+      "change": {
+        "defects_per_week": 5.25,
+        "high_severity_share_pct": 4.8,
+        "escaped_defect_rate_pct": -5.44,
+        "regression_rate_pct": 16.67,
+        "change_failure_rate_pct": -1.04,
+        "test_coverage_pct": -9.28,
+        "automated_test_pct": -5.08
+      }
+    },
+    "team:Nova": {
+      "scope": "team:Nova",
+      "label": "Nova",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 6.5,
+        "high_severity_share_pct": 28.2,
+        "escaped_defect_rate_pct": 7.69,
+        "escaped_defect_rate_pct_counts": [
+          3,
+          39
+        ],
+        "regression_rate_pct": 15.38,
+        "regression_rate_pct_counts": [
+          6,
+          39
+        ],
+        "change_failure_rate_pct": 2.54,
+        "change_failure_rate_pct_counts": [
+          3,
+          118
+        ],
+        "test_coverage_pct": 74.04,
+        "automated_test_pct": 74.43
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 6.25,
+        "high_severity_share_pct": 32.0,
+        "escaped_defect_rate_pct": 12.0,
+        "escaped_defect_rate_pct_counts": [
+          3,
+          25
+        ],
+        "regression_rate_pct": 12.0,
+        "regression_rate_pct_counts": [
+          3,
+          25
+        ],
+        "change_failure_rate_pct": 6.58,
+        "change_failure_rate_pct_counts": [
+          5,
+          76
+        ],
+        "test_coverage_pct": 73.89,
+        "automated_test_pct": 74.56
+      },
+      "change": {
+        "defects_per_week": -0.25,
+        "high_severity_share_pct": 3.8,
+        "escaped_defect_rate_pct": 4.31,
+        "regression_rate_pct": -3.38,
+        "change_failure_rate_pct": 4.04,
+        "test_coverage_pct": -0.15,
+        "automated_test_pct": 0.13
+      }
+    },
+    "team:Orion": {
+      "scope": "team:Orion",
+      "label": "Orion",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 6.17,
+        "high_severity_share_pct": 13.5,
+        "escaped_defect_rate_pct": 2.7,
+        "escaped_defect_rate_pct_counts": [
+          1,
+          37
+        ],
+        "regression_rate_pct": 18.92,
+        "regression_rate_pct_counts": [
+          7,
+          37
+        ],
+        "change_failure_rate_pct": 7.95,
+        "change_failure_rate_pct_counts": [
+          7,
+          88
+        ],
+        "test_coverage_pct": 70.25,
+        "automated_test_pct": 75.89
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 6.25,
+        "high_severity_share_pct": 20.0,
+        "escaped_defect_rate_pct": 8.0,
+        "escaped_defect_rate_pct_counts": [
+          2,
+          25
+        ],
+        "regression_rate_pct": 20.0,
+        "regression_rate_pct_counts": [
+          5,
+          25
+        ],
+        "change_failure_rate_pct": 18.46,
+        "change_failure_rate_pct_counts": [
+          12,
+          65
+        ],
+        "test_coverage_pct": 70.65,
+        "automated_test_pct": 75.61
+      },
+      "change": {
+        "defects_per_week": 0.08,
+        "high_severity_share_pct": 6.5,
+        "escaped_defect_rate_pct": 5.3,
+        "regression_rate_pct": 1.08,
+        "change_failure_rate_pct": 10.51,
+        "test_coverage_pct": 0.4,
+        "automated_test_pct": -0.28
+      }
+    },
+    "team:Phoenix": {
+      "scope": "team:Phoenix",
+      "label": "Phoenix",
+      "status": "IMPROVING",
+      "improving": [
+        "rework_rate_pct",
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 6.0,
+        "high_severity_share_pct": 33.3,
+        "escaped_defect_rate_pct": 16.67,
+        "escaped_defect_rate_pct_counts": [
+          6,
+          36
+        ],
+        "regression_rate_pct": 19.44,
+        "regression_rate_pct_counts": [
+          7,
+          36
+        ],
+        "change_failure_rate_pct": 5.41,
+        "change_failure_rate_pct_counts": [
+          6,
+          111
+        ],
+        "test_coverage_pct": 65.25,
+        "automated_test_pct": 82.88
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 6.0,
+        "high_severity_share_pct": 29.2,
+        "escaped_defect_rate_pct": 4.17,
+        "escaped_defect_rate_pct_counts": [
+          1,
+          24
+        ],
+        "regression_rate_pct": 12.5,
+        "regression_rate_pct_counts": [
+          3,
+          24
+        ],
+        "change_failure_rate_pct": 0.0,
+        "change_failure_rate_pct_counts": [
+          0,
+          74
+        ],
+        "test_coverage_pct": 76.5,
+        "automated_test_pct": 91.96
+      },
+      "change": {
+        "defects_per_week": 0.0,
+        "high_severity_share_pct": -4.1,
+        "escaped_defect_rate_pct": -12.5,
+        "regression_rate_pct": -6.94,
+        "change_failure_rate_pct": -5.41,
+        "test_coverage_pct": 11.25,
+        "automated_test_pct": 9.08
+      }
+    },
+    "team:Titan": {
+      "scope": "team:Titan",
+      "label": "Titan",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 7.33,
+        "high_severity_share_pct": 22.7,
+        "escaped_defect_rate_pct": 25.0,
+        "escaped_defect_rate_pct_counts": [
+          11,
+          44
+        ],
+        "regression_rate_pct": 11.36,
+        "regression_rate_pct_counts": [
+          5,
+          44
+        ],
+        "change_failure_rate_pct": 2.97,
+        "change_failure_rate_pct_counts": [
+          3,
+          101
+        ],
+        "test_coverage_pct": 74.89,
+        "automated_test_pct": 79.82
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 8.0,
+        "high_severity_share_pct": 37.5,
+        "escaped_defect_rate_pct": 25.0,
+        "escaped_defect_rate_pct_counts": [
+          8,
+          32
+        ],
+        "regression_rate_pct": 12.5,
+        "regression_rate_pct_counts": [
+          4,
+          32
+        ],
+        "change_failure_rate_pct": 17.31,
+        "change_failure_rate_pct_counts": [
+          18,
+          104
+        ],
+        "test_coverage_pct": 74.59,
+        "automated_test_pct": 79.78
+      },
+      "change": {
+        "defects_per_week": 0.67,
+        "high_severity_share_pct": 14.8,
+        "escaped_defect_rate_pct": 0.0,
+        "regression_rate_pct": 1.14,
+        "change_failure_rate_pct": 14.34,
+        "test_coverage_pct": -0.3,
+        "automated_test_pct": -0.04
+      }
+    },
+    "platform:Data": {
+      "scope": "platform:Data",
+      "label": "Data",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 6.67,
+        "high_severity_share_pct": 22.5,
+        "escaped_defect_rate_pct": 15.0,
+        "escaped_defect_rate_pct_counts": [
+          6,
+          40
+        ],
+        "regression_rate_pct": 7.5,
+        "regression_rate_pct_counts": [
+          3,
+          40
+        ],
+        "change_failure_rate_pct": 5.43,
+        "change_failure_rate_pct_counts": [
+          5,
+          92
+        ],
+        "test_coverage_pct": 72.97,
+        "automated_test_pct": 75.85
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 5.25,
+        "high_severity_share_pct": 33.3,
+        "escaped_defect_rate_pct": 19.05,
+        "escaped_defect_rate_pct_counts": [
+          4,
+          21
+        ],
+        "regression_rate_pct": 9.52,
+        "regression_rate_pct_counts": [
+          2,
+          21
+        ],
+        "change_failure_rate_pct": 27.06,
+        "change_failure_rate_pct_counts": [
+          23,
+          85
+        ],
+        "test_coverage_pct": 73.1,
+        "automated_test_pct": 75.65
+      },
+      "change": {
+        "defects_per_week": -1.42,
+        "high_severity_share_pct": 10.8,
+        "escaped_defect_rate_pct": 4.05,
+        "regression_rate_pct": 2.02,
+        "change_failure_rate_pct": 21.63,
+        "test_coverage_pct": 0.13,
+        "automated_test_pct": -0.2
+      }
+    },
+    "platform:Mobile": {
+      "scope": "platform:Mobile",
+      "label": "Mobile",
+      "status": "IMPROVING",
+      "improving": [
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 5.83,
+        "high_severity_share_pct": 31.4,
+        "escaped_defect_rate_pct": 14.29,
+        "escaped_defect_rate_pct_counts": [
+          5,
+          35
+        ],
+        "regression_rate_pct": 17.14,
+        "regression_rate_pct_counts": [
+          6,
+          35
+        ],
+        "change_failure_rate_pct": 2.59,
+        "change_failure_rate_pct_counts": [
+          3,
+          116
+        ],
+        "test_coverage_pct": 68.33,
+        "automated_test_pct": 79.04
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 7.25,
+        "high_severity_share_pct": 34.5,
+        "escaped_defect_rate_pct": 3.45,
+        "escaped_defect_rate_pct_counts": [
+          1,
+          29
+        ],
+        "regression_rate_pct": 6.9,
+        "regression_rate_pct_counts": [
+          2,
+          29
+        ],
+        "change_failure_rate_pct": 3.85,
+        "change_failure_rate_pct_counts": [
+          3,
+          78
+        ],
+        "test_coverage_pct": 73.69,
+        "automated_test_pct": 83.53
+      },
+      "change": {
+        "defects_per_week": 1.42,
+        "high_severity_share_pct": 3.1,
+        "escaped_defect_rate_pct": -10.84,
+        "regression_rate_pct": -10.24,
+        "change_failure_rate_pct": 1.26,
+        "test_coverage_pct": 5.36,
+        "automated_test_pct": 4.49
+      }
+    },
+    "platform:Services": {
+      "scope": "platform:Services",
+      "label": "Services",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [
+        "rework_rate_pct"
+      ],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 10.33,
+        "high_severity_share_pct": 19.4,
+        "escaped_defect_rate_pct": 8.06,
+        "escaped_defect_rate_pct_counts": [
+          5,
+          62
+        ],
+        "regression_rate_pct": 20.97,
+        "regression_rate_pct_counts": [
+          13,
+          62
+        ],
+        "change_failure_rate_pct": 5.66,
+        "change_failure_rate_pct_counts": [
+          9,
+          159
+        ],
+        "test_coverage_pct": 74.34,
+        "automated_test_pct": 76.76
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 11.25,
+        "high_severity_share_pct": 22.2,
+        "escaped_defect_rate_pct": 15.56,
+        "escaped_defect_rate_pct_counts": [
+          7,
+          45
+        ],
+        "regression_rate_pct": 24.44,
+        "regression_rate_pct_counts": [
+          11,
+          45
+        ],
+        "change_failure_rate_pct": 6.48,
+        "change_failure_rate_pct_counts": [
+          7,
+          108
+        ],
+        "test_coverage_pct": 71.44,
+        "automated_test_pct": 75.07
+      },
+      "change": {
+        "defects_per_week": 0.92,
+        "high_severity_share_pct": 2.8,
+        "escaped_defect_rate_pct": 7.5,
+        "regression_rate_pct": 3.47,
+        "change_failure_rate_pct": 0.82,
+        "test_coverage_pct": -2.9,
+        "automated_test_pct": -1.69
+      }
+    },
+    "platform:Web": {
+      "scope": "platform:Web",
+      "label": "Web",
+      "status": "STABLE",
+      "improving": [],
+      "deteriorating": [],
+      "quality_anomalies": [],
+      "baseline": {
+        "weeks": [
+          1,
+          6
+        ],
+        "defects_per_week": 10.17,
+        "high_severity_share_pct": 26.2,
+        "escaped_defect_rate_pct": 24.59,
+        "escaped_defect_rate_pct_counts": [
+          15,
+          61
+        ],
+        "regression_rate_pct": 13.11,
+        "regression_rate_pct_counts": [
+          8,
+          61
+        ],
+        "change_failure_rate_pct": 4.57,
+        "change_failure_rate_pct_counts": [
+          8,
+          175
+        ],
+        "test_coverage_pct": 69.01,
+        "automated_test_pct": 82.33
+      },
+      "recent": {
+        "weeks": [
+          13,
+          16
+        ],
+        "defects_per_week": 15.0,
+        "high_severity_share_pct": 31.7,
+        "escaped_defect_rate_pct": 18.33,
+        "escaped_defect_rate_pct_counts": [
+          11,
+          60
+        ],
+        "regression_rate_pct": 23.33,
+        "regression_rate_pct_counts": [
+          14,
+          60
+        ],
+        "change_failure_rate_pct": 3.94,
+        "change_failure_rate_pct_counts": [
+          5,
+          127
+        ],
+        "test_coverage_pct": 69.62,
+        "automated_test_pct": 83.71
+      },
+      "change": {
+        "defects_per_week": 4.83,
+        "high_severity_share_pct": 5.5,
+        "escaped_defect_rate_pct": -6.26,
+        "regression_rate_pct": 10.22,
+        "change_failure_rate_pct": -0.63,
+        "test_coverage_pct": 0.61,
+        "automated_test_pct": 1.38
+      }
+    }
+  }
+}

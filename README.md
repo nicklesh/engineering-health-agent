@@ -4,9 +4,9 @@ A multi-agent pipeline that turns raw (synthetic) engineering metrics into valid
 evidence-backed insights for engineering leadership. It produces an interactive dashboard,
 an executive deck, an executive report and architecture documentation.
 
-> **Status: Phase 1 of 8 complete.** The foundation, schemas, synthetic data and data tests
-> are built and running. The agents, dashboard and deck are not built yet. See
-> [CLAUDE.md §9](CLAUDE.md#9-current-status).
+> **Status: Phases 1–2 of 8 complete.** Synthetic data and the eight analytical agents
+> (01–08) are built, run and tested. Orchestration, the dashboard, the deck and the diagrams
+> are not built yet. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
 
 ## Why it exists
 
@@ -36,8 +36,20 @@ output is validated like everything else.
 
 ## Agents
 
-Specifications will live in [`agents/`](agents/) (Phase 2). Responsibilities are listed in
-[CLAUDE.md](CLAUDE.md#agents).
+Each agent has a specification in [`agents/`](agents/): purpose, responsibilities, inputs,
+outputs, schemas, decision rules, failure conditions, validation rules, dependencies and a
+real example. Code lives in `src/validation/` (01, 08) and `src/analysis/` (02–07).
+
+| Agent | What it decided on this dataset |
+|---|---|
+| 01 Data Validation | Caught all 4 planted data defects. **FAILs** without approved exceptions; WARN (score 93.8) with them |
+| 02 Metrics Analysis | 20 scopes × 28 metrics × 16 weeks, each point traceable to source records |
+| 04 Trend Analysis | Atlas deteriorating, Data platform deteriorating, Phoenix improving; the week-11 spike is *not* a trend |
+| 05 Anomaly Detection | Nova/Mobile week 11 across 5 metrics, plus 4 marginal detections |
+| 03 Quality Analysis | Atlas quality deteriorating, Phoenix improving; coverage leads defects by 1 week at Atlas (association) |
+| 06 Risk Analysis | 7 risks (2 critical) and 11 candidate explanations |
+| 07 Engineering Coach | 8 recommendations with owners, priorities and measurable targets |
+| 08 Evidence Validation | 291 findings checked: 276 PASS, 11 WARN, 4 REJECT, including the misleading Titan correlation |
 
 ## Data model
 
@@ -95,9 +107,27 @@ equally structured dataset.
 python -m src.data.schema_docs
 ```
 
-### Run analysis / generate dashboard / generate PowerPoint / regenerate diagrams
+### Run the analysis
 
-Not built yet (Phases 2–7).
+Until the orchestrator exists (Phase 3), run the agents in dependency order:
+
+```bash
+python -m src.validation.agent01_data_validation
+python -m src.analysis.agent02_metrics_analysis
+python -m src.analysis.agent04_trend_analysis
+python -m src.analysis.agent05_anomaly_detection
+python -m src.analysis.agent03_quality_analysis
+python -m src.analysis.agent06_risk_analysis
+python -m src.analysis.agent07_engineering_coach
+python -m src.validation.agent08_evidence_validation
+```
+
+Outputs land in `data/processed/`, one JSON envelope per agent plus `metric_series.json`.
+To see the validation gate fail, rename `config/known_exceptions.json` and run agent 01.
+
+### Generate dashboard / PowerPoint / diagrams
+
+Not built yet (Phases 5–7).
 
 ## Testing
 
@@ -105,11 +135,14 @@ Not built yet (Phases 2–7).
 python -m unittest discover -s tests -t . -v
 ```
 
-Phase 1 tests check that:
-- generation is deterministic and the raw files match the manifest
-- every row conforms to its schema **except** the injected issues, and the schema check actually catches them (so the test cannot pass vacuously)
-- weekly deployment totals reconcile with deployment events, apart from the injected mismatches
-- each planted signal is visible in the raw data
+39 tests in two files:
+- `test_synthetic_data.py`: generation is deterministic and matches the manifest; rows conform to schemas except the injected issues (and the check provably catches those); aggregates reconcile; each planted signal is visible in the raw data.
+- `test_agents.py`:
+  - calculations: percentages, week-over-week, Mann-Kendall, correlation, two-proportion test, and the trend rule on a spike, a ramp and a short shift
+  - each agent's output against the ground truth
+  - failure handling: missing dependency, validation FAIL blocking downstream, missing file, bad date
+  - **the evidence validator rejecting deliberately broken findings**
+  - idempotency: two full runs are byte-identical
 
 ## Limitations
 
@@ -131,6 +164,15 @@ Meaningful failures and how they were fixed.
 |---|---|---|---|---|
 | 1 | 1 | The Data-platform incident trend (signal 2) was too weak: 7 incidents in week 15, then 0 in week 16, the "current" week. | The planted rate increase was small relative to Poisson noise. | Raised the planted incident and deployment-failure rates. |
 | 2 | 1 | After the fix, week 16 still showed 0 Data incidents (about a 1-in-1,000 chance at the new rate). | Deployments, incidents, defects and weekly metrics shared **one random stream per row**. Changing the deployment logic shifted every later draw, so signals were coupled by accident. | Gave each record type its own seeded stream. Signals are now independent, and tuning one cannot silently change another. |
+| 3 | 2 | Agent 01 reported the missing coverage value twice. | Both my explicit missing-value check and jsonschema's `required` rule fired. | Skipped jsonschema's `required` errors; the explicit check gives a clearer message. |
+| 4 | 2 | The top correlations were "success rate vs change-failure rate" (r = 1.0), which crowded out the real Titan throughput ↔ build time pair. | Those metrics are linked **by definition** (they sum to 100%); their correlation is guaranteed and meaningless. | Added `definition_group` to the metric catalog and never pair metrics within a group; context metrics (headcount) are used as common-driver controls instead of being paired. |
+| 5 | 2 | Phoenix's improving deployment success and escape rate were not detected. | Weekly rates from about 9 deployments or 3 defects swing 0–38% on noise alone; success rate near 100% barely moves in relative terms. | Rates are judged in percentage points on pooled counts. |
+| 6 | 2 | Fix #5 first used a rolling 4-week pooled rate with Mann-Kendall, and Nova and Orion suddenly showed "deteriorating" rates that were never planted. | **Overlapping windows are autocorrelated**: neighbouring points share 3 of 4 weeks, so a test that assumes independence becomes overconfident and finds trends in noise. | Replaced it with a two-proportion z-test on baseline vs recent pooled counts. False positives disappeared. |
+| 7 | 2 | Agent 05 reported 96 anomalies with z-scores around 10¹⁰. | A local median failure rate of 0% gave a noise estimate of 0, so any single failure became an "infinite" spike. MTTR averaged over one incident did the same. | Binomial test for rates, minimum event counts, and no anomaly testing of single-incident MTTR. Result: 9 anomalies, 5 of them the planted spike. |
+| 8 | 2 | Risk attribution oscillated: first the Data platform problem was split into team risks, then Atlas's cycle time was pulled into a "Services platform" risk by another team's +7% noise. | My "does another team contribute?" rule was too strict, then too lenient. | A contributing team must show the full magnitude and a consistent direction, with the noise bar scaled by √(teams on the platform), because each team's slice holds 1/n of the events. |
+| 9 | 2 | Phoenix's escape-rate improvement (17% → 4%) is **still not** called a trend. | It rests on 6 of 36 vs 1 of 24 defects: p = 0.14. | **Not a bug.** Kept the threshold and recorded it in the ground truth as "directional only". A system that reported it as a trend would be overclaiming. |
+| 10 | 2 | A test caught that the "replicate Phoenix's practices" recommendation contained no numbers. | That template was the one place generic advice slipped through. | The action now cites the improvements it is based on. |
+| 11 | 2 | Risk evidence read "5.435 -> 27.059 (+398%)". | Raw floats, and a relative % of a rate exaggerates. | Shared formatter: "5.4% -> 27.1% (+21.6 pp)". Rates use percentage points everywhere, including the severity "large change" rule. |
 
 ## What I Learned
 

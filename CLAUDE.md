@@ -32,25 +32,34 @@ customer information. Every team and service name in `config/org.json` is fictio
 ```
 config/ ──► src/data/generate_synthetic_data.py ──► data/raw/*.csv (+ MANIFEST.json)
                                                         │
-                                   01 Data Validation ◄─┘   (gate: FAIL stops the run)
-                                                        │
-                            ┌───────── Orchestrator (src/orchestration) ─────────┐
-                            │  02 Metrics ─┬─► 04 Trends ─┐                      │
-                            │              ├─► 05 Anomalies├─► 06 Risk ─► 07 Coach │
-                            │  03 Quality ─┘               ┘                      │
-                            └──────────────────────────┬──────────────────────────┘
+              config/known_exceptions.json ──► 01 Data Validation   (gate: FAIL stops the run)
+                                                        │ analysis_directives
                                                         ▼
-                                   08 Evidence Validation (PASS / WARN / REJECT)
-                                                        │   REJECT → finding removed;
-                                                        │   affected agent may be re-run
+                                                02 Metrics Analysis ──► metric_series.json
+                                                        │
+                                        ┌───────────────┴───────────────┐
+                                        ▼                               ▼
+                                 04 Trend Analysis             05 Anomaly Detection   (independent, parallel)
+                                        └───────────────┬───────────────┘
+                                                        ▼
+                                               03 Quality Analysis   (reuses 04/05 classifications)
+                                                        ▼
+                                               06 Risk Analysis      (recall-oriented: proposes risks + hypotheses)
+                                                        ▼
+                                               07 Engineering Coach
+                                                        ▼
+                                          08 Evidence Validation     (precision-oriented critic: PASS / WARN / REJECT)
+                                                        │  REJECT cascades; rerun_requests -> orchestrator re-runs 07
                               ┌─────────────────────────┼─────────────────────────┐
                               ▼                         ▼                         ▼
                      09 Dashboard              10 Executive report           Diagrams
                      (dashboard/)              + deck (output/)              (output/diagrams)
 ```
 
-The diagrams in `output/diagrams/` are the authoritative version. They are generated from
-the real implementation in Phase 7. Update this sketch if they diverge.
+Quality (03) runs after Trends (04) and Anomalies (05) on purpose. It reuses their
+classifications rather than re-deciding what counts as a trend, so the two can never
+disagree. The diagrams in `output/diagrams/` are the authoritative version (Phase 7). Update
+this sketch if they diverge.
 
 ### Agents
 
@@ -162,9 +171,12 @@ Rules:
 
 ---
 
-## 6. Confidence model (to be implemented in Phase 2)
+## 6. Confidence model
 
-Confidence is in [0, 1] and is computed, never chosen:
+Confidence is in [0, 1] and is computed, never chosen ([src/validation/confidence.py](src/validation/confidence.py)).
+Analysis agents publish an *analytical* confidence (the first five components, re-weighted to
+sum to 1). Agent 08 publishes the *validated* confidence, which adds the validation component.
+Every finding carries its components, so anyone can recompute the score.
 
 | Component | Weight | Meaning |
 |---|---|---|
@@ -175,7 +187,10 @@ Confidence is in [0, 1] and is computed, never chosen:
 | Evidence quality | 0.10 | Source records are identifiable and recompute to the claimed value |
 | Validation | 0.10 | 1.0 PASS, 0.5 WARN, 0 REJECT (applied by agent 08) |
 
-The exact formulas will live in `src/validation/confidence.py` and be documented in the agent specs.
+Component formulas: completeness = valid points / expected points; observations =
+min(1, n / 8); consistency = share of week-over-week moves in the claimed direction (1.0 for
+an isolated spike that returned); magnitude = min(1, |effect in noise units| / 3);
+evidence quality = 1 when every record resolves.
 
 ---
 
@@ -208,10 +223,17 @@ Inspect → Design → Implement → Run → Validate → Identify failure → F
 ### Commands
 
 ```bash
-python -m src.data.generate_synthetic_data     # (re)generate raw data — deterministic
-python -m src.data.schema_docs                 # regenerate DATA_DICTIONARY.md
-python -m unittest discover -s tests -t . -v   # run all tests
+python -m src.data.generate_synthetic_data           # (re)generate raw data — deterministic
+python -m src.data.schema_docs                       # regenerate DATA_DICTIONARY.md
+python -m src.validation.agent01_data_validation     # agents can be run one at a time, in order:
+python -m src.analysis.agent02_metrics_analysis      #   01, 02, 04, 05, 03, 06, 07, 08
+python -m src.validation.agent08_evidence_validation
+python -m unittest discover -s tests -t . -v         # run all tests
 ```
+
+Every analytical threshold lives in `config/thresholds.json`, and metric semantics (unit,
+polarity, KPI, risk category, definition group) in `config/metrics.json`. Change those, not
+the code, when experimenting.
 
 ### Environment
 
@@ -224,7 +246,7 @@ The dashboard is plain HTML/CSS/JS with no build step.
 ## 9. Current status
 
 - [x] Phase 1: foundation (structure, schemas, generator, data dictionary, Phase 1 tests)
-- [ ] Phase 2: agents 01–08 (specs + implementation + tests)
+- [x] Phase 2: agents 01–08 (specs + deterministic implementation + tests). The Claude Code reasoning layer is not built yet.
 - [ ] Phase 3: orchestration
 - [ ] Phase 4: full-run validation
 - [ ] Phase 5: dashboard

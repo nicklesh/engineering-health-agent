@@ -1,0 +1,78 @@
+{
+  "_comment": "Every analytical threshold lives here so it can be inspected and experimented with. The agent specs in agents/ explain what each one means.",
+  "data_validation": {
+    "min_quality_score": 80,
+    "score_penalty": {"CRITICAL": 2.0, "MAJOR": 1.0, "MINOR": 0.25}
+  },
+  "metrics_analysis": {
+    "period_weeks": 4,
+    "material_change_pct": 10.0,
+    "health_baseline_weeks": 4,
+    "health_score_at_baseline": 75
+  },
+  "trend": {
+    "min_points": 8,
+    "min_trend_weeks": 5,
+    "min_abs_tau": 0.4,
+    "max_p_value": 0.05,
+    "baseline_weeks": 6,
+    "recent_weeks": 4,
+    "min_change_pct": 10.0,
+    "min_change_pp": 3.0,
+    "ratio_pooling_weeks": 4,
+    "min_effect_sd": 2.0,
+    "persistence_weeks": 3,
+    "onset_share": 0.8,
+    "outlier_z": 3.5,
+    "outlier_window": 2,
+    "max_outliers_for_anomaly": 2,
+    "volatile_robust_cv": 0.35,
+    "low_volume_median": 3
+  },
+  "anomaly": {
+    "window": 3,
+    "min_z": 4.0,
+    "min_relative_change": 0.25,
+    "return_within_sd": 2.0,
+    "min_events": 5,
+    "min_abs_events": 3,
+    "min_events_for_mean": 3
+  },
+  "correlation": {
+    "min_abs_r": 0.8,
+    "top_pairs_per_scope": 5,
+    "confounders": ["team_headcount"],
+    "confounder_min_abs_r": 0.8,
+    "partial_r_explained_below": 0.5
+  },
+  "quality": {
+    "persistent_weeks": 6,
+    "persistent_window": 8,
+    "worse_than_org_pct": 20.0,
+    "lead_max_lag": 3,
+    "lead_min_abs_r": 0.6
+  },
+  "risk": {
+    "severity_points": {
+      "per_deteriorating_metric": 1,
+      "large_change_pct": 30.0,
+      "large_change_pp": 10.0,
+      "large_change_bonus": 1,
+      "tier1_service_bonus": 1,
+      "reliability_impact_bonus": 1
+    },
+    "severity_levels": {"CRITICAL": 6, "HIGH": 4, "MEDIUM": 2, "LOW": 0}
+  },
+  "evidence_validation": {
+    "value_tolerance": 0.011,
+    "confidence_tolerance": 0.05,
+    "high_confidence": 0.8,
+    "min_weeks_for_high_confidence": 5
+  },
+  "confidence": {
+    "weights": {"completeness": 0.20, "observations": 0.20, "consistency": 0.25, "magnitude": 0.15, "evidence_quality": 0.10, "validation": 0.10},
+    "observations_saturation": 8,
+    "magnitude_saturation_sd": 3.0,
+    "validation_factor": {"PASS": 1.0, "WARN": 0.5, "REJECT": 0.0}
+  }
+}

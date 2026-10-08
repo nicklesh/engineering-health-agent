@@ -1,0 +1,454 @@
+{
+  "_comment": "Metric catalog. Every analysed metric is defined here: how it is derived from raw data, its unit, its polarity (which direction is good) and which KPI it rolls into. Agents never hard-code metric semantics.",
+  "_derivation_kinds": {
+    "weekly_field": "Value of a weekly_metrics column. agg=mean averages rows in scope, agg=sum adds them, agg=team_distinct_sum adds each team's value once.",
+    "event_count": "Number of event records in scope matching 'where'.",
+    "event_ratio": "100 * count(numerator) / count(denominator) over event records in scope (pooled, not an average of rates). None when the denominator is 0.",
+    "event_mean": "Mean of an event field over records in scope. None when there are no records."
+  },
+  "metrics": [
+    {
+      "id": "deployments",
+      "label": "Deployments",
+      "unit": "count",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "higher_is_better",
+      "count_metric": true,
+      "risk_category": "Delivery",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "deployments",
+        "where": {}
+      }
+    },
+    {
+      "id": "deployment_success_rate_pct",
+      "label": "Deployment success rate",
+      "unit": "%",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "higher_is_better",
+      "definition_group": "deploy_outcome",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_ratio",
+        "dataset": "deployments",
+        "numerator": {
+          "status": "SUCCESS"
+        },
+        "denominator": {}
+      }
+    },
+    {
+      "id": "change_failure_rate_pct",
+      "label": "Change failure rate",
+      "unit": "%",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "definition_group": "deploy_outcome",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_ratio",
+        "dataset": "deployments",
+        "numerator": {
+          "status": "FAILED"
+        },
+        "denominator": {}
+      }
+    },
+    {
+      "id": "failed_deployments",
+      "label": "Failed deployments",
+      "unit": "count",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "definition_group": "deploy_outcome",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "deployments",
+        "where": {
+          "status": "FAILED"
+        }
+      }
+    },
+    {
+      "id": "rollback_rate_pct",
+      "label": "Rollback rate",
+      "unit": "%",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "lower_is_better",
+      "definition_group": "deploy_outcome",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_ratio",
+        "dataset": "deployments",
+        "numerator": {
+          "rolled_back": true
+        },
+        "denominator": {}
+      }
+    },
+    {
+      "id": "cycle_time_days",
+      "label": "Cycle time",
+      "unit": "days",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "lower_is_better",
+      "definition_group": "flow_time",
+      "risk_category": "Delivery",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "cycle_time_days",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "lead_time_days",
+      "label": "Lead time",
+      "unit": "days",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "lower_is_better",
+      "definition_group": "flow_time",
+      "risk_category": "Delivery",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "lead_time_days",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "throughput_items",
+      "label": "Throughput",
+      "unit": "items",
+      "category": "delivery",
+      "kpi": "delivery",
+      "polarity": "higher_is_better",
+      "count_metric": true,
+      "risk_category": "Delivery",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "throughput_items",
+        "agg": "sum"
+      }
+    },
+    {
+      "id": "pr_count",
+      "label": "PRs merged",
+      "unit": "count",
+      "category": "context",
+      "kpi": null,
+      "polarity": "neutral",
+      "count_metric": true,
+      "risk_category": null,
+      "derive": {
+        "kind": "weekly_field",
+        "field": "pr_count",
+        "agg": "sum"
+      }
+    },
+    {
+      "id": "pr_review_time_hours",
+      "label": "PR review time",
+      "unit": "hours",
+      "category": "code_health",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "definition_group": "review_time",
+      "risk_category": "Delivery",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "pr_review_time_hours",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "review_latency_hours",
+      "label": "Review latency",
+      "unit": "hours",
+      "category": "efficiency",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "definition_group": "review_time",
+      "risk_category": "Engineering efficiency",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "review_latency_hours",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "avg_pr_size_loc",
+      "label": "PR size",
+      "unit": "LOC",
+      "category": "code_health",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "risk_category": "Engineering efficiency",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "avg_pr_size_loc",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "rework_rate_pct",
+      "label": "Rework rate",
+      "unit": "%",
+      "category": "code_health",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "rework_rate_pct",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "defects",
+      "label": "Defects",
+      "unit": "count",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "definition_group": "defect_volume",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "defects",
+        "where": {}
+      }
+    },
+    {
+      "id": "high_severity_defects",
+      "label": "Critical + high defects",
+      "unit": "count",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "definition_group": "defect_volume",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "defects",
+        "where": {
+          "severity": [
+            "CRITICAL",
+            "HIGH"
+          ]
+        }
+      }
+    },
+    {
+      "id": "escaped_defect_rate_pct",
+      "label": "Escaped defect rate",
+      "unit": "%",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "event_ratio",
+        "dataset": "defects",
+        "numerator": {
+          "escaped": true
+        },
+        "denominator": {}
+      }
+    },
+    {
+      "id": "regression_rate_pct",
+      "label": "Regression rate",
+      "unit": "%",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "lower_is_better",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "event_ratio",
+        "dataset": "defects",
+        "numerator": {
+          "regression": true
+        },
+        "denominator": {}
+      }
+    },
+    {
+      "id": "test_coverage_pct",
+      "label": "Test coverage",
+      "unit": "%",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "higher_is_better",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "test_coverage_pct",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "automated_test_pct",
+      "label": "Automated tests",
+      "unit": "%",
+      "category": "quality",
+      "kpi": "quality",
+      "polarity": "higher_is_better",
+      "risk_category": "Quality",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "automated_test_pct",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "incidents",
+      "label": "Incidents",
+      "unit": "count",
+      "category": "reliability",
+      "kpi": "reliability",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "definition_group": "incident_volume",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "incidents",
+        "where": {}
+      }
+    },
+    {
+      "id": "major_incidents",
+      "label": "SEV1 + SEV2 incidents",
+      "unit": "count",
+      "category": "reliability",
+      "kpi": "reliability",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "definition_group": "incident_volume",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "event_count",
+        "dataset": "incidents",
+        "where": {
+          "severity": [
+            "SEV1",
+            "SEV2"
+          ]
+        }
+      }
+    },
+    {
+      "id": "mttr_minutes",
+      "label": "MTTR",
+      "unit": "minutes",
+      "category": "reliability",
+      "kpi": "reliability",
+      "polarity": "lower_is_better",
+      "risk_category": "Operational",
+      "derive": {
+        "kind": "event_mean",
+        "dataset": "incidents",
+        "field": "mttr_minutes"
+      }
+    },
+    {
+      "id": "availability_pct",
+      "label": "Availability",
+      "unit": "%",
+      "category": "reliability",
+      "kpi": "reliability",
+      "polarity": "higher_is_better",
+      "health_transform": "unavailability",
+      "risk_category": "Reliability",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "availability_pct",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "on_call_pages",
+      "label": "On-call pages",
+      "unit": "count",
+      "category": "operational",
+      "kpi": "reliability",
+      "polarity": "lower_is_better",
+      "count_metric": true,
+      "risk_category": "Sustainability",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "on_call_pages",
+        "agg": "sum"
+      }
+    },
+    {
+      "id": "build_time_min",
+      "label": "Build time",
+      "unit": "minutes",
+      "category": "efficiency",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "risk_category": "Engineering efficiency",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "build_time_min",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "ci_failure_rate_pct",
+      "label": "CI failure rate",
+      "unit": "%",
+      "category": "efficiency",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "risk_category": "Engineering efficiency",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "ci_failure_rate_pct",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "queue_time_min",
+      "label": "CI queue time",
+      "unit": "minutes",
+      "category": "efficiency",
+      "kpi": "efficiency",
+      "polarity": "lower_is_better",
+      "risk_category": "Engineering efficiency",
+      "derive": {
+        "kind": "weekly_field",
+        "field": "queue_time_min",
+        "agg": "mean"
+      }
+    },
+    {
+      "id": "team_headcount",
+      "label": "Headcount",
+      "unit": "people",
+      "category": "context",
+      "kpi": null,
+      "polarity": "neutral",
+      "count_metric": false,
+      "risk_category": null,
+      "derive": {
+        "kind": "weekly_field",
+        "field": "team_headcount",
+        "agg": "team_distinct_sum"
+      }
+    }
+  ],
+  "_definition_groups": "Metrics in the same definition_group are arithmetically linked (complements, subsets or one contains the other). Their co-movement is guaranteed, so it is never reported as a correlation."
+}

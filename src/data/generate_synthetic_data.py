@@ -334,7 +334,10 @@ def ground_truth(settings, dq_issues):
             {"id": "SIG-3", "name": "Positive improvement", "team": IMPROVING_TEAM["team"],
              "weeks": [IMPROVING_TEAM["start"], IMPROVING_TEAM["end"]],
              "expected": {"test_coverage_pct": "IMPROVING", "cycle_time_days": "IMPROVING",
-                          "escaped_defect_rate": "IMPROVING", "deployment_success_rate": "IMPROVING"}},
+                          "deployment_success_rate_pct": "IMPROVING",
+                          "escaped_defect_rate_pct": "DIRECTIONAL_ONLY"},
+             "note": "The escape rate falls (about 17% -> 4%) but rests on ~60 defects; it is not statistically "
+                     "significant (p~0.14), so a correct system reports it as directional, not as a trend."},
             {"id": "SIG-4", "name": "Temporary anomaly", "team": ANOMALY["team"], "platform": ANOMALY["platform"],
              "weeks": [ANOMALY["week"], ANOMALY["week"]],
              "expected": {"ci_failure_rate_pct": "ONE_TIME_ANOMALY", "on_call_pages": "ONE_TIME_ANOMALY",

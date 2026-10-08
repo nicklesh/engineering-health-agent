@@ -1,0 +1,1479 @@
+{
+  "agent": "06_risk_analysis",
+  "schema_version": "1.0",
+  "input_fingerprint": "0c4c7206f7098efb8e1e42ec787de8cccc1bf54d9c81bb980dbc4b67558b9429",
+  "status": "PASS",
+  "depends_on": [
+    "01_data_validation",
+    "02_metrics_analysis",
+    "03_quality_analysis",
+    "04_trend_analysis",
+    "05_anomaly_detection"
+  ],
+  "summary": {
+    "risks": 7,
+    "hypotheses": 11,
+    "by_severity": {
+      "CRITICAL": 2,
+      "HIGH": 2,
+      "MEDIUM": 1,
+      "LOW": 2
+    },
+    "by_category": {
+      "Delivery": 1,
+      "Engineering efficiency": 2,
+      "Operational": 1,
+      "Quality": 1,
+      "Reliability": 1,
+      "Sustainability": 1
+    }
+  },
+  "findings": [
+    {
+      "id": "RISK-ATLAS-ALL-QUALITY",
+      "type": "risk",
+      "risk": "Atlas: quality is deteriorating (automated tests, defects, rework rate, test coverage).",
+      "claim": "Atlas: quality is deteriorating (automated tests, defects, rework rate, test coverage).",
+      "category": "Quality",
+      "severity": "CRITICAL",
+      "severity_points": 6,
+      "severity_breakdown": {
+        "deteriorating_metrics": 4,
+        "large_change": [
+          "defects"
+        ],
+        "tier1_service": true
+      },
+      "entity": "team:Atlas",
+      "metrics": [
+        "automated_test_pct",
+        "defects",
+        "rework_rate_pct",
+        "test_coverage_pct"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "evidence": [
+        "Automated tests: 80.4% -> 75.7% (-4.8 pp), trend since week 8 [TRD-ATLAS-ALL-AUTOMATED_TEST_PCT]",
+        "Defects: 6 -> 12 (+100%), trend since week 11 [TRD-ATLAS-ALL-DEFECTS]",
+        "Rework rate: 8.3% -> 12.8% (+4.4 pp), trend since week 6 [TRD-ATLAS-ALL-REWORK_RATE_PCT]",
+        "Test coverage: 72% -> 63.2% (-8.8 pp), trend since week 8 [TRD-ATLAS-ALL-TEST_COVERAGE_PCT]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-SERVICES-REWORK_RATE_PCT",
+        "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT",
+        "TRD-ATLAS-ALL-DEFECTS",
+        "TRD-ATLAS-ALL-REWORK_RATE_PCT",
+        "TRD-ATLAS-ALL-TEST_COVERAGE_PCT",
+        "TRD-ATLAS-SERVICES-AUTOMATED_TEST_PCT",
+        "TRD-ATLAS-SERVICES-REWORK_RATE_PCT",
+        "TRD-ATLAS-SERVICES-TEST_COVERAGE_PCT",
+        "TRD-ATLAS-WEB-AUTOMATED_TEST_PCT",
+        "TRD-ATLAS-WEB-REWORK_RATE_PCT",
+        "TRD-ATLAS-WEB-TEST_COVERAGE_PCT",
+        "QUA-ATLAS-ALL-STATUS"
+      ],
+      "primary_refs": [
+        "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT",
+        "TRD-ATLAS-ALL-DEFECTS",
+        "TRD-ATLAS-ALL-REWORK_RATE_PCT",
+        "TRD-ATLAS-ALL-TEST_COVERAGE_PCT"
+      ],
+      "confidence": {
+        "score": 0.92,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.938,
+          "consistency": 0.784,
+          "magnitude": 0.954,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "More defects reach users and more unplanned rework competes with roadmap work.",
+      "recommended_follow_up": "Check whether the defect increase is concentrated where test coverage fell.",
+      "possible_explanations": [
+        "RISK-ATLAS-ALL-QUALITY-H-PR_REVIEW_TIME_HOURS",
+        "RISK-ATLAS-ALL-QUALITY-H-AUTOMATED_TEST_PCT",
+        "RISK-ATLAS-ALL-QUALITY-H-LEAD-TEST_COVERAGE_PCT",
+        "RISK-ATLAS-ALL-QUALITY-H-LEAD-AUTOMATED_TEST_PCT"
+      ],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 1
+    },
+    {
+      "id": "RISK-ALL-DATA-RELIABILITY",
+      "type": "risk",
+      "risk": "Data: deployment and service reliability is deteriorating (change failure rate, failed deployments, incidents, rollback rate).",
+      "claim": "Data: deployment and service reliability is deteriorating (change failure rate, failed deployments, incidents, rollback rate).",
+      "category": "Reliability",
+      "severity": "CRITICAL",
+      "severity_points": 7,
+      "severity_breakdown": {
+        "deteriorating_metrics": 4,
+        "large_change": [
+          "change_failure_rate_pct",
+          "failed_deployments",
+          "incidents",
+          "rollback_rate_pct"
+        ],
+        "tier1_service": true,
+        "reliability_impact": true
+      },
+      "entity": "platform:Data",
+      "metrics": [
+        "change_failure_rate_pct",
+        "failed_deployments",
+        "incidents",
+        "rollback_rate_pct"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        7,
+        16
+      ],
+      "evidence": [
+        "Change failure rate: 5.4% -> 27.1% (+21.6 pp), trend since week 8 [TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT]",
+        "Failed deployments: 0.5 -> 6 (+1100%), trend since week 11 [TRD-ALL-DATA-FAILED_DEPLOYMENTS]",
+        "Incidents: 1 -> 5.5 (+450%), trend since week 11 [TRD-ALL-DATA-INCIDENTS]",
+        "Rollback rate: 1.1% -> 25.9% (+24.8 pp), trend since week 7 [TRD-ALL-DATA-ROLLBACK_RATE_PCT]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT",
+        "TRD-ALL-DATA-FAILED_DEPLOYMENTS",
+        "TRD-ALL-DATA-INCIDENTS",
+        "TRD-ALL-DATA-ROLLBACK_RATE_PCT",
+        "TRD-ORION-ALL-ROLLBACK_RATE_PCT",
+        "TRD-ORION-DATA-CHANGE_FAILURE_RATE_PCT",
+        "TRD-ORION-DATA-ROLLBACK_RATE_PCT",
+        "TRD-TITAN-ALL-CHANGE_FAILURE_RATE_PCT",
+        "TRD-TITAN-ALL-FAILED_DEPLOYMENTS",
+        "TRD-TITAN-ALL-ROLLBACK_RATE_PCT",
+        "TRD-TITAN-DATA-CHANGE_FAILURE_RATE_PCT",
+        "TRD-TITAN-DATA-FAILED_DEPLOYMENTS",
+        "TRD-TITAN-DATA-ROLLBACK_RATE_PCT"
+      ],
+      "primary_refs": [
+        "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT",
+        "TRD-ALL-DATA-FAILED_DEPLOYMENTS",
+        "TRD-ALL-DATA-INCIDENTS",
+        "TRD-ALL-DATA-ROLLBACK_RATE_PCT"
+      ],
+      "confidence": {
+        "score": 0.89,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.875,
+          "consistency": 0.716,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "More failed releases and customer-facing incidents on the affected services.",
+      "recommended_follow_up": "Review the failed deployments and incidents on the affected platform together.",
+      "possible_explanations": [
+        "RISK-ALL-DATA-RELIABILITY-H-ON_CALL_PAGES",
+        "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED"
+      ],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 2
+    },
+    {
+      "id": "RISK-ATLAS-ALL-DELIVERY",
+      "type": "risk",
+      "risk": "Atlas: delivery is slowing (cycle time, lead time, pr review time).",
+      "claim": "Atlas: delivery is slowing (cycle time, lead time, pr review time).",
+      "category": "Delivery",
+      "severity": "HIGH",
+      "severity_points": 5,
+      "severity_breakdown": {
+        "deteriorating_metrics": 3,
+        "large_change": [
+          "cycle_time_days",
+          "pr_review_time_hours"
+        ],
+        "tier1_service": true
+      },
+      "entity": "team:Atlas",
+      "metrics": [
+        "cycle_time_days",
+        "lead_time_days",
+        "pr_review_time_hours"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        5,
+        16
+      ],
+      "evidence": [
+        "Cycle time: 3.2 days -> 4.5 days (+39%), trend since week 8 [TRD-ATLAS-ALL-CYCLE_TIME_DAYS]",
+        "Lead time: 4.9 days -> 6.3 days (+29%), trend since week 5 [TRD-ATLAS-ALL-LEAD_TIME_DAYS]",
+        "PR review time: 10 hours -> 16.5 hours (+65%), trend since week 8 [TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-SERVICES-CYCLE_TIME_DAYS",
+        "TRD-ALL-SERVICES-LEAD_TIME_DAYS",
+        "TRD-ALL-SERVICES-PR_REVIEW_TIME_HOURS",
+        "TRD-ALL-WEB-CYCLE_TIME_DAYS",
+        "TRD-ALL-WEB-PR_REVIEW_TIME_HOURS",
+        "TRD-ATLAS-ALL-CYCLE_TIME_DAYS",
+        "TRD-ATLAS-ALL-LEAD_TIME_DAYS",
+        "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS",
+        "TRD-ATLAS-SERVICES-CYCLE_TIME_DAYS",
+        "TRD-ATLAS-SERVICES-LEAD_TIME_DAYS",
+        "TRD-ATLAS-SERVICES-PR_REVIEW_TIME_HOURS",
+        "TRD-ATLAS-WEB-CYCLE_TIME_DAYS",
+        "TRD-ATLAS-WEB-LEAD_TIME_DAYS",
+        "TRD-ATLAS-WEB-PR_REVIEW_TIME_HOURS",
+        "QUA-ATLAS-ALL-STATUS"
+      ],
+      "primary_refs": [
+        "TRD-ATLAS-ALL-CYCLE_TIME_DAYS",
+        "TRD-ATLAS-ALL-LEAD_TIME_DAYS",
+        "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS"
+      ],
+      "confidence": {
+        "score": 0.96,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.844,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "Planned work ships later; delivery commitments are at risk if the trend continues.",
+      "recommended_follow_up": "Locate where in the flow (review, build, deploy) the extra time accumulates.",
+      "possible_explanations": [
+        "RISK-ATLAS-ALL-DELIVERY-H-TEST_COVERAGE_PCT",
+        "RISK-ATLAS-ALL-DELIVERY-H-REWORK_RATE_PCT"
+      ],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 3
+    },
+    {
+      "id": "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY",
+      "type": "risk",
+      "risk": "Atlas: engineering efficiency is declining (pr size, review latency).",
+      "claim": "Atlas: engineering efficiency is declining (pr size, review latency).",
+      "category": "Engineering efficiency",
+      "severity": "HIGH",
+      "severity_points": 4,
+      "severity_breakdown": {
+        "deteriorating_metrics": 2,
+        "large_change": [
+          "review_latency_hours"
+        ],
+        "tier1_service": true
+      },
+      "entity": "team:Atlas",
+      "metrics": [
+        "avg_pr_size_loc",
+        "review_latency_hours"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        9,
+        16
+      ],
+      "evidence": [
+        "PR size: 193 LOC -> 245 LOC (+27%), trend since week 10 [TRD-ATLAS-ALL-AVG_PR_SIZE_LOC]",
+        "Review latency: 3.4 hours -> 4.7 hours (+40%), trend since week 9 [TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-WEB-AVG_PR_SIZE_LOC",
+        "TRD-ALL-WEB-REVIEW_LATENCY_HOURS",
+        "TRD-ATLAS-ALL-AVG_PR_SIZE_LOC",
+        "TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS",
+        "TRD-ATLAS-SERVICES-AVG_PR_SIZE_LOC",
+        "TRD-ATLAS-SERVICES-REVIEW_LATENCY_HOURS",
+        "TRD-ATLAS-WEB-AVG_PR_SIZE_LOC",
+        "TRD-ATLAS-WEB-REVIEW_LATENCY_HOURS",
+        "QUA-ATLAS-ALL-STATUS"
+      ],
+      "primary_refs": [
+        "TRD-ATLAS-ALL-AVG_PR_SIZE_LOC",
+        "TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS"
+      ],
+      "confidence": {
+        "score": 0.89,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.938,
+          "consistency": 0.715,
+          "magnitude": 0.885,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "Slower feedback loops reduce how much the team can ship.",
+      "recommended_follow_up": "Profile the CI pipeline and compare with codebase and team growth.",
+      "possible_explanations": [],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 4
+    },
+    {
+      "id": "RISK-ALL-DATA-SUSTAINABILITY",
+      "type": "risk",
+      "risk": "Data: on-call load is rising (on-call pages).",
+      "claim": "Data: on-call load is rising (on-call pages).",
+      "category": "Sustainability",
+      "severity": "MEDIUM",
+      "severity_points": 3,
+      "severity_breakdown": {
+        "deteriorating_metrics": 1,
+        "large_change": [
+          "on_call_pages"
+        ],
+        "tier1_service": true
+      },
+      "entity": "platform:Data",
+      "metrics": [
+        "on_call_pages"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        10,
+        16
+      ],
+      "evidence": [
+        "On-call pages: 7.5 -> 14.5 (+93%), trend since week 10 [TRD-ALL-DATA-ON_CALL_PAGES]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-DATA-ON_CALL_PAGES",
+        "TRD-TITAN-DATA-ON_CALL_PAGES"
+      ],
+      "primary_refs": [
+        "TRD-ALL-DATA-ON_CALL_PAGES"
+      ],
+      "confidence": {
+        "score": 0.83,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.875,
+          "consistency": 0.583,
+          "magnitude": 0.853,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "A rising on-call burden increases fatigue and attrition risk.",
+      "recommended_follow_up": "Review on-call page volume and actionability.",
+      "possible_explanations": [
+        "RISK-ALL-DATA-SUSTAINABILITY-H-ROLLBACK_RATE_PCT"
+      ],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 5
+    },
+    {
+      "id": "RISK-NOVA-MOBILE-DISRUPTION-W11",
+      "type": "risk",
+      "risk": "Nova / Mobile: one-week operational disruption in week 11 (build time, ci failure rate, incidents, on-call pages, ci queue time).",
+      "claim": "Nova / Mobile: one-week operational disruption in week 11; values returned to normal the following week.",
+      "category": "Operational",
+      "severity": "LOW",
+      "severity_points": 0,
+      "severity_breakdown": {
+        "note": "one-week anomalies are capped at LOW - an isolated spike is not a trend"
+      },
+      "entity": "tp:Nova/Mobile",
+      "metrics": [
+        "build_time_min",
+        "ci_failure_rate_pct",
+        "incidents",
+        "on_call_pages",
+        "queue_time_min"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "evidence": [
+        "Build time: 24.1 vs expected 12.35 (z=35.22) [ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11]",
+        "CI failure rate: 41 vs expected 7.25 (z=53.56) [ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11]",
+        "Incidents: 5 vs expected 0 (z=5.0) [ANO-NOVA-MOBILE-INCIDENTS-W11]",
+        "On-call pages: 25 vs expected 2 (z=12.41) [ANO-NOVA-MOBILE-ON_CALL_PAGES-W11]",
+        "CI queue time: 15.1 vs expected 4.45 (z=23.94) [ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11]"
+      ],
+      "evidence_refs": [
+        "ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11",
+        "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11",
+        "ANO-NOVA-MOBILE-INCIDENTS-W11",
+        "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11",
+        "ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11"
+      ],
+      "primary_refs": [
+        "ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11",
+        "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11",
+        "ANO-NOVA-MOBILE-INCIDENTS-W11",
+        "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11",
+        "ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "Limited if it stays isolated; it would matter if it recurs.",
+      "recommended_follow_up": "Confirm the one-off cause was captured in a post-incident review; watch for recurrence.",
+      "possible_explanations": [],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 6
+    },
+    {
+      "id": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
+      "type": "risk",
+      "risk": "Titan: engineering efficiency is declining (build time).",
+      "claim": "Titan: engineering efficiency is declining (build time).",
+      "category": "Engineering efficiency",
+      "severity": "LOW",
+      "severity_points": 1,
+      "severity_breakdown": {
+        "deteriorating_metrics": 1
+      },
+      "entity": "team:Titan",
+      "metrics": [
+        "build_time_min"
+      ],
+      "dimension": {
+        "scope": "team:Titan",
+        "team": "Titan",
+        "platform": null
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "evidence": [
+        "Build time: 12.5 minutes -> 15 minutes (+20%), trend since week 6 [TRD-TITAN-ALL-BUILD_TIME_MIN]"
+      ],
+      "evidence_refs": [
+        "TRD-ALL-DATA-BUILD_TIME_MIN",
+        "TRD-TITAN-ALL-BUILD_TIME_MIN",
+        "TRD-TITAN-DATA-BUILD_TIME_MIN",
+        "TRD-TITAN-WEB-BUILD_TIME_MIN"
+      ],
+      "primary_refs": [
+        "TRD-TITAN-ALL-BUILD_TIME_MIN"
+      ],
+      "confidence": {
+        "score": 0.88,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.55,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "potential_impact": "Slower feedback loops reduce how much the team can ship.",
+      "recommended_follow_up": "Profile the CI pipeline and compare with codebase and team growth.",
+      "possible_explanations": [
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-DEPLOYMENTS",
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS"
+      ],
+      "produced_by": "06_risk_analysis",
+      "related_findings": [],
+      "validation": null,
+      "rank": 7
+    },
+    {
+      "id": "RISK-ALL-DATA-RELIABILITY-H-ON_CALL_PAGES",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "On-call pages rose over the same period (r=0.8758); the change in on-call pages may be contributing to the change in rollback rate.",
+      "metrics": [
+        "on_call_pages",
+        "rollback_rate_pct"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ALL-DATA-ROLLBACK_RATE_PCT-ON_CALL_PAGES"
+        ],
+        "record_ids": [
+          "WM-W01-ORION-DATA",
+          "WM-W01-TITAN-DATA",
+          "WM-W02-ORION-DATA",
+          "WM-W02-TITAN-DATA",
+          "WM-W03-ORION-DATA",
+          "WM-W03-TITAN-DATA",
+          "WM-W04-ORION-DATA",
+          "WM-W04-TITAN-DATA",
+          "WM-W05-ORION-DATA",
+          "WM-W05-TITAN-DATA",
+          "WM-W06-ORION-DATA",
+          "WM-W06-TITAN-DATA",
+          "WM-W07-ORION-DATA",
+          "WM-W07-TITAN-DATA",
+          "WM-W08-ORION-DATA",
+          "WM-W08-TITAN-DATA",
+          "WM-W09-ORION-DATA",
+          "WM-W09-TITAN-DATA",
+          "WM-W10-ORION-DATA",
+          "WM-W10-TITAN-DATA",
+          "WM-W11-ORION-DATA",
+          "WM-W11-TITAN-DATA",
+          "WM-W12-ORION-DATA",
+          "WM-W12-TITAN-DATA",
+          "WM-W13-ORION-DATA",
+          "WM-W13-TITAN-DATA",
+          "WM-W14-ORION-DATA",
+          "WM-W14-TITAN-DATA",
+          "WM-W15-ORION-DATA",
+          "WM-W15-TITAN-DATA",
+          "WM-W16-ORION-DATA",
+          "WM-W16-TITAN-DATA"
+        ],
+        "calculation": "Pearson r=0.8758 over 16 weeks; r of week-over-week changes=-0.0203",
+        "computed": {
+          "r": 0.8758,
+          "r_differences": -0.0203,
+          "n": 16,
+          "common_drivers": [
+            {
+              "metric": "team_headcount",
+              "r_with_first": 0.8383,
+              "r_with_second": 0.8171,
+              "partial_r": 0.6071
+            }
+          ]
+        }
+      },
+      "confidence": {
+        "score": 0.71,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.02,
+          "magnitude": 0.876,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ALL-DATA-RELIABILITY",
+        "COR-ALL-DATA-ROLLBACK_RATE_PCT-ON_CALL_PAGES"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ALL-DATA-RELIABILITY-H-CHANGE_RELATED",
+      "type": "hypothesis",
+      "basis": "record_attribute",
+      "claim": "Deployment-related changes may be contributing to the incident increase: incidents attributed to a change in post-incident review went from 50.0% (4/8, weeks 1-6) to 80.0% (20/25, weeks 13-16).",
+      "metrics": [
+        "incidents",
+        "failed_deployments"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "incidents",
+        "record_ids": [
+          "INC-W01-ORION-DATA-001",
+          "INC-W02-TITAN-DATA-001",
+          "INC-W03-ORION-DATA-001",
+          "INC-W04-TITAN-DATA-001",
+          "INC-W04-TITAN-DATA-002",
+          "INC-W05-ORION-DATA-001",
+          "INC-W06-ORION-DATA-001",
+          "INC-W06-TITAN-DATA-001",
+          "INC-W13-ORION-DATA-001",
+          "INC-W13-ORION-DATA-002",
+          "INC-W13-ORION-DATA-003",
+          "INC-W13-TITAN-DATA-001",
+          "INC-W13-TITAN-DATA-002",
+          "INC-W14-ORION-DATA-001",
+          "INC-W14-ORION-DATA-002",
+          "INC-W14-ORION-DATA-003",
+          "INC-W14-ORION-DATA-004",
+          "INC-W14-ORION-DATA-005",
+          "INC-W14-TITAN-DATA-001",
+          "INC-W14-TITAN-DATA-002",
+          "INC-W14-TITAN-DATA-003",
+          "INC-W14-TITAN-DATA-004",
+          "INC-W15-ORION-DATA-001",
+          "INC-W15-ORION-DATA-002",
+          "INC-W15-ORION-DATA-003",
+          "INC-W15-ORION-DATA-004",
+          "INC-W15-TITAN-DATA-001",
+          "INC-W15-TITAN-DATA-002",
+          "INC-W16-ORION-DATA-001",
+          "INC-W16-ORION-DATA-002",
+          "INC-W16-TITAN-DATA-001",
+          "INC-W16-TITAN-DATA-002",
+          "INC-W16-TITAN-DATA-003"
+        ],
+        "values": {
+          "baseline": [
+            4,
+            8
+          ],
+          "recent": [
+            20,
+            25
+          ]
+        },
+        "calculation": "change_related share 50.0% -> 80.0%; two-proportion z=1.658, p=0.097254",
+        "computed": {
+          "z": 1.658,
+          "p_value": 0.097254,
+          "baseline": [
+            4,
+            8
+          ],
+          "recent": [
+            20,
+            25
+          ]
+        }
+      },
+      "confidence": {
+        "score": 0.79,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.5,
+          "magnitude": 0.553,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ALL-DATA-RELIABILITY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ALL-DATA-SUSTAINABILITY-H-ROLLBACK_RATE_PCT",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Rollback rate rose over the same period (r=0.8758); the change in rollback rate may be contributing to the change in on-call pages.",
+      "metrics": [
+        "rollback_rate_pct",
+        "on_call_pages"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ALL-DATA-ROLLBACK_RATE_PCT-ON_CALL_PAGES"
+        ],
+        "record_ids": [
+          "WM-W01-ORION-DATA",
+          "WM-W01-TITAN-DATA",
+          "WM-W02-ORION-DATA",
+          "WM-W02-TITAN-DATA",
+          "WM-W03-ORION-DATA",
+          "WM-W03-TITAN-DATA",
+          "WM-W04-ORION-DATA",
+          "WM-W04-TITAN-DATA",
+          "WM-W05-ORION-DATA",
+          "WM-W05-TITAN-DATA",
+          "WM-W06-ORION-DATA",
+          "WM-W06-TITAN-DATA",
+          "WM-W07-ORION-DATA",
+          "WM-W07-TITAN-DATA",
+          "WM-W08-ORION-DATA",
+          "WM-W08-TITAN-DATA",
+          "WM-W09-ORION-DATA",
+          "WM-W09-TITAN-DATA",
+          "WM-W10-ORION-DATA",
+          "WM-W10-TITAN-DATA",
+          "WM-W11-ORION-DATA",
+          "WM-W11-TITAN-DATA",
+          "WM-W12-ORION-DATA",
+          "WM-W12-TITAN-DATA",
+          "WM-W13-ORION-DATA",
+          "WM-W13-TITAN-DATA",
+          "WM-W14-ORION-DATA",
+          "WM-W14-TITAN-DATA",
+          "WM-W15-ORION-DATA",
+          "WM-W15-TITAN-DATA",
+          "WM-W16-ORION-DATA",
+          "WM-W16-TITAN-DATA"
+        ],
+        "calculation": "Pearson r=0.8758 over 16 weeks; r of week-over-week changes=-0.0203",
+        "computed": {
+          "r": 0.8758,
+          "r_differences": -0.0203,
+          "n": 16,
+          "common_drivers": [
+            {
+              "metric": "team_headcount",
+              "r_with_first": 0.8383,
+              "r_with_second": 0.8171,
+              "partial_r": 0.6071
+            }
+          ]
+        }
+      },
+      "confidence": {
+        "score": 0.71,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.02,
+          "magnitude": 0.876,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ALL-DATA-SUSTAINABILITY",
+        "COR-ALL-DATA-ROLLBACK_RATE_PCT-ON_CALL_PAGES"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-DELIVERY-H-TEST_COVERAGE_PCT",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Test coverage fell over the same period (r=-0.9928); the change in test coverage may be contributing to the change in pr review time.",
+      "metrics": [
+        "test_coverage_pct",
+        "pr_review_time_hours"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ATLAS-ALL-PR_REVIEW_TIME_HOURS-TEST_COVERAGE_PCT"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES",
+          "WM-W16-ATLAS-WEB",
+          "WM-W16-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r=-0.9928 over 16 weeks; r of week-over-week changes=-0.6479",
+        "computed": {
+          "r": -0.9928,
+          "r_differences": -0.6479,
+          "n": 16,
+          "common_drivers": []
+        }
+      },
+      "confidence": {
+        "score": 0.9,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.648,
+          "magnitude": 0.993,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-DELIVERY",
+        "COR-ATLAS-ALL-PR_REVIEW_TIME_HOURS-TEST_COVERAGE_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-DELIVERY-H-REWORK_RATE_PCT",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Rework rate rose over the same period (r=0.9788); the change in rework rate may be contributing to the change in lead time.",
+      "metrics": [
+        "rework_rate_pct",
+        "lead_time_days"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ATLAS-ALL-LEAD_TIME_DAYS-REWORK_RATE_PCT"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES",
+          "WM-W16-ATLAS-WEB",
+          "WM-W16-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r=0.9788 over 16 weeks; r of week-over-week changes=0.5756",
+        "computed": {
+          "r": 0.9788,
+          "r_differences": 0.5756,
+          "n": 16,
+          "common_drivers": []
+        }
+      },
+      "confidence": {
+        "score": 0.88,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.576,
+          "magnitude": 0.979,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-DELIVERY",
+        "COR-ATLAS-ALL-LEAD_TIME_DAYS-REWORK_RATE_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-QUALITY-H-PR_REVIEW_TIME_HOURS",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "PR review time rose over the same period (r=-0.9928); the change in pr review time may be contributing to the change in test coverage.",
+      "metrics": [
+        "pr_review_time_hours",
+        "test_coverage_pct"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ATLAS-ALL-PR_REVIEW_TIME_HOURS-TEST_COVERAGE_PCT"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES",
+          "WM-W16-ATLAS-WEB",
+          "WM-W16-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r=-0.9928 over 16 weeks; r of week-over-week changes=-0.6479",
+        "computed": {
+          "r": -0.9928,
+          "r_differences": -0.6479,
+          "n": 16,
+          "common_drivers": []
+        }
+      },
+      "confidence": {
+        "score": 0.9,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.648,
+          "magnitude": 0.993,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-QUALITY",
+        "COR-ATLAS-ALL-PR_REVIEW_TIME_HOURS-TEST_COVERAGE_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-QUALITY-H-AUTOMATED_TEST_PCT",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Automated tests fell over the same period (r=0.9865); the change in automated tests may be contributing to the change in test coverage.",
+      "metrics": [
+        "automated_test_pct",
+        "test_coverage_pct"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-ATLAS-ALL-TEST_COVERAGE_PCT-AUTOMATED_TEST_PCT"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES",
+          "WM-W16-ATLAS-WEB",
+          "WM-W16-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r=0.9865 over 16 weeks; r of week-over-week changes=0.5472",
+        "computed": {
+          "r": 0.9865,
+          "r_differences": 0.5472,
+          "n": 16,
+          "common_drivers": []
+        }
+      },
+      "confidence": {
+        "score": 0.87,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.547,
+          "magnitude": 0.987,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-QUALITY",
+        "COR-ATLAS-ALL-TEST_COVERAGE_PCT-AUTOMATED_TEST_PCT"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-QUALITY-H-LEAD-TEST_COVERAGE_PCT",
+      "type": "hypothesis",
+      "basis": "leading_indicator",
+      "claim": "Declining test coverage may be letting more defects through: changes in coverage preceded changes in defects by 1 week(s) (r=-0.6492).",
+      "metrics": [
+        "test_coverage_pct",
+        "defects"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "03_quality_analysis",
+        "finding_refs": [
+          "QUA-ATLAS-ALL-LEAD-TEST_COVERAGE_PCT-DEFECTS"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r between test_coverage_pct(t) and defects(t+1) over 15 weeks = -0.6492",
+        "computed": {
+          "r": -0.6492,
+          "lag": 1,
+          "n": 15
+        }
+      },
+      "confidence": {
+        "score": 0.8,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.5,
+          "magnitude": 0.649,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-QUALITY",
+        "QUA-ATLAS-ALL-LEAD-TEST_COVERAGE_PCT-DEFECTS"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-ATLAS-ALL-QUALITY-H-LEAD-AUTOMATED_TEST_PCT",
+      "type": "hypothesis",
+      "basis": "leading_indicator",
+      "claim": "Declining automated tests may be letting more defects through: changes in coverage preceded changes in defects by 1 week(s) (r=-0.6317).",
+      "metrics": [
+        "automated_test_pct",
+        "defects"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "03_quality_analysis",
+        "finding_refs": [
+          "QUA-ATLAS-ALL-LEAD-AUTOMATED_TEST_PCT-DEFECTS"
+        ],
+        "record_ids": [
+          "WM-W01-ATLAS-WEB",
+          "WM-W01-ATLAS-SERVICES",
+          "WM-W02-ATLAS-WEB",
+          "WM-W02-ATLAS-SERVICES",
+          "WM-W03-ATLAS-WEB",
+          "WM-W03-ATLAS-SERVICES",
+          "WM-W04-ATLAS-WEB",
+          "WM-W04-ATLAS-SERVICES",
+          "WM-W05-ATLAS-WEB",
+          "WM-W05-ATLAS-SERVICES",
+          "WM-W06-ATLAS-WEB",
+          "WM-W06-ATLAS-SERVICES",
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-ATLAS-SERVICES",
+          "WM-W08-ATLAS-WEB",
+          "WM-W08-ATLAS-SERVICES",
+          "WM-W09-ATLAS-WEB",
+          "WM-W09-ATLAS-SERVICES",
+          "WM-W10-ATLAS-WEB",
+          "WM-W10-ATLAS-SERVICES",
+          "WM-W11-ATLAS-WEB",
+          "WM-W11-ATLAS-SERVICES",
+          "WM-W12-ATLAS-WEB",
+          "WM-W12-ATLAS-SERVICES",
+          "WM-W13-ATLAS-WEB",
+          "WM-W13-ATLAS-SERVICES",
+          "WM-W14-ATLAS-WEB",
+          "WM-W14-ATLAS-SERVICES",
+          "WM-W15-ATLAS-WEB",
+          "WM-W15-ATLAS-SERVICES"
+        ],
+        "calculation": "Pearson r between automated_test_pct(t) and defects(t+1) over 15 weeks = -0.6317",
+        "computed": {
+          "r": -0.6317,
+          "lag": 1,
+          "n": 15
+        }
+      },
+      "confidence": {
+        "score": 0.8,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.5,
+          "magnitude": 0.632,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-ATLAS-ALL-QUALITY",
+        "QUA-ATLAS-ALL-LEAD-AUTOMATED_TEST_PCT-DEFECTS"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-DEPLOYMENTS",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Deployments rose over the same period (r=0.9217); the change in deployments may be contributing to the change in build time.",
+      "metrics": [
+        "deployments",
+        "build_time_min"
+      ],
+      "dimension": {
+        "scope": "team:Titan",
+        "team": "Titan",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-TITAN-ALL-DEPLOYMENTS-BUILD_TIME_MIN"
+        ],
+        "record_ids": [
+          "WM-W01-TITAN-DATA",
+          "WM-W01-TITAN-WEB",
+          "WM-W02-TITAN-DATA",
+          "WM-W02-TITAN-WEB",
+          "WM-W03-TITAN-DATA",
+          "WM-W03-TITAN-WEB",
+          "WM-W04-TITAN-DATA",
+          "WM-W04-TITAN-WEB",
+          "WM-W05-TITAN-DATA",
+          "WM-W05-TITAN-WEB",
+          "WM-W06-TITAN-DATA",
+          "WM-W06-TITAN-WEB",
+          "WM-W07-TITAN-DATA",
+          "WM-W07-TITAN-WEB",
+          "WM-W08-TITAN-DATA",
+          "WM-W08-TITAN-WEB",
+          "WM-W09-TITAN-DATA",
+          "WM-W09-TITAN-WEB",
+          "WM-W10-TITAN-DATA",
+          "WM-W10-TITAN-WEB",
+          "WM-W11-TITAN-DATA",
+          "WM-W11-TITAN-WEB",
+          "WM-W12-TITAN-DATA",
+          "WM-W12-TITAN-WEB",
+          "WM-W13-TITAN-DATA",
+          "WM-W13-TITAN-WEB",
+          "WM-W14-TITAN-DATA",
+          "WM-W14-TITAN-WEB",
+          "WM-W15-TITAN-DATA",
+          "WM-W15-TITAN-WEB",
+          "WM-W16-TITAN-DATA",
+          "WM-W16-TITAN-WEB"
+        ],
+        "calculation": "Pearson r=0.9217 over 16 weeks; r of week-over-week changes=0.1167",
+        "computed": {
+          "r": 0.9217,
+          "r_differences": 0.1167,
+          "n": 16,
+          "common_drivers": [
+            {
+              "metric": "team_headcount",
+              "r_with_first": 0.9557,
+              "r_with_second": 0.9639,
+              "partial_r": 0.0064
+            }
+          ]
+        }
+      },
+      "confidence": {
+        "score": 0.74,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.117,
+          "magnitude": 0.922,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
+        "COR-TITAN-ALL-DEPLOYMENTS-BUILD_TIME_MIN"
+      ],
+      "validation": null
+    },
+    {
+      "id": "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS",
+      "type": "hypothesis",
+      "basis": "correlation",
+      "claim": "Throughput rose over the same period (r=0.9025); the change in throughput may be contributing to the change in build time.",
+      "metrics": [
+        "throughput_items",
+        "build_time_min"
+      ],
+      "dimension": {
+        "scope": "team:Titan",
+        "team": "Titan",
+        "platform": null
+      },
+      "weeks": [
+        1,
+        16
+      ],
+      "evidence": {
+        "dataset": "04_trend_analysis",
+        "finding_refs": [
+          "COR-TITAN-ALL-THROUGHPUT_ITEMS-BUILD_TIME_MIN"
+        ],
+        "record_ids": [
+          "WM-W01-TITAN-DATA",
+          "WM-W01-TITAN-WEB",
+          "WM-W02-TITAN-DATA",
+          "WM-W02-TITAN-WEB",
+          "WM-W03-TITAN-DATA",
+          "WM-W03-TITAN-WEB",
+          "WM-W04-TITAN-DATA",
+          "WM-W04-TITAN-WEB",
+          "WM-W05-TITAN-DATA",
+          "WM-W05-TITAN-WEB",
+          "WM-W06-TITAN-DATA",
+          "WM-W06-TITAN-WEB",
+          "WM-W07-TITAN-DATA",
+          "WM-W07-TITAN-WEB",
+          "WM-W08-TITAN-DATA",
+          "WM-W08-TITAN-WEB",
+          "WM-W09-TITAN-DATA",
+          "WM-W09-TITAN-WEB",
+          "WM-W10-TITAN-DATA",
+          "WM-W10-TITAN-WEB",
+          "WM-W11-TITAN-DATA",
+          "WM-W11-TITAN-WEB",
+          "WM-W12-TITAN-DATA",
+          "WM-W12-TITAN-WEB",
+          "WM-W13-TITAN-DATA",
+          "WM-W13-TITAN-WEB",
+          "WM-W14-TITAN-DATA",
+          "WM-W14-TITAN-WEB",
+          "WM-W15-TITAN-DATA",
+          "WM-W15-TITAN-WEB",
+          "WM-W16-TITAN-DATA",
+          "WM-W16-TITAN-WEB"
+        ],
+        "calculation": "Pearson r=0.9025 over 16 weeks; r of week-over-week changes=0.2547",
+        "computed": {
+          "r": 0.9025,
+          "r_differences": 0.2547,
+          "n": 16,
+          "common_drivers": [
+            {
+              "metric": "team_headcount",
+              "r_with_first": 0.9619,
+              "r_with_second": 0.9639,
+              "partial_r": -0.339
+            }
+          ]
+        }
+      },
+      "confidence": {
+        "score": 0.78,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.255,
+          "magnitude": 0.902,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "06_risk_analysis",
+      "related_findings": [
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
+        "COR-TITAN-ALL-THROUGHPUT_ITEMS-BUILD_TIME_MIN"
+      ],
+      "validation": null
+    }
+  ],
+  "errors": []
+}

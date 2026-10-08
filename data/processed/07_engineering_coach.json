@@ -1,0 +1,493 @@
+{
+  "agent": "07_engineering_coach",
+  "schema_version": "1.0",
+  "input_fingerprint": "ff07a6a38e52780a0a9c9b92ff65b2cf4d9cb7dca56b5a58b24e28cf27f539f6",
+  "status": "PASS",
+  "depends_on": [
+    "01_data_validation",
+    "03_quality_analysis",
+    "04_trend_analysis",
+    "06_risk_analysis"
+  ],
+  "summary": {
+    "recommendations": 8,
+    "by_priority": {
+      "P1": 4,
+      "P2": 2,
+      "P3": 2
+    }
+  },
+  "findings": [
+    {
+      "id": "REC-ATLAS-ALL-DELIVERY",
+      "type": "recommendation",
+      "claim": "Find where Atlas's extra cycle time (3.2 days -> 4.5 days) accumulates. PR review time rose 10 hours -> 16.5 hours: check reviewer load and availability, and agree a review turnaround target and rotation for order-api, storefront-ui.",
+      "problem": "Atlas: delivery is slowing (cycle time, lead time, pr review time).",
+      "evidence": [
+        "Cycle time: 3.2 days -> 4.5 days (+39%), trend since week 8 [TRD-ATLAS-ALL-CYCLE_TIME_DAYS]",
+        "Lead time: 4.9 days -> 6.3 days (+29%), trend since week 5 [TRD-ATLAS-ALL-LEAD_TIME_DAYS]",
+        "PR review time: 10 hours -> 16.5 hours (+65%), trend since week 8 [TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS]"
+      ],
+      "evidence_refs": [
+        "RISK-ATLAS-ALL-DELIVERY",
+        "TRD-ATLAS-ALL-CYCLE_TIME_DAYS",
+        "TRD-ATLAS-ALL-LEAD_TIME_DAYS",
+        "TRD-ATLAS-ALL-PR_REVIEW_TIME_HOURS"
+      ],
+      "recommended_action": "Find where Atlas's extra cycle time (3.2 days -> 4.5 days) accumulates. PR review time rose 10 hours -> 16.5 hours: check reviewer load and availability, and agree a review turnaround target and rotation for order-api, storefront-ui.",
+      "expected_outcome": "Review time and cycle time return toward their baselines.",
+      "owner_type": "Engineering manager",
+      "priority": "P1",
+      "measurement_of_success": {
+        "metric": "pr_review_time_hours",
+        "scope": "team:Atlas",
+        "baseline": 10.0,
+        "current": 16.525,
+        "target": "<= 11 hours (baseline 10 hours plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "cycle_time_days",
+        "lead_time_days",
+        "pr_review_time_hours"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        5,
+        16
+      ],
+      "confidence": {
+        "score": 0.96,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.844,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-ATLAS-ALL-DELIVERY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-ATLAS-ALL-QUALITY",
+      "type": "recommendation",
+      "claim": "Investigate the sustained rise in defects for Atlas since week 6 (6 -> 12) and review whether the decline in test coverage (72% -> 63.2%) is concentrated in specific modules of order-api, storefront-ui. Add a coverage gate on changed code for these services until coverage is back at baseline.",
+      "problem": "Atlas: quality is deteriorating (automated tests, defects, rework rate, test coverage).",
+      "evidence": [
+        "Automated tests: 80.4% -> 75.7% (-4.8 pp), trend since week 8 [TRD-ATLAS-ALL-AUTOMATED_TEST_PCT]",
+        "Defects: 6 -> 12 (+100%), trend since week 11 [TRD-ATLAS-ALL-DEFECTS]",
+        "Rework rate: 8.3% -> 12.8% (+4.4 pp), trend since week 6 [TRD-ATLAS-ALL-REWORK_RATE_PCT]",
+        "Test coverage: 72% -> 63.2% (-8.8 pp), trend since week 8 [TRD-ATLAS-ALL-TEST_COVERAGE_PCT]"
+      ],
+      "evidence_refs": [
+        "RISK-ATLAS-ALL-QUALITY",
+        "TRD-ATLAS-ALL-AUTOMATED_TEST_PCT",
+        "TRD-ATLAS-ALL-DEFECTS",
+        "TRD-ATLAS-ALL-REWORK_RATE_PCT",
+        "TRD-ATLAS-ALL-TEST_COVERAGE_PCT"
+      ],
+      "recommended_action": "Investigate the sustained rise in defects for Atlas since week 6 (6 -> 12) and review whether the decline in test coverage (72% -> 63.2%) is concentrated in specific modules of order-api, storefront-ui. Add a coverage gate on changed code for these services until coverage is back at baseline.",
+      "expected_outcome": "Defect volume returns toward its baseline and the coverage decline stops.",
+      "owner_type": "Engineering manager + tech lead",
+      "priority": "P1",
+      "measurement_of_success": {
+        "metric": "test_coverage_pct",
+        "scope": "team:Atlas",
+        "baseline": 72.05,
+        "current": 63.2,
+        "target": ">= 69% (baseline 72% plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "automated_test_pct",
+        "defects",
+        "rework_rate_pct",
+        "test_coverage_pct"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "confidence": {
+        "score": 0.92,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.938,
+          "consistency": 0.784,
+          "magnitude": 0.954,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-ATLAS-ALL-QUALITY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-ALL-DATA-RELIABILITY",
+      "type": "recommendation",
+      "claim": "Run one joint failed-deployment review across the Data platform services (analytics-warehouse, event-pipeline): change failure rate 5.4% -> 27.1%, rollback rate 1.1% -> 25.9%, incidents 1 -> 5.5. Check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed.",
+      "problem": "Data: deployment and service reliability is deteriorating (change failure rate, failed deployments, incidents, rollback rate).",
+      "evidence": [
+        "Change failure rate: 5.4% -> 27.1% (+21.6 pp), trend since week 8 [TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT]",
+        "Failed deployments: 0.5 -> 6 (+1100%), trend since week 11 [TRD-ALL-DATA-FAILED_DEPLOYMENTS]",
+        "Incidents: 1 -> 5.5 (+450%), trend since week 11 [TRD-ALL-DATA-INCIDENTS]",
+        "Rollback rate: 1.1% -> 25.9% (+24.8 pp), trend since week 7 [TRD-ALL-DATA-ROLLBACK_RATE_PCT]"
+      ],
+      "evidence_refs": [
+        "RISK-ALL-DATA-RELIABILITY",
+        "TRD-ALL-DATA-CHANGE_FAILURE_RATE_PCT",
+        "TRD-ALL-DATA-FAILED_DEPLOYMENTS",
+        "TRD-ALL-DATA-INCIDENTS",
+        "TRD-ALL-DATA-ROLLBACK_RATE_PCT"
+      ],
+      "recommended_action": "Run one joint failed-deployment review across the Data platform services (analytics-warehouse, event-pipeline): change failure rate 5.4% -> 27.1%, rollback rate 1.1% -> 25.9%, incidents 1 -> 5.5. Check which release-gating steps (pre-deploy checks, canary, automated rollback) the failing deployments bypassed.",
+      "expected_outcome": "Fewer failed releases and change-related incidents on the platform.",
+      "owner_type": "Platform / SRE lead",
+      "priority": "P1",
+      "measurement_of_success": {
+        "metric": "change_failure_rate_pct",
+        "scope": "platform:Data",
+        "baseline": 5.435,
+        "current": 27.059,
+        "target": "<= 8.4% (baseline 5.4% plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "change_failure_rate_pct",
+        "failed_deployments",
+        "incidents",
+        "rollback_rate_pct"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        7,
+        16
+      ],
+      "confidence": {
+        "score": 0.89,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.875,
+          "consistency": 0.716,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-ALL-DATA-RELIABILITY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-ATLAS-ALL-ENGINEERING_EFFICIENCY",
+      "type": "recommendation",
+      "claim": "Reduce change size on Atlas (average PR size 193 LOC -> 245 LOC, first-review latency 3.4 hours -> 4.7 hours): split work into smaller, independently reviewable PRs and track PR size in team retros.",
+      "problem": "Atlas: engineering efficiency is declining (pr size, review latency).",
+      "evidence": [
+        "PR size: 193 LOC -> 245 LOC (+27%), trend since week 10 [TRD-ATLAS-ALL-AVG_PR_SIZE_LOC]",
+        "Review latency: 3.4 hours -> 4.7 hours (+40%), trend since week 9 [TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS]"
+      ],
+      "evidence_refs": [
+        "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY",
+        "TRD-ATLAS-ALL-AVG_PR_SIZE_LOC",
+        "TRD-ATLAS-ALL-REVIEW_LATENCY_HOURS"
+      ],
+      "recommended_action": "Reduce change size on Atlas (average PR size 193 LOC -> 245 LOC, first-review latency 3.4 hours -> 4.7 hours): split work into smaller, independently reviewable PRs and track PR size in team retros.",
+      "expected_outcome": "Smaller PRs that get a first review sooner.",
+      "owner_type": "Tech lead",
+      "priority": "P1",
+      "measurement_of_success": {
+        "metric": "avg_pr_size_loc",
+        "scope": "team:Atlas",
+        "baseline": 193.0,
+        "current": 245.0,
+        "target": "<= 212.3 LOC (baseline 193 LOC plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "avg_pr_size_loc",
+        "review_latency_hours"
+      ],
+      "dimension": {
+        "scope": "team:Atlas",
+        "team": "Atlas",
+        "platform": null
+      },
+      "weeks": [
+        9,
+        16
+      ],
+      "confidence": {
+        "score": 0.89,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.938,
+          "consistency": 0.715,
+          "magnitude": 0.885,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-ATLAS-ALL-ENGINEERING_EFFICIENCY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-PHOENIX-ALL-REPLICATE",
+      "type": "recommendation",
+      "claim": "Document the practices behind Phoenix's quality improvement (Rework rate: 10.8% -> 9.7%; Test coverage: 64.7% -> 76.6%; Automated tests: 82.8% -> 91.9%) and share them with Atlas, where quality is deteriorating.",
+      "problem": "Phoenix improved quality while other teams declined; the practices are not yet shared.",
+      "evidence": [
+        "Rework rate: 10.8% -> 9.7%",
+        "Test coverage: 64.7% -> 76.6%",
+        "Automated tests: 82.8% -> 91.9%"
+      ],
+      "evidence_refs": [
+        "QUA-PHOENIX-ALL-STATUS",
+        "TRD-PHOENIX-ALL-REWORK_RATE_PCT",
+        "TRD-PHOENIX-ALL-TEST_COVERAGE_PCT",
+        "TRD-PHOENIX-ALL-AUTOMATED_TEST_PCT"
+      ],
+      "recommended_action": "Run a short practice review with Phoenix covering what changed in testing, review and release habits since week 5 (Rework rate: 10.8% -> 9.7%; Test coverage: 64.7% -> 76.6%; Automated tests: 82.8% -> 91.9%), and publish the findings and share them with Atlas, where quality is deteriorating.",
+      "expected_outcome": "Proven practices spread to teams with deteriorating quality.",
+      "owner_type": "Engineering director",
+      "priority": "P2",
+      "measurement_of_success": {
+        "metric": "rework_rate_pct",
+        "scope": "team:Phoenix",
+        "baseline": null,
+        "current": null,
+        "target": "Phoenix keeps its improvement; adopting teams' quality trend stops deteriorating",
+        "by_week": 22
+      },
+      "metrics": [
+        "rework_rate_pct",
+        "test_coverage_pct",
+        "automated_test_pct"
+      ],
+      "dimension": {
+        "scope": "team:Phoenix",
+        "team": "Phoenix",
+        "platform": null
+      },
+      "weeks": [
+        5,
+        16
+      ],
+      "confidence": {
+        "score": 0.93,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.958,
+          "consistency": 0.782,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "QUA-PHOENIX-ALL-STATUS",
+        "RISK-ATLAS-ALL-QUALITY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-ALL-DATA-SUSTAINABILITY",
+      "type": "recommendation",
+      "claim": "Audit on-call pages for Data (7.5 -> 14.5 per week): classify them as actionable or noise, and link actionable pages to the reliability review for the same platform.",
+      "problem": "Data: on-call load is rising (on-call pages).",
+      "evidence": [
+        "On-call pages: 7.5 -> 14.5 (+93%), trend since week 10 [TRD-ALL-DATA-ON_CALL_PAGES]"
+      ],
+      "evidence_refs": [
+        "RISK-ALL-DATA-SUSTAINABILITY",
+        "TRD-ALL-DATA-ON_CALL_PAGES"
+      ],
+      "recommended_action": "Audit on-call pages for Data (7.5 -> 14.5 per week): classify them as actionable or noise, and link actionable pages to the reliability review for the same platform.",
+      "expected_outcome": "On-call load falls back toward baseline; pages that remain are actionable.",
+      "owner_type": "SRE lead + engineering manager",
+      "priority": "P2",
+      "measurement_of_success": {
+        "metric": "on_call_pages",
+        "scope": "platform:Data",
+        "baseline": 7.5,
+        "current": 14.5,
+        "target": "<= 8.2 (baseline 7.5 plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "on_call_pages"
+      ],
+      "dimension": {
+        "scope": "platform:Data",
+        "team": null,
+        "platform": "Data"
+      },
+      "weeks": [
+        10,
+        16
+      ],
+      "confidence": {
+        "score": 0.83,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.875,
+          "consistency": 0.583,
+          "magnitude": 0.853,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-ALL-DATA-SUSTAINABILITY"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-NOVA-MOBILE-DISRUPTION-W11",
+      "type": "recommendation",
+      "claim": "Confirm that the week-11 spike on Nova / Mobile (build time, ci failure rate, incidents, on-call pages, ci queue time) has a completed post-incident review with an identified one-off cause. Take no structural action unless a similar spike recurs within 8 weeks.",
+      "problem": "Nova / Mobile: one-week operational disruption in week 11 (build time, ci failure rate, incidents, on-call pages, ci queue time).",
+      "evidence": [
+        "Build time: 24.1 vs expected 12.35 (z=35.22) [ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11]",
+        "CI failure rate: 41 vs expected 7.25 (z=53.56) [ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11]",
+        "Incidents: 5 vs expected 0 (z=5.0) [ANO-NOVA-MOBILE-INCIDENTS-W11]",
+        "On-call pages: 25 vs expected 2 (z=12.41) [ANO-NOVA-MOBILE-ON_CALL_PAGES-W11]",
+        "CI queue time: 15.1 vs expected 4.45 (z=23.94) [ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11]"
+      ],
+      "evidence_refs": [
+        "RISK-NOVA-MOBILE-DISRUPTION-W11",
+        "ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11",
+        "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11",
+        "ANO-NOVA-MOBILE-INCIDENTS-W11",
+        "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11",
+        "ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11"
+      ],
+      "recommended_action": "Confirm that the week-11 spike on Nova / Mobile (build time, ci failure rate, incidents, on-call pages, ci queue time) has a completed post-incident review with an identified one-off cause. Take no structural action unless a similar spike recurs within 8 weeks.",
+      "expected_outcome": "The cause is documented; no recurrence.",
+      "owner_type": "Team lead",
+      "priority": "P3",
+      "measurement_of_success": {
+        "metric": "build_time_min",
+        "scope": "tp:Nova/Mobile",
+        "baseline": null,
+        "current": 12.5,
+        "target": "no week above the anomaly threshold (Agent 05 rule) for 8 weeks",
+        "by_week": 22
+      },
+      "metrics": [
+        "build_time_min",
+        "ci_failure_rate_pct",
+        "incidents",
+        "on_call_pages",
+        "queue_time_min"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-NOVA-MOBILE-DISRUPTION-W11"
+      ],
+      "validation": null
+    },
+    {
+      "id": "REC-TITAN-ALL-ENGINEERING_EFFICIENCY",
+      "type": "recommendation",
+      "claim": "Profile the CI pipeline for Titan (build time 12.5 minutes -> 15 minutes). Check whether the growth tracks codebase size and team growth (headcount 7 -> 10.5), and whether caching or parallelising test stages would recover the lost time.",
+      "problem": "Titan: engineering efficiency is declining (build time).",
+      "evidence": [
+        "Build time: 12.5 minutes -> 15 minutes (+20%), trend since week 6 [TRD-TITAN-ALL-BUILD_TIME_MIN]"
+      ],
+      "evidence_refs": [
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY",
+        "TRD-TITAN-ALL-BUILD_TIME_MIN"
+      ],
+      "recommended_action": "Profile the CI pipeline for Titan (build time 12.5 minutes -> 15 minutes). Check whether the growth tracks codebase size and team growth (headcount 7 -> 10.5), and whether caching or parallelising test stages would recover the lost time.",
+      "expected_outcome": "Build time stabilises or falls, keeping feedback loops short as the team grows.",
+      "owner_type": "Tech lead / developer-productivity owner",
+      "priority": "P3",
+      "measurement_of_success": {
+        "metric": "build_time_min",
+        "scope": "team:Titan",
+        "baseline": 12.5,
+        "current": 14.975,
+        "target": "<= 13.8 minutes (baseline 12.5 minutes plus/minus one trend threshold)",
+        "by_week": 22
+      },
+      "metrics": [
+        "build_time_min"
+      ],
+      "dimension": {
+        "scope": "team:Titan",
+        "team": "Titan",
+        "platform": null
+      },
+      "weeks": [
+        6,
+        16
+      ],
+      "confidence": {
+        "score": 0.88,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 1.0,
+          "consistency": 0.55,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "07_engineering_coach",
+      "related_findings": [
+        "RISK-TITAN-ALL-ENGINEERING_EFFICIENCY"
+      ],
+      "validation": null
+    }
+  ],
+  "errors": []
+}

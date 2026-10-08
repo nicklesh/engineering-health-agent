@@ -1,0 +1,727 @@
+{
+  "agent": "05_anomaly_detection",
+  "schema_version": "1.0",
+  "input_fingerprint": "d5c32bccc5db1f8bc15a5c331f6e81c2e6c7886be21b6bc23878001b791a8b66",
+  "status": "PASS",
+  "depends_on": [
+    "02_metrics_analysis"
+  ],
+  "summary": {
+    "anomalies": 9,
+    "by_pattern": {
+      "ISOLATED_SPIKE": 9
+    },
+    "raw_detections_before_dedup": 20,
+    "rule": {
+      "window": 3,
+      "min_z": 4.0,
+      "min_relative_change": 0.25,
+      "return_within_sd": 2.0,
+      "min_events": 5,
+      "min_abs_events": 3,
+      "min_events_for_mean": 3
+    }
+  },
+  "findings": [
+    {
+      "id": "ANO-ALL-WEB-CHANGE_FAILURE_RATE_PCT-W07",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Web: Change failure rate was 17.241 % in week 7 against an expected 3.409 (local median), 4.1x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "change_failure_rate_pct"
+      ],
+      "dimension": {
+        "scope": "platform:Web",
+        "team": null,
+        "platform": "Web"
+      },
+      "weeks": [
+        7,
+        7
+      ],
+      "what_happened": "Change failure rate rose to 17.241 %",
+      "expected_baseline": 3.409,
+      "magnitude": {
+        "residual": 13.832,
+        "z": 4.1,
+        "relative_pct": 405.7
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "platform:Web",
+          "metric": "change_failure_rate_pct",
+          "weeks": [
+            7
+          ]
+        },
+        "record_ids": [
+          "WM-W07-ATLAS-WEB",
+          "WM-W07-PHOENIX-WEB",
+          "WM-W07-TITAN-WEB",
+          "DEP-W07-ATLAS-WEB-001",
+          "DEP-W07-ATLAS-WEB-002",
+          "DEP-W07-ATLAS-WEB-003",
+          "DEP-W07-ATLAS-WEB-004",
+          "DEP-W07-ATLAS-WEB-005",
+          "DEP-W07-ATLAS-WEB-006",
+          "DEP-W07-ATLAS-WEB-007",
+          "DEP-W07-ATLAS-WEB-008",
+          "DEP-W07-ATLAS-WEB-009",
+          "DEP-W07-ATLAS-WEB-010",
+          "DEP-W07-ATLAS-WEB-011",
+          "DEP-W07-PHOENIX-WEB-001",
+          "DEP-W07-PHOENIX-WEB-002",
+          "DEP-W07-PHOENIX-WEB-003",
+          "DEP-W07-PHOENIX-WEB-004",
+          "DEP-W07-PHOENIX-WEB-005",
+          "DEP-W07-PHOENIX-WEB-006",
+          "DEP-W07-PHOENIX-WEB-007",
+          "DEP-W07-PHOENIX-WEB-008",
+          "DEP-W07-TITAN-WEB-001",
+          "DEP-W07-TITAN-WEB-002",
+          "DEP-W07-TITAN-WEB-003",
+          "DEP-W07-TITAN-WEB-004",
+          "DEP-W07-TITAN-WEB-005",
+          "DEP-W07-TITAN-WEB-006",
+          "DEP-W07-TITAN-WEB-007",
+          "DEP-W07-TITAN-WEB-008",
+          "DEP-W07-TITAN-WEB-009",
+          "DEP-W07-TITAN-WEB-010"
+        ],
+        "values": {
+          "4": 0.0,
+          "5": 10.0,
+          "6": 0.0,
+          "7": 17.241,
+          "8": 3.704,
+          "9": 7.692,
+          "10": 0.0
+        },
+        "calculation": "expected = median of weeks within +/-3 = 3.409; residual = 13.832; scale = 3.3697; z = 4.1; following weeks = [3.704, 7.692]",
+        "computed": {
+          "value": 17.241,
+          "expected": 3.409,
+          "residual": 13.832,
+          "z": 4.1,
+          "scale": 3.3697,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-MOBILE-BUILD_TIME_MIN-W11",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Mobile: Build time was 24.1 minutes in week 11 against an expected 12.35 (local median), 35.2x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "build_time_min"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "what_happened": "Build time rose to 24.1 minutes",
+      "expected_baseline": 12.35,
+      "magnitude": {
+        "residual": 11.75,
+        "z": 35.22,
+        "relative_pct": 95.1
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Mobile",
+          "metric": "build_time_min",
+          "weeks": [
+            11
+          ]
+        },
+        "record_ids": [
+          "WM-W11-NOVA-MOBILE"
+        ],
+        "values": {
+          "8": 12.4,
+          "9": 12.2,
+          "10": 12.3,
+          "11": 24.1,
+          "12": 12.0,
+          "13": 12.6,
+          "14": 12.6
+        },
+        "calculation": "expected = median of weeks within +/-3 = 12.35; residual = 11.75; scale = 0.3336; z = 35.22; following weeks = [12.0, 12.6]",
+        "computed": {
+          "value": 24.1,
+          "expected": 12.35,
+          "residual": 11.75,
+          "z": 35.22,
+          "scale": 0.3336,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [
+        "platform:Mobile",
+        "team:Nova"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-MOBILE-CI_FAILURE_RATE_PCT-W11",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Mobile: CI failure rate was 41 % in week 11 against an expected 7.25 (local median), 53.6x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "ci_failure_rate_pct"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "what_happened": "CI failure rate rose to 41 %",
+      "expected_baseline": 7.25,
+      "magnitude": {
+        "residual": 33.75,
+        "z": 53.56,
+        "relative_pct": 465.5
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Mobile",
+          "metric": "ci_failure_rate_pct",
+          "weeks": [
+            11
+          ]
+        },
+        "record_ids": [
+          "WM-W11-NOVA-MOBILE"
+        ],
+        "values": {
+          "8": 7.7,
+          "9": 5.8,
+          "10": 7.1,
+          "11": 41.0,
+          "12": 7.4,
+          "13": 6.5,
+          "14": 8.5
+        },
+        "calculation": "expected = median of weeks within +/-3 = 7.25; residual = 33.75; scale = 0.6301; z = 53.56; following weeks = [7.4, 6.5]",
+        "computed": {
+          "value": 41.0,
+          "expected": 7.25,
+          "residual": 33.75,
+          "z": 53.56,
+          "scale": 0.6301,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [
+        "platform:Mobile",
+        "team:Nova",
+        "org"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-MOBILE-INCIDENTS-W11",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Mobile: Incidents was 5 count in week 11 against an expected 0 (local median), 5.0x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "incidents"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "what_happened": "Incidents rose to 5 count",
+      "expected_baseline": 0.0,
+      "magnitude": {
+        "residual": 5.0,
+        "z": 5.0,
+        "relative_pct": null
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Mobile",
+          "metric": "incidents",
+          "weeks": [
+            11
+          ]
+        },
+        "record_ids": [
+          "WM-W11-NOVA-MOBILE",
+          "INC-W11-NOVA-MOBILE-001",
+          "INC-W11-NOVA-MOBILE-002",
+          "INC-W11-NOVA-MOBILE-003",
+          "INC-W11-NOVA-MOBILE-004",
+          "INC-W11-NOVA-MOBILE-005"
+        ],
+        "values": {
+          "8": 0,
+          "9": 0,
+          "10": 1,
+          "11": 5,
+          "12": 0,
+          "13": 1,
+          "14": 0
+        },
+        "calculation": "expected = median of weeks within +/-3 = 0.0; residual = 5.0; scale = 1.0; z = 5.0; following weeks = [0, 1]",
+        "computed": {
+          "value": 5,
+          "expected": 0.0,
+          "residual": 5.0,
+          "z": 5.0,
+          "scale": 1.0,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [
+        "platform:Mobile"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-MOBILE-ON_CALL_PAGES-W11",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Mobile: On-call pages was 25 count in week 11 against an expected 2 (local median), 12.4x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "on_call_pages"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "what_happened": "On-call pages rose to 25 count",
+      "expected_baseline": 2.0,
+      "magnitude": {
+        "residual": 23.0,
+        "z": 12.41,
+        "relative_pct": 1150.0
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Mobile",
+          "metric": "on_call_pages",
+          "weeks": [
+            11
+          ]
+        },
+        "record_ids": [
+          "WM-W11-NOVA-MOBILE"
+        ],
+        "values": {
+          "8": 1,
+          "9": 2,
+          "10": 3,
+          "11": 25,
+          "12": 2,
+          "13": 2,
+          "14": 3
+        },
+        "calculation": "expected = median of weeks within +/-3 = 2.0; residual = 23.0; scale = 1.8532; z = 12.41; following weeks = [2, 2]",
+        "computed": {
+          "value": 25,
+          "expected": 2.0,
+          "residual": 23.0,
+          "z": 12.41,
+          "scale": 1.8532,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [
+        "platform:Mobile",
+        "team:Nova"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-MOBILE-QUEUE_TIME_MIN-W11",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Mobile: CI queue time was 15.1 minutes in week 11 against an expected 4.45 (local median), 23.9x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "queue_time_min"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Mobile",
+        "team": "Nova",
+        "platform": "Mobile"
+      },
+      "weeks": [
+        11,
+        11
+      ],
+      "what_happened": "CI queue time rose to 15.1 minutes",
+      "expected_baseline": 4.45,
+      "magnitude": {
+        "residual": 10.65,
+        "z": 23.94,
+        "relative_pct": 239.3
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Mobile",
+          "metric": "queue_time_min",
+          "weeks": [
+            11
+          ]
+        },
+        "record_ids": [
+          "WM-W11-NOVA-MOBILE"
+        ],
+        "values": {
+          "8": 5.1,
+          "9": 4.0,
+          "10": 5.1,
+          "11": 15.1,
+          "12": 4.6,
+          "13": 4.1,
+          "14": 4.3
+        },
+        "calculation": "expected = median of weeks within +/-3 = 4.45; residual = 10.65; scale = 0.4448; z = 23.94; following weeks = [4.6, 4.1]",
+        "computed": {
+          "value": 15.1,
+          "expected": 4.45,
+          "residual": 10.65,
+          "z": 23.94,
+          "scale": 0.4448,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [
+        "platform:Mobile",
+        "team:Nova",
+        "org"
+      ],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-NOVA-SERVICES-CI_FAILURE_RATE_PCT-W14",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Nova / Services: CI failure rate was 8.9 % in week 14 against an expected 5.6 (local median), 4.2x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "ci_failure_rate_pct"
+      ],
+      "dimension": {
+        "scope": "tp:Nova/Services",
+        "team": "Nova",
+        "platform": "Services"
+      },
+      "weeks": [
+        14,
+        14
+      ],
+      "what_happened": "CI failure rate rose to 8.9 %",
+      "expected_baseline": 5.6,
+      "magnitude": {
+        "residual": 3.3,
+        "z": 4.24,
+        "relative_pct": 58.9
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Nova/Services",
+          "metric": "ci_failure_rate_pct",
+          "weeks": [
+            14
+          ]
+        },
+        "record_ids": [
+          "WM-W14-NOVA-SERVICES"
+        ],
+        "values": {
+          "11": 5.3,
+          "12": 5.6,
+          "13": 5.4,
+          "14": 8.9,
+          "15": 5.8,
+          "16": 7.4
+        },
+        "calculation": "expected = median of weeks within +/-3 = 5.6; residual = 3.3; scale = 0.7784; z = 4.24; following weeks = [5.8, 7.4]",
+        "computed": {
+          "value": 8.9,
+          "expected": 5.6,
+          "residual": 3.3,
+          "z": 4.24,
+          "scale": 0.7784,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [],
+      "confidence": {
+        "score": 0.88,
+        "stage": "analytical",
+        "components": {
+          "completeness": 0.833,
+          "observations": 0.625,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-ORION-SERVICES-CI_FAILURE_RATE_PCT-W08",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "adverse",
+      "claim": "Orion / Services: CI failure rate was 8.6 % in week 8 against an expected 5.55 (local median), 4.3x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "ci_failure_rate_pct"
+      ],
+      "dimension": {
+        "scope": "tp:Orion/Services",
+        "team": "Orion",
+        "platform": "Services"
+      },
+      "weeks": [
+        8,
+        8
+      ],
+      "what_happened": "CI failure rate rose to 8.6 %",
+      "expected_baseline": 5.55,
+      "magnitude": {
+        "residual": 3.05,
+        "z": 4.33,
+        "relative_pct": 55.0
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Orion/Services",
+          "metric": "ci_failure_rate_pct",
+          "weeks": [
+            8
+          ]
+        },
+        "record_ids": [
+          "WM-W08-ORION-SERVICES"
+        ],
+        "values": {
+          "5": 6.6,
+          "6": 6.9,
+          "7": 5.8,
+          "8": 8.6,
+          "9": 5.3,
+          "10": 5.2,
+          "11": 5.0
+        },
+        "calculation": "expected = median of weeks within +/-3 = 5.55; residual = 3.05; scale = 0.7042; z = 4.33; following weeks = [5.3, 5.2]",
+        "computed": {
+          "value": 8.6,
+          "expected": 5.55,
+          "residual": 3.05,
+          "z": 4.33,
+          "scale": 0.7042,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    },
+    {
+      "id": "ANO-TITAN-DATA-CI_FAILURE_RATE_PCT-W13",
+      "type": "anomaly",
+      "pattern": "ISOLATED_SPIKE",
+      "impact": "favourable",
+      "claim": "Titan / Data: CI failure rate was 3.8 % in week 13 against an expected 6.2 (local median), 4.0x the normal variation - a one-week spike that returned to normal the following week.",
+      "metrics": [
+        "ci_failure_rate_pct"
+      ],
+      "dimension": {
+        "scope": "tp:Titan/Data",
+        "team": "Titan",
+        "platform": "Data"
+      },
+      "weeks": [
+        13,
+        13
+      ],
+      "what_happened": "CI failure rate fell to 3.8 %",
+      "expected_baseline": 6.2,
+      "magnitude": {
+        "residual": -2.4,
+        "z": -4.05,
+        "relative_pct": -38.7
+      },
+      "evidence": {
+        "dataset": "metric_series",
+        "series_ref": {
+          "scope": "tp:Titan/Data",
+          "metric": "ci_failure_rate_pct",
+          "weeks": [
+            13
+          ]
+        },
+        "record_ids": [
+          "WM-W13-TITAN-DATA"
+        ],
+        "values": {
+          "10": 5.8,
+          "11": 5.6,
+          "12": 6.1,
+          "13": 3.8,
+          "14": 6.4,
+          "15": 6.6,
+          "16": 6.3
+        },
+        "calculation": "expected = median of weeks within +/-3 = 6.2; residual = -2.4; scale = 0.593; z = -4.05; following weeks = [6.4, 6.6]",
+        "computed": {
+          "value": 3.8,
+          "expected": 6.2,
+          "residual": -2.4,
+          "z": -4.05,
+          "scale": 0.593,
+          "pattern": "ISOLATED_SPIKE"
+        }
+      },
+      "also_visible_in": [],
+      "confidence": {
+        "score": 0.94,
+        "stage": "analytical",
+        "components": {
+          "completeness": 1.0,
+          "observations": 0.75,
+          "consistency": 1.0,
+          "magnitude": 1.0,
+          "evidence_quality": 1.0
+        }
+      },
+      "produced_by": "05_anomaly_detection",
+      "related_findings": [],
+      "validation": null
+    }
+  ],
+  "errors": []
+}
