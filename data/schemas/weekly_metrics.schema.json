@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "weekly_metrics.schema.json",
+  "title": "weekly_metrics",
+  "description": "One row per (week, team, platform). Weekly aggregate delivery, code-health, quality-practice, efficiency and operational metrics. Event counts (deployments) must reconcile with deployments.csv.",
+  "x-file": "data/raw/weekly_metrics.csv",
+  "x-grain": ["week", "team", "platform"],
+  "x-primary-key": "record_id",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id", "week", "week_start", "team", "platform", "team_headcount",
+    "deployments", "successful_deployments", "failed_deployments", "rollbacks",
+    "cycle_time_days", "lead_time_days", "throughput_items",
+    "pr_count", "pr_review_time_hours", "avg_pr_size_loc", "review_latency_hours", "rework_rate_pct",
+    "test_coverage_pct", "automated_test_pct",
+    "build_time_min", "ci_failure_rate_pct", "queue_time_min",
+    "on_call_pages", "availability_pct"
+  ],
+  "properties": {
+    "record_id": {"type": "string", "pattern": "^WM-W[0-9]{2}-[A-Z]+-[A-Z]+$", "description": "Deterministic row id: WM-W<week>-<TEAM>-<PLATFORM>.", "x-unit": "id"},
+    "week": {"type": "integer", "minimum": 1, "maximum": 52, "description": "Sequential reporting week (1 = oldest).", "x-unit": "week number"},
+    "week_start": {"type": "string", "format": "date", "description": "Monday that starts the reporting week (ISO 8601).", "x-unit": "date"},
+    "team": {"type": "string", "enum": ["Atlas", "Nova", "Orion", "Phoenix", "Titan"], "description": "Owning engineering team (fictional).", "x-unit": "category"},
+    "platform": {"type": "string", "enum": ["Web", "Mobile", "Services", "Data"], "description": "Technology platform the work ships on.", "x-unit": "category"},
+    "team_headcount": {"type": "integer", "minimum": 1, "maximum": 50, "description": "Engineers on the team that week. Same value on every platform row for a team/week.", "x-unit": "people"},
+
+    "deployments": {"type": "integer", "minimum": 0, "maximum": 200, "description": "Production deployments attempted.", "x-unit": "count"},
+    "successful_deployments": {"type": "integer", "minimum": 0, "maximum": 200, "description": "Deployments that completed without failure.", "x-unit": "count"},
+    "failed_deployments": {"type": "integer", "minimum": 0, "maximum": 200, "description": "Deployments that failed (and caused degraded service or needed remediation).", "x-unit": "count"},
+    "rollbacks": {"type": "integer", "minimum": 0, "maximum": 200, "description": "Failed deployments that were rolled back.", "x-unit": "count"},
+    "cycle_time_days": {"type": "number", "minimum": 0.1, "maximum": 60, "description": "Median time from first commit to production for items finished this week.", "x-unit": "days"},
+    "lead_time_days": {"type": "number", "minimum": 0.1, "maximum": 90, "description": "Median time from work item creation to production. Must be >= cycle_time_days.", "x-unit": "days"},
+    "throughput_items": {"type": "integer", "minimum": 0, "maximum": 500, "description": "Work items completed this week.", "x-unit": "count"},
+
+    "pr_count": {"type": "integer", "minimum": 0, "maximum": 1000, "description": "Pull requests merged.", "x-unit": "count"},
+    "pr_review_time_hours": {"type": "number", "minimum": 0, "maximum": 336, "description": "Median time from PR opened to approved.", "x-unit": "hours"},
+    "avg_pr_size_loc": {"type": "integer", "minimum": 1, "maximum": 10000, "description": "Mean lines changed per merged PR.", "x-unit": "lines of code"},
+    "review_latency_hours": {"type": "number", "minimum": 0, "maximum": 336, "description": "Median time from PR opened to first review comment.", "x-unit": "hours"},
+    "rework_rate_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "Share of changed lines that rewrite code less than 21 days old.", "x-unit": "percent"},
+
+    "test_coverage_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "Line coverage of the team's services on this platform at week end.", "x-unit": "percent"},
+    "automated_test_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "Share of test cases that are automated.", "x-unit": "percent"},
+
+    "build_time_min": {"type": "number", "minimum": 0.1, "maximum": 240, "description": "Median CI pipeline duration.", "x-unit": "minutes"},
+    "ci_failure_rate_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "Share of CI runs that failed.", "x-unit": "percent"},
+    "queue_time_min": {"type": "number", "minimum": 0, "maximum": 240, "description": "Median wait before a CI job starts.", "x-unit": "minutes"},
+
+    "on_call_pages": {"type": "integer", "minimum": 0, "maximum": 500, "description": "On-call pages received.", "x-unit": "count"},
+    "availability_pct": {"type": "number", "minimum": 0, "maximum": 100, "description": "Measured availability of the team's services on this platform.", "x-unit": "percent"}
+  },
+  "x-validation-rules": [
+    {"id": "WM-R01", "severity": "CRITICAL", "rule": "record_id is unique and (week, team, platform) is unique."},
+    {"id": "WM-R02", "severity": "CRITICAL", "rule": "successful_deployments + failed_deployments == deployments."},
+    {"id": "WM-R03", "severity": "MAJOR", "rule": "rollbacks <= failed_deployments."},
+    {"id": "WM-R04", "severity": "MAJOR", "rule": "deployments, failed_deployments and rollbacks equal the counts of matching rows in deployments.csv."},
+    {"id": "WM-R05", "severity": "MINOR", "rule": "lead_time_days >= cycle_time_days."},
+    {"id": "WM-R06", "severity": "MINOR", "rule": "team_headcount is identical across all platform rows of the same team and week."},
+    {"id": "WM-R07", "severity": "CRITICAL", "rule": "week_start == settings.start_date + 7 * (week - 1); weeks are contiguous; every (team, platform) in services.csv has a row for every week."},
+    {"id": "WM-R08", "severity": "CRITICAL", "rule": "(team, platform) exists in services.csv."}
+  ]
+}

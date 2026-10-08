@@ -1,0 +1,11 @@
+service_id,service_name,team,platform,tier
+SVC-ATLAS-WEB,storefront-ui,Atlas,Web,1
+SVC-ATLAS-SERVICES,order-api,Atlas,Services,1
+SVC-NOVA-MOBILE,companion-app,Nova,Mobile,1
+SVC-NOVA-SERVICES,notification-svc,Nova,Services,2
+SVC-ORION-DATA,event-pipeline,Orion,Data,1
+SVC-ORION-SERVICES,search-api,Orion,Services,2
+SVC-PHOENIX-WEB,account-portal,Phoenix,Web,2
+SVC-PHOENIX-MOBILE,profile-app,Phoenix,Mobile,2
+SVC-TITAN-DATA,analytics-warehouse,Titan,Data,2
+SVC-TITAN-WEB,reporting-ui,Titan,Web,3

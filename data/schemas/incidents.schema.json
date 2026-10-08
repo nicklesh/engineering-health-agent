@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "incidents.schema.json",
+  "title": "incidents",
+  "description": "One row per production incident. Source records for incident count, severity and MTTR.",
+  "x-file": "data/raw/incidents.csv",
+  "x-grain": ["incident_id"],
+  "x-primary-key": "incident_id",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["incident_id", "week", "opened_on", "team", "platform", "service_id", "severity", "mttr_minutes", "change_related"],
+  "properties": {
+    "incident_id": {"type": "string", "pattern": "^INC-W[0-9]{2}-[A-Z]+-[A-Z]+-[0-9]{3}$", "description": "Deterministic id: INC-W<week>-<TEAM>-<PLATFORM>-<seq>.", "x-unit": "id"},
+    "week": {"type": "integer", "minimum": 1, "maximum": 52, "description": "Reporting week the incident was opened in.", "x-unit": "week number"},
+    "opened_on": {"type": "string", "format": "date", "description": "Date the incident was opened. Must fall inside the reporting week.", "x-unit": "date"},
+    "team": {"type": "string", "enum": ["Atlas", "Nova", "Orion", "Phoenix", "Titan"], "description": "Team owning the affected service.", "x-unit": "category"},
+    "platform": {"type": "string", "enum": ["Web", "Mobile", "Services", "Data"], "description": "Platform of the affected service.", "x-unit": "category"},
+    "service_id": {"type": "string", "pattern": "^SVC-[A-Z]+-[A-Z]+$", "description": "Affected service.", "x-unit": "id"},
+    "severity": {"type": "string", "enum": ["SEV1", "SEV2", "SEV3", "SEV4"], "description": "SEV1 = full outage, SEV4 = minor degradation.", "x-unit": "category"},
+    "mttr_minutes": {"type": "number", "minimum": 1, "maximum": 10080, "description": "Minutes from detection to recovery.", "x-unit": "minutes"},
+    "change_related": {"type": "boolean", "description": "true if the post-incident review attributed the trigger to a deployment/change.", "x-unit": "boolean"}
+  },
+  "x-validation-rules": [
+    {"id": "INC-R01", "severity": "MAJOR", "rule": "incident_id is unique."},
+    {"id": "INC-R02", "severity": "MAJOR", "rule": "opened_on falls within its reporting week."},
+    {"id": "INC-R03", "severity": "CRITICAL", "rule": "service_id belongs to the row's (team, platform)."}
+  ]
+}

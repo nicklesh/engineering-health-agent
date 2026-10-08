@@ -1,0 +1,46 @@
+{
+  "_comment": "Fictional organisation used by the synthetic data generator. All names are invented.",
+  "platforms": ["Web", "Mobile", "Services", "Data"],
+  "teams": [
+    {
+      "team": "Atlas",
+      "base_headcount": 8,
+      "services": [
+        {"service_id": "SVC-ATLAS-WEB", "service_name": "storefront-ui", "platform": "Web", "tier": 1},
+        {"service_id": "SVC-ATLAS-SERVICES", "service_name": "order-api", "platform": "Services", "tier": 1}
+      ]
+    },
+    {
+      "team": "Nova",
+      "base_headcount": 7,
+      "services": [
+        {"service_id": "SVC-NOVA-MOBILE", "service_name": "companion-app", "platform": "Mobile", "tier": 1},
+        {"service_id": "SVC-NOVA-SERVICES", "service_name": "notification-svc", "platform": "Services", "tier": 2}
+      ]
+    },
+    {
+      "team": "Orion",
+      "base_headcount": 6,
+      "services": [
+        {"service_id": "SVC-ORION-DATA", "service_name": "event-pipeline", "platform": "Data", "tier": 1},
+        {"service_id": "SVC-ORION-SERVICES", "service_name": "search-api", "platform": "Services", "tier": 2}
+      ]
+    },
+    {
+      "team": "Phoenix",
+      "base_headcount": 7,
+      "services": [
+        {"service_id": "SVC-PHOENIX-WEB", "service_name": "account-portal", "platform": "Web", "tier": 2},
+        {"service_id": "SVC-PHOENIX-MOBILE", "service_name": "profile-app", "platform": "Mobile", "tier": 2}
+      ]
+    },
+    {
+      "team": "Titan",
+      "base_headcount": 6,
+      "services": [
+        {"service_id": "SVC-TITAN-DATA", "service_name": "analytics-warehouse", "platform": "Data", "tier": 2},
+        {"service_id": "SVC-TITAN-WEB", "service_name": "reporting-ui", "platform": "Web", "tier": 3}
+      ]
+    }
+  ]
+}

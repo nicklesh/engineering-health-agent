@@ -1,0 +1,3 @@
+# Keep generated data byte-identical across OSes so MANIFEST.json hashes stay valid.
+data/raw/*.csv text eol=lf
+*.json text eol=lf

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "services.schema.json",
+  "title": "services",
+  "description": "Reference table: one row per service, mapping it to its owning team and platform. Defines which (team, platform) pairs are valid.",
+  "x-file": "data/raw/services.csv",
+  "x-grain": ["service_id"],
+  "x-primary-key": "service_id",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["service_id", "service_name", "team", "platform", "tier"],
+  "properties": {
+    "service_id": {"type": "string", "pattern": "^SVC-[A-Z]+-[A-Z]+$", "description": "Service identifier: SVC-<TEAM>-<PLATFORM>.", "x-unit": "id"},
+    "service_name": {"type": "string", "minLength": 1, "description": "Human-readable service name (fictional).", "x-unit": "text"},
+    "team": {"type": "string", "enum": ["Atlas", "Nova", "Orion", "Phoenix", "Titan"], "description": "Owning team.", "x-unit": "category"},
+    "platform": {"type": "string", "enum": ["Web", "Mobile", "Services", "Data"], "description": "Platform the service runs on.", "x-unit": "category"},
+    "tier": {"type": "integer", "minimum": 1, "maximum": 3, "description": "Business criticality: 1 = most critical.", "x-unit": "ordinal"}
+  },
+  "x-validation-rules": [
+    {"id": "SVC-R01", "severity": "CRITICAL", "rule": "service_id is unique."},
+    {"id": "SVC-R02", "severity": "CRITICAL", "rule": "(team, platform) is unique - one service per team/platform in this dataset."}
+  ]
+}

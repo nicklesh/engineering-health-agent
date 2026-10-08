@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "deployments.schema.json",
+  "title": "deployments",
+  "description": "One row per production deployment attempt. Source records for deployment metrics.",
+  "x-file": "data/raw/deployments.csv",
+  "x-grain": ["deployment_id"],
+  "x-primary-key": "deployment_id",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["deployment_id", "week", "deployed_on", "team", "platform", "service_id", "status", "rolled_back", "duration_min"],
+  "properties": {
+    "deployment_id": {"type": "string", "pattern": "^DEP-W[0-9]{2}-[A-Z]+-[A-Z]+-[0-9]{3}$", "description": "Deterministic id: DEP-W<week>-<TEAM>-<PLATFORM>-<seq>.", "x-unit": "id"},
+    "week": {"type": "integer", "minimum": 1, "maximum": 52, "description": "Reporting week the deployment belongs to.", "x-unit": "week number"},
+    "deployed_on": {"type": "string", "format": "date", "description": "Calendar date of the deployment. Must fall inside the reporting week.", "x-unit": "date"},
+    "team": {"type": "string", "enum": ["Atlas", "Nova", "Orion", "Phoenix", "Titan"], "description": "Owning team.", "x-unit": "category"},
+    "platform": {"type": "string", "enum": ["Web", "Mobile", "Services", "Data"], "description": "Platform deployed to.", "x-unit": "category"},
+    "service_id": {"type": "string", "pattern": "^SVC-[A-Z]+-[A-Z]+$", "description": "Service deployed. Must belong to (team, platform) in services.csv.", "x-unit": "id"},
+    "status": {"type": "string", "enum": ["SUCCESS", "FAILED"], "description": "Deployment outcome.", "x-unit": "category"},
+    "rolled_back": {"type": "boolean", "description": "true if the deployment was rolled back. Only FAILED deployments are rolled back.", "x-unit": "boolean"},
+    "duration_min": {"type": "number", "minimum": 0.1, "maximum": 600, "description": "Wall-clock duration of the deployment.", "x-unit": "minutes"}
+  },
+  "x-validation-rules": [
+    {"id": "DEP-R01", "severity": "MAJOR", "rule": "deployment_id is unique (duplicates are reported and excluded from analysis)."},
+    {"id": "DEP-R02", "severity": "MAJOR", "rule": "deployed_on falls within [week_start, week_start + 6 days] of its week."},
+    {"id": "DEP-R03", "severity": "CRITICAL", "rule": "service_id belongs to the row's (team, platform)."},
+    {"id": "DEP-R04", "severity": "MINOR", "rule": "rolled_back == true implies status == FAILED."}
+  ]
+}

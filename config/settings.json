@@ -1,0 +1,15 @@
+{
+  "_comment": "Run settings. Changing seed, n_weeks or start_date changes the generated dataset; everything else is deterministic.",
+  "generator": {
+    "seed": 20260615,
+    "n_weeks": 16,
+    "start_date": "2026-06-15",
+    "inject_data_quality_issues": true
+  },
+  "paths": {
+    "raw_data": "data/raw",
+    "processed_data": "data/processed",
+    "schemas": "data/schemas",
+    "ground_truth": "tests/ground_truth/planted_signals.json"
+  }
+}

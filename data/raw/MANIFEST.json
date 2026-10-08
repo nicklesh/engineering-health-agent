@@ -1,0 +1,30 @@
+{
+  "generator": {
+    "seed": 20260615,
+    "n_weeks": 16,
+    "start_date": "2026-06-15",
+    "inject_data_quality_issues": true
+  },
+  "files": {
+    "services.csv": {
+      "rows": 10,
+      "sha256": "0393925aa1be9180a881f182fc458ee696db09885c788b40f2b3a872ea2adfc6"
+    },
+    "weekly_metrics.csv": {
+      "rows": 160,
+      "sha256": "45b06ccd66bdcdc73b678fe751de86b6bb986025710a4ba056c66f66b0424351"
+    },
+    "deployments.csv": {
+      "rows": 1506,
+      "sha256": "4b7efb00c4e5bdd39a32d54a2cc10eeb3983c1d029f374765ed2b14b3632a0d8"
+    },
+    "incidents.csv": {
+      "rows": 103,
+      "sha256": "3c67220ba424a873ee29d3b7bbf496eb6433fbf254e540500d2b9b8720d43da8"
+    },
+    "defects.csv": {
+      "rows": 582,
+      "sha256": "9a72caa7e368153c48437e8eebb02f1f3476a89a86f6b4e752e5eabc67017ec2"
+    }
+  }
+}

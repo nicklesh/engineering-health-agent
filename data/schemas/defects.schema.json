@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defects.schema.json",
+  "title": "defects",
+  "description": "One row per defect reported. Source records for defect volume, severity, escape rate and regression rate.",
+  "x-file": "data/raw/defects.csv",
+  "x-grain": ["defect_id"],
+  "x-primary-key": "defect_id",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["defect_id", "week", "reported_on", "team", "platform", "service_id", "severity", "escaped", "regression"],
+  "properties": {
+    "defect_id": {"type": "string", "pattern": "^DEF-W[0-9]{2}-[A-Z]+-[A-Z]+-[0-9]{3}$", "description": "Deterministic id: DEF-W<week>-<TEAM>-<PLATFORM>-<seq>.", "x-unit": "id"},
+    "week": {"type": "integer", "minimum": 1, "maximum": 52, "description": "Reporting week the defect was reported in.", "x-unit": "week number"},
+    "reported_on": {"type": "string", "format": "date", "description": "Date reported. Must fall inside the reporting week.", "x-unit": "date"},
+    "team": {"type": "string", "enum": ["Atlas", "Nova", "Orion", "Phoenix", "Titan"], "description": "Team owning the defective service.", "x-unit": "category"},
+    "platform": {"type": "string", "enum": ["Web", "Mobile", "Services", "Data"], "description": "Platform of the defective service.", "x-unit": "category"},
+    "service_id": {"type": "string", "pattern": "^SVC-[A-Z]+-[A-Z]+$", "description": "Defective service.", "x-unit": "id"},
+    "severity": {"type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"], "description": "Defect severity.", "x-unit": "category"},
+    "escaped": {"type": "boolean", "description": "true if found in production (escaped pre-release testing).", "x-unit": "boolean"},
+    "regression": {"type": "boolean", "description": "true if the defect broke previously working behaviour.", "x-unit": "boolean"}
+  },
+  "x-validation-rules": [
+    {"id": "DEF-R01", "severity": "MAJOR", "rule": "defect_id is unique."},
+    {"id": "DEF-R02", "severity": "MAJOR", "rule": "reported_on falls within its reporting week."},
+    {"id": "DEF-R03", "severity": "CRITICAL", "rule": "service_id belongs to the row's (team, platform)."}
+  ]
+}
