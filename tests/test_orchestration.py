@@ -14,7 +14,7 @@ from src.common import envelope
 from src.common.envelope import AGENTS
 from src.config import ROOT, load_json
 from src.orchestration import orchestrator, reasoning
-from src.reporting import agent09_dashboard, agent10_executive_report
+from src.reporting import agent09_dashboard, agent10_executive_report, diagrams
 from src.validation.agent08_evidence_validation import CAUSAL, Checker, unnegated
 from tests.pipeline_helper import shared_run
 
@@ -33,11 +33,14 @@ class OrchestratorCase(unittest.TestCase):
         agent09_dashboard.DASHBOARD_DIR = self.dash
         self._out_orig = agent10_executive_report.OUTPUT_DIR
         agent10_executive_report.OUTPUT_DIR = self.dir / "output"
+        self._diag_orig = diagrams.OUT
+        diagrams.OUT = self.dir / "diagrams"
 
     def tearDown(self):
         envelope.set_processed_dir(None)
         agent09_dashboard.DASHBOARD_DIR = self._dash_orig
         agent10_executive_report.OUTPUT_DIR = self._out_orig
+        diagrams.OUT = self._diag_orig
         shutil.rmtree(self.dir, ignore_errors=True)
 
 

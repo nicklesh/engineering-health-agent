@@ -1,0 +1,51 @@
+flowchart TB
+  classDef gate fill:#16191d,color:#fff,stroke:#16191d
+  classDef agent fill:#f3f3f1,color:#16191d,stroke:#d6d1c6
+  classDef data fill:#dcecea,color:#16191d,stroke:#0e6b63
+  classDef out fill:#fff,color:#16191d,stroke:#0e6b63,stroke-width:2px
+  classDef ai fill:#f4ead2,color:#16191d,stroke:#9a6a0c
+  subgraph DATA["Data layer"]
+    CFG["config/*.json<br/>settings, metric catalog, thresholds, known exceptions"]:::data
+    GEN["Synthetic data generator<br/>src/data"]:::data
+    RAW["data/raw/*.csv + MANIFEST<br/>validated by data/schemas"]:::data
+  end
+  CFG --> GEN --> RAW
+  subgraph ORCH["Orchestrator · src/orchestration · python run.py"]
+    A01["01 Data Validation"]:::gate
+    A02["02 Metrics Analysis"]:::agent
+    A04["04 Trend Analysis"]:::agent
+    A05["05 Anomaly Detection"]:::agent
+    A03["03 Quality Analysis"]:::agent
+    A06["06 Risk Analysis"]:::agent
+    A07["07 Engineering Coach"]:::agent
+    A08["08 Evidence Validation"]:::gate
+  end
+  subgraph OUTPUTS["Outputs · built only from validated findings"]
+    A09["09 Dashboard Generation"]:::out
+    A10["10 Executive Report"]:::out
+    DASH["dashboard/ · interactive HTML"]:::out
+    DECK["output/ · PowerPoint + report"]:::out
+    DIAG["output/diagrams · generated from code"]:::out
+  end
+  subgraph AI["Claude Code reasoning layer (optional, no API key)"]
+    BRIEF["brief.json<br/>validated findings only"]:::ai
+    SUB["risk-narrator +<br/>engineering-coach-writer subagents"]:::ai
+    ING["ingest: stale? new numbers?<br/>causal claims? generic?"]:::ai
+  end
+  RAW --> A01
+  CFG --> A01
+  A01 --> A02
+  A04 --> A03
+  A05 --> A03
+  A02 --> A04
+  A02 --> A05
+  A03 --> A06
+  A06 --> A07
+  A07 --> A08
+  A08 --> A09
+  A09 --> A10
+  A08 -. "REJECT → rerun_requests: re-run 07 without rejected findings" .-> A07
+  A01 -. "FAIL → pipeline BLOCKED" .-> GATEFAIL(["stop: fix data or approve exception"])
+  A09 --> DASH
+  A10 --> DECK
+  A08 --> BRIEF --> SUB --> ING --> A09

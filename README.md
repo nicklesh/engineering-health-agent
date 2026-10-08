@@ -4,10 +4,10 @@ A multi-agent pipeline that turns raw (synthetic) engineering metrics into valid
 evidence-backed insights for engineering leadership. It produces an interactive dashboard,
 an executive deck, an executive report and architecture documentation.
 
-> **Status: Phases 1–6 of 8 complete.** Synthetic data, the eight analytical agents, the
-> orchestrator, the Claude Code reasoning layer, the interactive dashboard, and the executive
-> deck and report are built, run and tested (61 Python tests + 11 dashboard tests). The
-> architecture and sequence diagrams and the final QA pass are next. See [CLAUDE.md §9](CLAUDE.md#9-current-status).
+> **Status: all 8 phases complete and executed.**
+> - **Verification:** `python run.py check` runs the pipeline, 68 Python tests, 11 dashboard tests, two reproducibility runs and the 21-question quality gate ([report](output/reports/quality_gate.md)); all pass.
+> - **Published:** the dashboard is also published as a private hosted page.
+> - **Known limitations:** see [Limitations](#limitations).
 
 ## Why it exists
 
@@ -23,12 +23,11 @@ All data is synthetic. No real company, system or person is represented.
 
 ## Architecture
 
-See [CLAUDE.md §2](CLAUDE.md#2-architecture) for the full picture and agent table. In short:
+![Architecture](output/diagrams/architecture.svg)
 
-```
-synthetic data → 01 validation (gate) → 02 metrics, 03 quality → 04 trends, 05 anomalies
-→ 06 risk → 07 coach → 08 evidence validation → 09 dashboard / 10 report + deck
-```
+The diagram is generated from the orchestrator's dependency graph on every run, so it cannot
+drift from the code. The runtime sequence, including the failure paths, and the full design
+are in [output/diagrams](output/diagrams/README.md) and the [system design](output/design/system_design.md).
 
 Calculations are deterministic Python. AI reasoning (interpretation and narrative) is
 supplied by Claude Code subagents when you run the pipeline inside Claude Code, using your
@@ -114,6 +113,8 @@ python -m src.data.schema_docs
 python run.py
 ```
 
+To run everything and verify it, use `python run.py check`; see [Testing](#testing).
+
 This runs agents 01–08 in dependency order (04 and 05 in parallel) in under a second.
 Outputs land in `data/processed/`, one JSON envelope per agent plus `metric_series.json`.
 A run log goes to `output/reports/run_log.json`. The exit code is 1 if the pipeline is
@@ -182,15 +183,27 @@ This writes `dashboard/artifact.html`, a copy of the page without the outer HTML
 
 ### Diagrams
 
-Not built yet (Phase 7).
+Every `python run.py` regenerates `output/diagrams/` (architecture and sequence, as Mermaid and SVG) from the orchestrator's dependency graph and the run that just happened. To regenerate them from the latest run log only:
+
+```bash
+python -m src.reporting.diagrams
+```
 
 ## Testing
+
+```bash
+python run.py check
+```
+
+This runs the full pipeline, every test, two independent reproducibility runs, and the quality gate. The gate answers each self-evaluation question from the brief with evidence, in `output/reports/quality_gate.md`. Tests alone:
 
 ```bash
 python -m unittest discover -s tests -t . -v
 ```
 
-49 tests in three files:
+68 Python tests in six files, plus 11 Node tests of the dashboard logic (`tests/dashboard_model_test.js`):
+- `test_diagrams.py`: the simplified architecture graph has exactly the real dependencies; the sequence diagram's order and statuses match an actual run; the drawn feedback loop is replayed.
+- `test_dashboard.py` / `test_reporting.py`: Agent 09 and 10 consistency checks; an invented number is caught; rejected content appears only as the labelled example.
 - `test_orchestration.py`:
   - dependency order and parallel layer;
   - the orchestrated run is byte-identical to a sequential run;
@@ -211,12 +224,18 @@ python -m unittest discover -s tests -t . -v
 - The data is synthetic and simpler than reality: one service per team/platform, no seasonality, no holidays, independent noise.
 - Weekly aggregates such as cycle time are generated directly, not derived from work-item records, so they can only be traced to the weekly row, not to individual items.
 - 16 weeks is a short history for trend statistics. Thresholds are tuned for it and documented in the agent specs.
+- Small weekly samples limit what can be proven about rates: Phoenix's escaped-defect improvement is real in the data but not statistically significant, so it is reported as directional only.
+- The health index is relative to the organisation's first four weeks, not an absolute grade.
+- The AI-narrative "no new numbers" check matches numbers against the whole finding, not the specific metric, so a correct number used in the wrong context could pass.
+- The executive deck uses deterministic wording; validated AI narratives appear on the dashboard only.
 
 ## Future production architecture
 
-To be written in Phase 7. Expected direction: replace the generator with connectors to
-delivery, CI, incident and defect systems; keep the same schemas and agent contracts; run the
-pipeline on a schedule; store envelopes in a database instead of JSON files.
+Summary (details in [system design §10](output/design/system_design.md#10-future-production-architecture)):
+- **Data:** replace the generator with connectors to delivery, code-review, incident and defect systems, landing events in a warehouse. The current JSON Schemas become data contracts, and Agent 01's rules become warehouse data tests.
+- **Orchestration:** run the same DAG on a workflow engine on a schedule, with envelopes stored in a database for lineage.
+- **AI:** call Claude through the API inside the workflow, under the same brief → validate → accept contract.
+- **Governance:** CI on every change, human sign-off for exceptions and executive outputs.
 
 ## Development log
 
@@ -251,6 +270,13 @@ Meaningful failures and how they were fixed.
 | 25 | 6 | Every chart axis started at 0, flattening the trends. | Chart defaults. | Value axes fitted to the data range. |
 | 26 | 6 | A test failed: deck facts were traced to a **rejected** finding. | The evidence slide deliberately shows one rejected claim as an example, which the brief's "rejected findings must not appear" rule seemed to forbid. | Made the policy explicit: rejected content may appear only as a labelled rejection on the evidence slide, under a `rejected_example.` key. Two tests enforce it. |
 | 27 | 6 | 1 of 15 new AI narratives was rejected for a "new number". | A third validator false positive: the narrative said "the **P1** reliability work", and the "1" was read as a quantity. | Priority labels and agent numbers are treated as identifiers. Regression test added; all 15 narratives then passed. |
+| 28 | 7 | The first architecture SVG had the AI-layer box covering the dashboard box, and a diagonal arrow through two side-by-side boxes. The sequence SVG hid "BLOCKED" and "ERROR" under block headers. | A generated layout still needs looking at. | Fixed the layout rules (same-row arrows go side to side, block headers get clearance, long labels on short arrows move aside) and re-rendered. |
+| 29 | 7 | The diagram code typed agents 09 and 10's dependencies by hand. | A diagram meant to reflect the code was partly hand-written. | They are now read from the agents' own declared `depends_on`. A test proves the simplified graph has exactly the real reachability. |
+| 30 | 8 | The first quality-gate run: 20/21. The spec check failed on headings like "Example output (real run)". | The check demanded exact heading text. | Headings must *start with* the required section name. |
+| 31 | 8 | Self-critique: my gate's "dependencies explicit" check was **hard-coded to PASS**. | Written as prose evidence instead of a test, the kind of fake check the brief warns against. | It now compares every agent's declared inputs with the orchestrator's DAG in both directions. |
+| 32 | 8 | Self-critique: diagrams were generated from a git-ignored run log, so a fresh clone could not rebuild them, and they were not part of the run. | Leftover from building them as a separate step. | The orchestrator regenerates them at the end of every run, from that run's own steps. |
+| 33 | 8 | Self-critique: "What improved" listed four Mobile-platform improvements that were only Phoenix's improvements seen at platform level. | Platform trends were not attributed, unlike risks. | A platform improvement already shown by one of its teams is listed once, at team level. |
+| 34 | 8 | Self-critique: the dashboard showed targets as "<=" while the deck used "≤", and `requirements.txt` was unpinned. | Small inconsistencies and a reproducibility gap. | Same symbols everywhere; exact versions pinned. Two weaknesses were deliberately **not** fixed and are listed under Limitations: the per-finding narrative number check, and no AI narratives in the deck. |
 
 ## What I Learned
 

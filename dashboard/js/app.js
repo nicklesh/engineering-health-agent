@@ -34,6 +34,8 @@
   const verdict = v => v === "WARN" ? `<span class="verdict warn" title="Shown with a caveat from Evidence Validation">Caveat</span>` : `<span class="verdict pass" title="Passed Evidence Validation">Validated</span>`;
   const conf = c => c ? `<span class="conf" title="Validated confidence (see methodology)"><span class="conf-bar"><i style="width:${Math.round(c.score * 100)}%"></i></span>${Math.round(c.score * 100)}%</span>` : "";
   const weekDate = w => D.meta.week_starts[w - 1];
+  // Same symbols as the executive deck ("<= 11 hours" -> "≤ 11 hours").
+  const target = t => String(t).replace(/<=/g, "≤").replace(/>=/g, "≥");
   function severityText(f) {
     const b = f.severity_breakdown || {};
     if (b.note) return b.note + ".";
@@ -149,7 +151,7 @@
       return `<article class="rec p-${r.priority.toLowerCase()}">
         <header><span class="prio">${esc(r.priority)}</span><span class="owner">${esc(r.owner_type)}</span>${verdict(r.verdict)}</header>
         <p class="action">${esc(nar || r.recommended_action)}${nar ? ' <span class="ai">AI narrative · validated</span>' : ""}</p>
-        <p class="measure"><b>Success:</b> ${esc(label(ms.metric))} ${esc(ms.target)} by week ${ms.by_week}</p>
+        <p class="measure"><b>Success:</b> ${esc(label(ms.metric))} ${esc(target(ms.target))} by week ${ms.by_week}</p>
         <button class="link" data-finding="${esc(r.related_findings[0])}">Evidence →</button>
       </article>`;
     }).join("") || `<p class="empty">No recommendations for this scope.</p>`;
@@ -325,7 +327,7 @@
           <li><span>Validation</span><b>08_evidence_validation = ${esc(t.validation)}</b></li>
           <li><span>Recommendation</span><b>${rec ? esc(rec.priority + " · " + rec.owner_type) : "none"}</b></li>
         </ol>
-        ${rec ? `<div class="callout"><b>Recommended action (${esc(rec.priority)})</b><br>${esc(M.narrative(rec.id) || rec.recommended_action)}<br><small>Success: ${esc(label(rec.measurement_of_success.metric))} ${esc(rec.measurement_of_success.target)} by week ${rec.measurement_of_success.by_week}</small></div>` : ""}`;
+        ${rec ? `<div class="callout"><b>Recommended action (${esc(rec.priority)})</b><br>${esc(M.narrative(rec.id) || rec.recommended_action)}<br><small>Success: ${esc(label(rec.measurement_of_success.metric))} ${esc(target(rec.measurement_of_success.target))} by week ${rec.measurement_of_success.by_week}</small></div>` : ""}`;
     }
     const e = f.evidence || {};
     const vals = e.values || {};

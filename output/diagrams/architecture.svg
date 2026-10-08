@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 988" font-family="Segoe UI, Calibri, Arial, sans-serif">
+<rect width="980" height="988" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#666b73"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b4361f"/></marker></defs>
+<text x="40" y="44" font-size="22" font-weight="600" fill="#16191d">Engineering Health Intelligence System · architecture</text>
+<text x="40" y="68" font-size="13" fill="#666b73">Generated from src/orchestration/orchestrator.py (transitive reduction of the dependency graph). Rows run in order; boxes in one row run in parallel.</text>
+<line x1="490.0" y1="150" x2="490.0" y2="190" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="242" x2="490.0" y2="282" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="334" x2="355.0" y2="374" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="334" x2="625.0" y2="374" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="625.0" y1="426" x2="490.0" y2="466" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="355.0" y1="426" x2="490.0" y2="466" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="518" x2="490.0" y2="558" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="610" x2="490.0" y2="650" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="702" x2="490.0" y2="742" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="490.0" y1="794" x2="355.0" y2="834" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<line x1="470.0" y1="861.0" x2="508.0" y2="861.0" stroke="#666b73" stroke-width="1.4" marker-end="url(#a)"/>
+<path d="M605.0 769.0 C 715.0 769.0, 715.0 677.0, 607.0 677.0" fill="none" stroke="#b4361f" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#b)"/>
+<text x="697.0" y="727.0" font-size="12" fill="#b4361f">REJECT → re-run 07 (≤ 2 rounds)</text>
+<text x="621.0" y="222" font-size="12" fill="#b4361f">FAIL → pipeline BLOCKED, nothing downstream runs</text>
+<rect x="375.0" y="100" width="230" height="50" rx="9" fill="#dcecea" stroke="#0e6b63" stroke-width="1.2"/>
+<text x="389.0" y="121" font-size="14" font-weight="600" fill="#16191d">Synthetic data + config</text>
+<text x="389.0" y="139" font-size="11.5" fill="#666b73">CSV files · schemas · thresholds</text>
+<rect x="375.0" y="192" width="230" height="50" rx="9" fill="#16191d" stroke="#16191d" stroke-width="1.2"/>
+<text x="389.0" y="213" font-size="14" font-weight="600" fill="#ffffff">01 Data Validation</text>
+<text x="389.0" y="231" font-size="11.5" fill="#c9cdd2">gate: FAIL stops the run</text>
+<rect x="375.0" y="284" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="389.0" y="305" font-size="14" font-weight="600" fill="#16191d">02 Metrics Analysis</text>
+<text x="389.0" y="323" font-size="11.5" fill="#666b73">metric_series.json</text>
+<rect x="240.0" y="376" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="254.0" y="397" font-size="14" font-weight="600" fill="#16191d">04 Trend Analysis</text>
+<rect x="510.0" y="376" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="524.0" y="397" font-size="14" font-weight="600" fill="#16191d">05 Anomaly Detection</text>
+<rect x="375.0" y="468" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="389.0" y="489" font-size="14" font-weight="600" fill="#16191d">03 Quality Analysis</text>
+<rect x="375.0" y="560" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="389.0" y="581" font-size="14" font-weight="600" fill="#16191d">06 Risk Analysis</text>
+<text x="389.0" y="599" font-size="11.5" fill="#666b73">proposes widely</text>
+<rect x="375.0" y="652" width="230" height="50" rx="9" fill="#f3f3f1" stroke="#d6d1c6" stroke-width="1.2"/>
+<text x="389.0" y="673" font-size="14" font-weight="600" fill="#16191d">07 Engineering Coach</text>
+<text x="389.0" y="691" font-size="11.5" fill="#666b73">actions + targets</text>
+<rect x="375.0" y="744" width="230" height="50" rx="9" fill="#16191d" stroke="#16191d" stroke-width="1.2"/>
+<text x="389.0" y="765" font-size="14" font-weight="600" fill="#ffffff">08 Evidence Validation</text>
+<text x="389.0" y="783" font-size="11.5" fill="#c9cdd2">PASS / WARN / REJECT</text>
+<rect x="240.0" y="836" width="230" height="50" rx="9" fill="#ffffff" stroke="#0e6b63" stroke-width="2"/>
+<text x="254.0" y="857" font-size="14" font-weight="600" fill="#16191d">09 Dashboard Generation</text>
+<text x="254.0" y="875" font-size="11.5" fill="#666b73">dashboard/</text>
+<rect x="510.0" y="836" width="230" height="50" rx="9" fill="#ffffff" stroke="#0e6b63" stroke-width="2"/>
+<text x="524.0" y="857" font-size="14" font-weight="600" fill="#16191d">10 Executive Report</text>
+<text x="524.0" y="875" font-size="11.5" fill="#666b73">PowerPoint + report</text>
+<rect x="30" y="560" width="280" height="234" rx="9" fill="#f4ead2" stroke="#9a6a0c"/>
+<text x="44" y="582" font-size="13.5" font-weight="600" fill="#16191d">Claude Code reasoning layer</text>
+<text x="44" y="604" font-size="11.5" fill="#16191d">brief: validated findings only</text>
+<text x="44" y="622" font-size="11.5" fill="#16191d">subagents write narratives</text>
+<text x="44" y="640" font-size="11.5" fill="#16191d">ingest rejects: stale, new numbers,</text>
+<text x="44" y="658" font-size="11.5" fill="#16191d">causal claims, generic text</text>
+<text x="44" y="676" font-size="11.5" fill="#16191d">accepted narratives → 09 only</text>
+<line x1="375.0" y1="769.0" x2="312" y2="769.0" stroke="#9a6a0c" stroke-width="1.4" marker-end="url(#a)"/>
+<path d="M170.0 794 V 861.0 H 238.0" fill="none" stroke="#9a6a0c" stroke-width="1.4" marker-end="url(#a)"/>
+</svg>

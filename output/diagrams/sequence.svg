@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1526 1780" font-family="Segoe UI, Calibri, Arial, sans-serif">
+<rect width="1526" height="1780" fill="#ffffff"/>
+<defs><marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16191d"/></marker></defs>
+<text x="20" y="30" font-size="20" font-weight="600" fill="#16191d">Runtime sequence · success and failure paths</text>
+<text x="20" y="50" font-size="12" fill="#666b73">Success path and statuses from output/reports/run_log.json; failure paths mirror the orchestrator code.</text>
+<line x1="70" y1="86" x2="70" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="18" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="70" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">User</text>
+<line x1="182" y1="86" x2="182" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="130" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="182" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">Orchestrator</text>
+<line x1="294" y1="86" x2="294" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="242" y="62" width="104" height="26" rx="6" fill="#16191d" stroke="#16191d"/>
+<text x="294" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#ffffff">01 Validation</text>
+<line x1="406" y1="86" x2="406" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="354" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="406" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">02 Metrics</text>
+<line x1="518" y1="86" x2="518" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="466" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="518" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">04 Trends</text>
+<line x1="630" y1="86" x2="630" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="578" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="630" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">05 Anomalies</text>
+<line x1="742" y1="86" x2="742" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="690" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="742" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">03 Quality</text>
+<line x1="854" y1="86" x2="854" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="802" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="854" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">06 Risk</text>
+<line x1="966" y1="86" x2="966" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="914" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="966" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">07 Coach</text>
+<line x1="1078" y1="86" x2="1078" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="1026" y="62" width="104" height="26" rx="6" fill="#16191d" stroke="#16191d"/>
+<text x="1078" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#ffffff">08 Evidence</text>
+<line x1="1190" y1="86" x2="1190" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="1138" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="1190" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">09 Dashboard</text>
+<line x1="1302" y1="86" x2="1302" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="1250" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="1302" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">10 Report</text>
+<line x1="1414" y1="86" x2="1414" y2="1750" stroke="#d6d1c6" stroke-dasharray="3 4"/>
+<rect x="1362" y="62" width="104" height="26" rx="6" fill="#f3f3f1" stroke="#d6d1c6"/>
+<text x="1414" y="79" font-size="11" font-weight="600" text-anchor="middle" fill="#16191d">AI subagents</text>
+<rect x="12" y="230" width="1502" height="204" fill="none" stroke="#b4361f" stroke-width="1.2" rx="4"/>
+<rect x="12" y="230" width="348.0" height="20" fill="#b4361f" rx="4"/>
+<text x="20" y="244" font-size="11" font-weight="600" fill="#ffffff">ALT · 01 status = FAIL (un-excepted CRITICAL issue)</text>
+<line x1="12" y1="368" x2="1514" y2="368" stroke="#b4361f" stroke-dasharray="5 4"/>
+<text x="20" y="381" font-size="11" font-style="italic" fill="#b4361f">[PASS / WARN (issues handled by directives)]</text>
+<rect x="12" y="508" width="1502" height="204" fill="none" stroke="#0e6b63" stroke-width="1.2" rx="4"/>
+<rect x="12" y="508" width="149.60000000000002" height="20" fill="#0e6b63" rx="4"/>
+<text x="20" y="522" font-size="11" font-weight="600" fill="#ffffff">PAR · parallel layer</text>
+<line x1="12" y1="616" x2="1514" y2="616" stroke="#0e6b63" stroke-dasharray="5 4"/>
+<rect x="12" y="966" width="1502" height="164" fill="none" stroke="#9a6a0c" stroke-width="1.2" rx="4"/>
+<rect x="12" y="966" width="328.8" height="20" fill="#9a6a0c" rx="4"/>
+<text x="20" y="980" font-size="11" font-weight="600" fill="#ffffff">LOOP · while 08 has rerun_requests (max 2 rounds)</text>
+<rect x="12" y="1264" width="1502" height="144" fill="none" stroke="#b4361f" stroke-width="1.2" rx="4"/>
+<rect x="12" y="1264" width="309.6" height="20" fill="#b4361f" rx="4"/>
+<text x="20" y="1278" font-size="11" font-weight="600" fill="#ffffff">ALT · an agent raises / an output check fails</text>
+<line x1="12" y1="1342" x2="1514" y2="1342" stroke="#b4361f" stroke-dasharray="5 4"/>
+<text x="20" y="1355" font-size="11" font-style="italic" fill="#b4361f">[all passed]</text>
+<rect x="12" y="1572" width="1502" height="144" fill="none" stroke="#b4361f" stroke-width="1.2" rx="4"/>
+<rect x="12" y="1572" width="469.6" height="20" fill="#b4361f" rx="4"/>
+<text x="20" y="1586" font-size="11" font-weight="600" fill="#ffffff">ALT · narrative is stale / adds a number / claims a cause / is generic</text>
+<line x1="12" y1="1650" x2="1514" y2="1650" stroke="#b4361f" stroke-dasharray="5 4"/>
+<text x="20" y="1663" font-size="11" font-style="italic" fill="#b4361f">[accepted]</text>
+<line x1="70" y1="110" x2="179" y2="110" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="126.0" y="105" font-size="11" text-anchor="middle" fill="#16191d">python run.py</text>
+<rect x="39.70000000000002" y="127" width="284.59999999999997" height="20" fill="#f4ead2" stroke="#9a6a0c" rx="3"/>
+<text x="182" y="141" font-size="11" text-anchor="middle" fill="#16191d">clean slate: delete previous agent outputs</text>
+<line x1="182" y1="170" x2="291" y2="170" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="238.0" y="165" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="294" y1="200" x2="185" y2="200" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="238.0" y="195" font-size="11" text-anchor="middle" fill="#9a6a0c">WARN</text>
+<line x1="182" y1="274" x2="73" y2="274" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="190" y="278" font-size="11" fill="#b4361f">BLOCKED + blocking issues · exit 1 · nothing else runs</text>
+<path d="M70 304 h34 v12 h-32" fill="none" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="110" y="312" font-size="11" fill="#16191d">fix the data, or approve a documented exception</text>
+<line x1="70" y1="334" x2="179" y2="334" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="190" y="338" font-size="11" fill="#16191d">re-run → 01 revalidates</text>
+<rect x="146.8" y="391" width="70.4" height="20" fill="#f4ead2" stroke="#9a6a0c" rx="3"/>
+<text x="182" y="405" font-size="11" text-anchor="middle" fill="#16191d">continue</text>
+<line x1="182" y1="448" x2="403" y2="448" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="294.0" y="443" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="406" y1="478" x2="185" y2="478" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="294.0" y="473" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="552" x2="515" y2="552" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="350.0" y="547" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="518" y1="582" x2="185" y2="582" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="350.0" y="577" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="652" x2="627" y2="652" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="406.0" y="647" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="630" y1="682" x2="185" y2="682" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="406.0" y="677" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="726" x2="739" y2="726" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="462.0" y="721" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="742" y1="756" x2="185" y2="756" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="462.0" y="751" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="786" x2="851" y2="786" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="518.0" y="781" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="854" y1="816" x2="185" y2="816" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="518.0" y="811" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="846" x2="963" y2="846" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="574.0" y="841" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="966" y1="876" x2="185" y2="876" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="574.0" y="871" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="906" x2="1075" y2="906" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="630.0" y="901" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="1078" y1="936" x2="185" y2="936" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="630.0" y="931" font-size="11" text-anchor="middle" fill="#9a6a0c">WARN</text>
+<line x1="182" y1="1010" x2="963" y2="1010" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="574.0" y="1005" font-size="11" text-anchor="middle" fill="#16191d">run(exclude = rejected findings)</text>
+<line x1="966" y1="1040" x2="185" y2="1040" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="574.0" y="1035" font-size="11" text-anchor="middle" fill="#16191d">recommendations rebuilt</text>
+<line x1="182" y1="1070" x2="1075" y2="1070" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="630.0" y="1065" font-size="11" text-anchor="middle" fill="#16191d">re-validate</text>
+<line x1="1078" y1="1100" x2="185" y2="1100" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="630.0" y="1095" font-size="11" text-anchor="middle" fill="#16191d">verdicts</text>
+<line x1="182" y1="1144" x2="1187" y2="1144" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="686.0" y="1139" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="1190" y1="1174" x2="185" y2="1174" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="686.0" y="1169" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="1204" x2="1299" y2="1204" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="742.0" y="1199" font-size="11" text-anchor="middle" fill="#16191d">run()</text>
+<line x1="1302" y1="1234" x2="185" y2="1234" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="742.0" y="1229" font-size="11" text-anchor="middle" fill="#16191d">PASS</text>
+<line x1="182" y1="1308" x2="73" y2="1308" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="190" y="1312" font-size="11" fill="#b4361f">ERROR · dependants skipped · exit 1</text>
+<line x1="182" y1="1378" x2="73" y2="1378" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="190" y="1382" font-size="11" fill="#16191d">PASS · run_log.json</text>
+<line x1="70" y1="1422" x2="179" y2="1422" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="190" y="1426" font-size="11" fill="#16191d">python run.py brief</text>
+<line x1="182" y1="1452" x2="73" y2="1452" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="190" y="1456" font-size="11" fill="#16191d">brief.json (validated findings only)</text>
+<line x1="70" y1="1482" x2="1411" y2="1482" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="742.0" y="1477" font-size="11" text-anchor="middle" fill="#16191d">run risk-narrator + engineering-coach-writer</text>
+<line x1="1414" y1="1512" x2="73" y2="1512" stroke="#16191d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#s)"/>
+<text x="742.0" y="1507" font-size="11" text-anchor="middle" fill="#16191d">narratives_*.json</text>
+<line x1="70" y1="1542" x2="179" y2="1542" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="190" y="1546" font-size="11" fill="#16191d">python run.py ingest</text>
+<rect x="64.9" y="1603" width="234.2" height="20" fill="#f4ead2" stroke="#9a6a0c" rx="3"/>
+<text x="182" y="1617" font-size="11" text-anchor="middle" fill="#16191d">REJECT: deterministic wording kept</text>
+<line x1="182" y1="1686" x2="1187" y2="1686" stroke="#16191d" stroke-width="1.2" marker-end="url(#s)"/>
+<text x="686.0" y="1681" font-size="11" text-anchor="middle" fill="#16191d">refresh dashboard with accepted narratives</text>
+</svg>

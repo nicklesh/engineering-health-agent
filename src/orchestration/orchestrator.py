@@ -158,6 +158,11 @@ class Run:
                 return self.finish()
         if self.status == "RUNNING":
             self.status = "PASS"
+        # Diagrams are regenerated from this run's own steps (not from a log file), so a fresh
+        # clone can rebuild them and they always describe the run that just happened.
+        from src.reporting import diagrams
+        diagrams.write({"status": self.status, "steps": self.steps})
+        self.echo(f"  [PASS ] diagrams                  architecture + sequence regenerated from this run -> {diagrams.OUT.name}/")
         return self.finish()
 
     def feedback_loop(self):

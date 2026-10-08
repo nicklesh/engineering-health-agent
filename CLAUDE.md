@@ -230,7 +230,8 @@ Inspect → Design → Implement → Run → Validate → Identify failure → F
 ### Commands
 
 ```bash
-python run.py                                        # orchestrated run of agents 01-08
+python run.py check                                  # run + all tests + reproducibility + quality gate
+python run.py                                        # orchestrated run: agents 01-10 + diagrams
 python run.py --generate                             # regenerate synthetic data first
 python run.py brief                                  # brief for the Claude Code reasoning layer
 python run.py ingest                                 # validate the subagents' narratives
@@ -270,5 +271,5 @@ The dashboard is plain HTML/CSS/JS with no build step.
 - [x] Phase 4: full-run validation (49 tests, including all failure paths)
 - [x] Phase 5: dashboard (Agent 09 + static page; consistency checks; Node model tests; checked in a browser at desktop and 272px width)
 - [x] Phase 6: executive report and PowerPoint (Agent 10: fact sheet, 14 slides, native charts, 8 consistency checks; rendered and inspected through PowerPoint). Dashboard published as a private hosted page.
-- [ ] Phase 7: architecture and sequence diagrams
-- [ ] Phase 8: final QA and self-critique loop
+- [x] Phase 7: architecture and sequence diagrams, generated from the orchestrator and each run (Mermaid + SVG); system design document in `output/design/`
+- [x] Phase 8: quality gate (`python run.py check`, 21 evidence-backed checks, all PASS) and self-critique loop (README log entries 30–34)

@@ -1,0 +1,128 @@
+[
+  {
+    "category": "Data",
+    "question": "Is the synthetic data realistic?",
+    "result": "PASS",
+    "evidence": "16 weeks × 10 team/platform pairs; 1506 deployments, 103 incidents, 582 defects with Poisson noise; 359 series correctly look stable (noise, not signal)"
+  },
+  {
+    "category": "Data",
+    "question": "Does it contain meaningful signals (all planted signals detected)?",
+    "result": "PASS",
+    "evidence": "SIG-1 Atlas deteriorating: yes; SIG-2 Data platform instability: yes; SIG-3 Phoenix improving: yes; SIG-4 Nova week-11 spike is not a trend: yes; SIG-5 Titan correlation rejected as causal: yes"
+  },
+  {
+    "category": "Data",
+    "question": "Are the planted anomalies and data-quality issues detectable?",
+    "result": "PASS",
+    "evidence": "4/4 injected issues flagged by Agent 01; Nova spike flagged by Agent 05"
+  },
+  {
+    "category": "Agents",
+    "question": "Does each agent have a clear, documented purpose (10 specs × 12 sections)?",
+    "result": "PASS",
+    "evidence": "10 specs with all 12 required sections"
+  },
+  {
+    "category": "Agents",
+    "question": "Are outputs structured (common envelope contract)?",
+    "result": "PASS",
+    "evidence": "all 8 envelopes carry the contract keys"
+  },
+  {
+    "category": "Agents",
+    "question": "Are dependencies explicit (declared by agents and enforced by the DAG)?",
+    "result": "PASS",
+    "evidence": "every agent's declared depends_on matches the orchestrator DAG: 01←∅, 02←01, 04←02, 05←02, 03←02+04+05, 06←01+02+03+04+05, 07←01+03+04+06, 08←01+02+03+04+05+06+07"
+  },
+  {
+    "category": "Agents",
+    "question": "Are agent boundaries sensible (narrow, non-overlapping)?",
+    "result": "PASS",
+    "evidence": "Quality reuses Trend classifications instead of re-deciding trends; Risk proposes, Evidence Validation disposes; only Agent 02 computes series; only Agent 08 issues verdicts"
+  },
+  {
+    "category": "Reasoning",
+    "question": "Are conclusions evidence-backed?",
+    "result": "PASS",
+    "evidence": "174 executive findings, each with source record ids or finding references, re-computed by Agent 08"
+  },
+  {
+    "category": "Reasoning",
+    "question": "Are trends distinguished from anomalies?",
+    "result": "PASS",
+    "evidence": "trend rule needs ≥5-week window + persistence; isolated spikes become ONE_TIME_ANOMALY / ISOLATED_SPIKE; disruption risks capped at LOW"
+  },
+  {
+    "category": "Reasoning",
+    "question": "Is causality avoided?",
+    "result": "PASS",
+    "evidence": "no un-negated causal language in any executive finding; hypotheses must be hedged; confounded associations rejected"
+  },
+  {
+    "category": "Reasoning",
+    "question": "Are unsupported claims rejected?",
+    "result": "PASS",
+    "evidence": "4 findings rejected this run (RISK-ALL-DATA-RELIABILITY-H-ON_CALL_PAGES; RISK-ALL-DATA-SUSTAINABILITY-H-ROLLBACK_RATE_PCT; RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-DEPLOYMENTS; RISK-TITAN-ALL-ENGINEERING_EFFICIENCY-H-THROUGHPUT_ITEMS); adversarial tests prove wrong maths, unknown records, causal wording and spikes-as-trends are rejected"
+  },
+  {
+    "category": "Dashboard",
+    "question": "Is it interactive, with working filters and drill-down?",
+    "result": "PASS",
+    "evidence": "11 dashboard model tests passed (4/8/12/16-week filters, KPI→metric→team→week→record drill-down); also clicked through in a browser"
+  },
+  {
+    "category": "Dashboard",
+    "question": "Are charts based on real generated data?",
+    "result": "PASS",
+    "evidence": "all 560 series identical to Agent 02; evidence and confidences identical to Agent 08"
+  },
+  {
+    "category": "Dashboard",
+    "question": "Can users trace insights back to records?",
+    "result": "PASS",
+    "evidence": "every evidence record id resolves; drill-down records reproduce reported counts and rates"
+  },
+  {
+    "category": "Presentation",
+    "question": "Is it executive-ready?",
+    "result": "PASS",
+    "evidence": "14 slides, message titles verified against the data, speaker notes on every slide, native charts; rendered and inspected in PowerPoint"
+  },
+  {
+    "category": "Presentation",
+    "question": "Does it tell a coherent story?",
+    "result": "PASS",
+    "evidence": "summary → health → improved → deteriorated → trends → risks → reliability → comparison → actions → measurement → method → evidence → appendix"
+  },
+  {
+    "category": "Presentation",
+    "question": "Does it match the analytical results (raw ↕ analysis ↕ dashboard ↕ deck)?",
+    "result": "PASS",
+    "evidence": "221 sourced facts; 12 chart series identical to source; raw CSV recomputation and dashboard agreement pass"
+  },
+  {
+    "category": "Architecture",
+    "question": "Does the diagram reflect the implementation?",
+    "result": "PASS",
+    "evidence": "generated from orchestrator.DEPENDENCIES + output agents' declared depends_on; simplified graph has identical reachability"
+  },
+  {
+    "category": "Sequence",
+    "question": "Does the sequence diagram reflect actual runtime behaviour?",
+    "result": "PASS",
+    "evidence": "success path, order and statuses taken from this run's log; gate, crash and feedback-loop paths replayed by tests"
+  },
+  {
+    "category": "Reproducibility",
+    "question": "Can the workflow be run again with identical results?",
+    "result": "PASS",
+    "evidence": "two independent full runs: 9 analytical outputs and the dashboard data byte-identical"
+  },
+  {
+    "category": "Tests",
+    "question": "Does the full test suite pass?",
+    "result": "PASS",
+    "evidence": "68 tests, 0 failures, 0 errors, 0 skipped"
+  }
+]

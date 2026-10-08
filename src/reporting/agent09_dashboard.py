@@ -130,9 +130,24 @@ def build():
     recs = [f for f in findings.values() if f["type"] == "recommendation"]
     prio = {"P1": 0, "P2": 1, "P3": 2}
     recs.sort(key=lambda r: (prio[r["priority"]], -(r["confidence"] or {}).get("score", 0), r["id"]))
-    improvements = sorted((f["id"] for f in findings.values()
-                           if f["type"] == "trend" and f.get("classification") == "IMPROVING"
-                           and f["dimension"]["scope"].startswith(("team:", "platform:"))))
+    # A platform-level improvement that a team on that platform already shows is the same
+    # progress seen twice (e.g. Mobile improving only because Phoenix did) - list it once, at team level.
+    def improving(sid, mid):
+        return classes.get(sid, {}).get(mid, {}).get("classification") == "IMPROVING"
+
+    improvements = []
+    for f in findings.values():
+        if f["type"] != "trend" or f.get("classification") != "IMPROVING":
+            continue
+        sid, mid = f["dimension"]["scope"], f["metrics"][0]
+        if sid.startswith("platform:"):
+            teams = {p.split("/")[0] for p in store[sid]["pairs"]}
+            if any(improving(f"team:{t}", mid) or improving(f"tp:{t}/{sid.split(':')[1]}", mid) for t in teams):
+                continue
+        elif not sid.startswith("team:"):
+            continue
+        improvements.append(f["id"])
+    improvements.sort()
 
     doc = {
         "meta": {

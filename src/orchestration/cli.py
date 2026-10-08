@@ -17,7 +17,7 @@ from src.orchestration.orchestrator import run_pipeline
 
 def main(argv=None):
     p = argparse.ArgumentParser(description="Engineering Health Intelligence System")
-    p.add_argument("command", nargs="?", default="run", choices=["run", "brief", "ingest"])
+    p.add_argument("command", nargs="?", default="run", choices=["run", "brief", "ingest", "check"])
     p.add_argument("--generate", action="store_true", help="regenerate the synthetic dataset first")
     args = p.parse_args(argv)
 
@@ -27,6 +27,19 @@ def main(argv=None):
             schema_docs.main()
         result = run_pipeline()
         return 0 if result["status"] in ("PASS", "WARN") else 1
+
+    if args.command == "check":
+        from src.validation import quality_gate
+        result = run_pipeline()
+        if result["status"] not in ("PASS", "WARN"):
+            print("Quality gate not run: the pipeline did not complete.")
+            return 1
+        print("Running the quality gate (full test suite + two reproducibility runs)...")
+        rows, passed, path = quality_gate.run(result)
+        for r in rows:
+            print(f"  [{r['result']}] {r['category']:<15} {r['question']}")
+        print(f"Quality gate: {passed}/{len(rows)} passed -> {path}")
+        return 0 if passed == len(rows) else 1
 
     if args.command == "brief":
         path, brief = reasoning.build_brief()

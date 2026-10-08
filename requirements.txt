@@ -1,2 +1,4 @@
-jsonschema>=4.20
-python-pptx>=1.0
+# Exact versions this project was built and tested with (reproducibility).
+# Python 3.12; Node.js (optional) runs the dashboard model tests.
+jsonschema==4.26.0
+python-pptx==1.0.2
